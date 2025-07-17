@@ -25,7 +25,8 @@ export const useMultiplayer = create<MultiplayerState>()(
     gameState: null,
     
     connect: (username: string) => {
-      const socket = new WebSocket(`ws://${window.location.host}/game-ws`);
+      const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+      const socket = new WebSocket(`${protocol}//${window.location.host}/game-ws`);
       
       socket.onopen = () => {
         console.log('Connected to game server');
