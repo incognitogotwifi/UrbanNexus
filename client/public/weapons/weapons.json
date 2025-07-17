@@ -1,0 +1,102 @@
+[
+  {
+    "id": "pistol",
+    "name": "Pistol",
+    "damage": 25,
+    "fireRate": 300,
+    "range": 200,
+    "ammoType": "pistol",
+    "sound": "pistol_shot",
+    "color": "#8B4513"
+  },
+  {
+    "id": "rifle",
+    "name": "Assault Rifle",
+    "damage": 40,
+    "fireRate": 150,
+    "range": 350,
+    "ammoType": "rifle",
+    "sound": "rifle_shot",
+    "color": "#2F4F4F"
+  },
+  {
+    "id": "shotgun",
+    "name": "Shotgun",
+    "damage": 60,
+    "fireRate": 800,
+    "range": 100,
+    "ammoType": "shotgun",
+    "sound": "shotgun_shot",
+    "color": "#8B0000"
+  },
+  {
+    "id": "smg",
+    "name": "SMG",
+    "damage": 20,
+    "fireRate": 100,
+    "range": 150,
+    "ammoType": "smg",
+    "sound": "smg_shot",
+    "color": "#4B0082"
+  },
+  {
+    "id": "sniper",
+    "name": "Sniper Rifle",
+    "damage": 80,
+    "fireRate": 1200,
+    "range": 500,
+    "ammoType": "sniper",
+    "sound": "sniper_shot",
+    "color": "#006400"
+  },
+  {
+    "id": "uzi",
+    "name": "Uzi",
+    "damage": 18,
+    "fireRate": 80,
+    "range": 120,
+    "ammoType": "uzi",
+    "sound": "uzi_shot",
+    "color": "#FFD700"
+  },
+  {
+    "id": "ak47",
+    "name": "AK-47",
+    "damage": 45,
+    "fireRate": 180,
+    "range": 320,
+    "ammoType": "ak47",
+    "sound": "ak47_shot",
+    "color": "#8B4513"
+  },
+  {
+    "id": "m4a1",
+    "name": "M4A1",
+    "damage": 42,
+    "fireRate": 160,
+    "range": 340,
+    "ammoType": "m4a1",
+    "sound": "m4a1_shot",
+    "color": "#556B2F"
+  },
+  {
+    "id": "tec9",
+    "name": "TEC-9",
+    "damage": 22,
+    "fireRate": 120,
+    "range": 140,
+    "ammoType": "tec9",
+    "sound": "tec9_shot",
+    "color": "#800080"
+  },
+  {
+    "id": "thompson",
+    "name": "Thompson",
+    "damage": 35,
+    "fireRate": 140,
+    "range": 180,
+    "ammoType": "thompson",
+    "sound": "thompson_shot",
+    "color": "#A0522D"
+  }
+]

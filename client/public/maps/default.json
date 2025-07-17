@@ -1,0 +1,234 @@
+{
+  "id": "default",
+  "name": "Urban Streets",
+  "width": 2048,
+  "height": 2048,
+  "tiles": [
+    {
+      "id": "tile_0_0",
+      "type": "floor",
+      "texture": "/textures/asphalt.png",
+      "position": { "x": 0, "y": 0 },
+      "collision": false,
+      "layer": 0
+    },
+    {
+      "id": "tile_1_0",
+      "type": "floor",
+      "texture": "/textures/asphalt.png",
+      "position": { "x": 1, "y": 0 },
+      "collision": false,
+      "layer": 0
+    },
+    {
+      "id": "tile_2_0",
+      "type": "floor",
+      "texture": "/textures/grass.png",
+      "position": { "x": 2, "y": 0 },
+      "collision": false,
+      "layer": 0
+    },
+    {
+      "id": "building_10_10",
+      "type": "wall",
+      "texture": "/textures/wood.jpg",
+      "position": { "x": 10, "y": 10 },
+      "collision": true,
+      "layer": 1
+    },
+    {
+      "id": "building_11_10",
+      "type": "wall",
+      "texture": "/textures/wood.jpg",
+      "position": { "x": 11, "y": 10 },
+      "collision": true,
+      "layer": 1
+    },
+    {
+      "id": "building_12_10",
+      "type": "wall",
+      "texture": "/textures/wood.jpg",
+      "position": { "x": 12, "y": 10 },
+      "collision": true,
+      "layer": 1
+    },
+    {
+      "id": "building_13_10",
+      "type": "wall",
+      "texture": "/textures/wood.jpg",
+      "position": { "x": 13, "y": 10 },
+      "collision": true,
+      "layer": 1
+    },
+    {
+      "id": "building_14_10",
+      "type": "wall",
+      "texture": "/textures/wood.jpg",
+      "position": { "x": 14, "y": 10 },
+      "collision": true,
+      "layer": 1
+    },
+    {
+      "id": "building_15_10",
+      "type": "wall",
+      "texture": "/textures/wood.jpg",
+      "position": { "x": 15, "y": 10 },
+      "collision": true,
+      "layer": 1
+    },
+    {
+      "id": "building_16_10",
+      "type": "wall",
+      "texture": "/textures/wood.jpg",
+      "position": { "x": 16, "y": 10 },
+      "collision": true,
+      "layer": 1
+    },
+    {
+      "id": "building_17_10",
+      "type": "wall",
+      "texture": "/textures/wood.jpg",
+      "position": { "x": 17, "y": 10 },
+      "collision": true,
+      "layer": 1
+    },
+    {
+      "id": "building_10_11",
+      "type": "wall",
+      "texture": "/textures/wood.jpg",
+      "position": { "x": 10, "y": 11 },
+      "collision": true,
+      "layer": 1
+    },
+    {
+      "id": "building_17_11",
+      "type": "wall",
+      "texture": "/textures/wood.jpg",
+      "position": { "x": 17, "y": 11 },
+      "collision": true,
+      "layer": 1
+    },
+    {
+      "id": "building_10_12",
+      "type": "wall",
+      "texture": "/textures/wood.jpg",
+      "position": { "x": 10, "y": 12 },
+      "collision": true,
+      "layer": 1
+    },
+    {
+      "id": "building_17_12",
+      "type": "wall",
+      "texture": "/textures/wood.jpg",
+      "position": { "x": 17, "y": 12 },
+      "collision": true,
+      "layer": 1
+    },
+    {
+      "id": "building_10_13",
+      "type": "wall",
+      "texture": "/textures/wood.jpg",
+      "position": { "x": 10, "y": 13 },
+      "collision": true,
+      "layer": 1
+    },
+    {
+      "id": "building_17_13",
+      "type": "wall",
+      "texture": "/textures/wood.jpg",
+      "position": { "x": 17, "y": 13 },
+      "collision": true,
+      "layer": 1
+    },
+    {
+      "id": "building_10_14",
+      "type": "wall",
+      "texture": "/textures/wood.jpg",
+      "position": { "x": 10, "y": 14 },
+      "collision": true,
+      "layer": 1
+    },
+    {
+      "id": "building_17_14",
+      "type": "wall",
+      "texture": "/textures/wood.jpg",
+      "position": { "x": 17, "y": 14 },
+      "collision": true,
+      "layer": 1
+    },
+    {
+      "id": "building_10_15",
+      "type": "wall",
+      "texture": "/textures/wood.jpg",
+      "position": { "x": 10, "y": 15 },
+      "collision": true,
+      "layer": 1
+    },
+    {
+      "id": "building_11_15",
+      "type": "wall",
+      "texture": "/textures/wood.jpg",
+      "position": { "x": 11, "y": 15 },
+      "collision": true,
+      "layer": 1
+    },
+    {
+      "id": "building_12_15",
+      "type": "wall",
+      "texture": "/textures/wood.jpg",
+      "position": { "x": 12, "y": 15 },
+      "collision": true,
+      "layer": 1
+    },
+    {
+      "id": "building_13_15",
+      "type": "wall",
+      "texture": "/textures/wood.jpg",
+      "position": { "x": 13, "y": 15 },
+      "collision": true,
+      "layer": 1
+    },
+    {
+      "id": "building_14_15",
+      "type": "wall",
+      "texture": "/textures/wood.jpg",
+      "position": { "x": 14, "y": 15 },
+      "collision": true,
+      "layer": 1
+    },
+    {
+      "id": "building_15_15",
+      "type": "wall",
+      "texture": "/textures/wood.jpg",
+      "position": { "x": 15, "y": 15 },
+      "collision": true,
+      "layer": 1
+    },
+    {
+      "id": "building_16_15",
+      "type": "wall",
+      "texture": "/textures/wood.jpg",
+      "position": { "x": 16, "y": 15 },
+      "collision": true,
+      "layer": 1
+    },
+    {
+      "id": "building_17_15",
+      "type": "wall",
+      "texture": "/textures/wood.jpg",
+      "position": { "x": 17, "y": 15 },
+      "collision": true,
+      "layer": 1
+    }
+  ],
+  "spawnPoints": [
+    { "x": 200, "y": 200 },
+    { "x": 400, "y": 400 },
+    { "x": 600, "y": 600 },
+    { "x": 800, "y": 800 },
+    { "x": 1000, "y": 1000 },
+    { "x": 1200, "y": 1200 },
+    { "x": 1400, "y": 1400 },
+    { "x": 1600, "y": 1600 }
+  ]
+}
