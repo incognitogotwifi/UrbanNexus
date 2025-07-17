@@ -11,16 +11,31 @@ import "@fontsource/inter";
 const queryClient = new QueryClient();
 
 function LoginScreen({ onLogin }: { onLogin: (username: string) => void }) {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
+  const [isSignUp, setIsSignUp] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (username.trim()) {
-      setIsLoading(true);
-      // Simulate login delay
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      onLogin(username.trim());
+    
+    // Auto-login for testing - accept any input
+    if (isSignUp) {
+      if (email.trim() && password.trim() && username.trim()) {
+        setIsLoading(true);
+        // Simulate signup delay
+        await new Promise(resolve => setTimeout(resolve, 500));
+        onLogin(username.trim());
+      }
+    } else {
+      if (email.trim() && password.trim()) {
+        setIsLoading(true);
+        // Simulate login delay
+        await new Promise(resolve => setTimeout(resolve, 500));
+        // For testing, use email as username if no username provided
+        onLogin(username.trim() || email.split('@')[0]);
+      }
     }
   };
   
@@ -30,35 +45,76 @@ function LoginScreen({ onLogin }: { onLogin: (username: string) => void }) {
         <CardHeader className="text-center">
           <CardTitle className="text-3xl font-bold text-white">Urban MMO</CardTitle>
           <CardDescription className="text-gray-300">
-            Enter the streets and join the battle
+            {isSignUp ? 'Join the streets and start your journey' : 'Enter the streets and join the battle'}
           </CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="username" className="text-white">Username</Label>
+              <Label htmlFor="email" className="text-white">Email</Label>
               <Input
-                id="username"
-                type="text"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                placeholder="Enter your username"
+                id="email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Enter your email"
                 className="bg-gray-800 border-gray-600 text-white"
-                maxLength={20}
                 required
               />
             </div>
             
+            <div className="space-y-2">
+              <Label htmlFor="password" className="text-white">Password</Label>
+              <Input
+                id="password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Enter your password"
+                className="bg-gray-800 border-gray-600 text-white"
+                required
+              />
+            </div>
+            
+            {isSignUp && (
+              <div className="space-y-2">
+                <Label htmlFor="username" className="text-white">Username</Label>
+                <Input
+                  id="username"
+                  type="text"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  placeholder="Choose your username"
+                  className="bg-gray-800 border-gray-600 text-white"
+                  maxLength={20}
+                  required
+                />
+              </div>
+            )}
+            
             <Button
               type="submit"
-              disabled={!username.trim() || isLoading}
+              disabled={isLoading || !email.trim() || !password.trim() || (isSignUp && !username.trim())}
               className="w-full bg-blue-600 hover:bg-blue-700"
             >
-              {isLoading ? 'Connecting...' : 'Enter Game'}
+              {isLoading ? 'Connecting...' : (isSignUp ? 'Create Account & Enter' : 'Login & Enter')}
             </Button>
           </form>
           
+          <div className="mt-4 text-center">
+            <button
+              type="button"
+              onClick={() => setIsSignUp(!isSignUp)}
+              className="text-blue-400 hover:text-blue-300 text-sm"
+            >
+              {isSignUp ? 'Already have an account? Login' : 'Need an account? Sign up'}
+            </button>
+          </div>
+          
           <div className="mt-6 text-center text-sm text-gray-400">
+            <p className="bg-yellow-900/20 text-yellow-400 p-2 rounded mb-2">
+              Testing Mode: Any email/password will work
+            </p>
             <p>Inspired by Graal Online and Corleone Online</p>
             <p className="mt-2">Features:</p>
             <ul className="mt-1 text-xs">
