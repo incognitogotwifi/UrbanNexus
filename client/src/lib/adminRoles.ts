@@ -34,6 +34,10 @@ export const ADMIN_PERMISSIONS: AdminPermission[] = [
   { id: 'file_browser', name: 'File Browser', description: 'Access game file browser', category: 'development' },
   { id: 'debug_mode', name: 'Debug Mode', description: 'Enable debug mode and tools', category: 'development' },
   { id: 'role_assign', name: 'Assign Roles', description: 'Assign roles to other users', category: 'system' },
+  { id: 'view_logs', name: 'View Logs', description: 'View system and player logs', category: 'system' },
+  { id: 'file_upload', name: 'File Upload', description: 'Upload files to game directories', category: 'development' },
+  { id: 'file_edit', name: 'Edit Files', description: 'Edit existing files', category: 'development' },
+  { id: 'admin_commands', name: 'Admin Commands', description: 'Access admin command system', category: 'system' },
 ];
 
 export const ADMIN_ROLES: Record<AdminRoleType, AdminRole> = {

@@ -8,6 +8,18 @@ This is a full-stack multiplayer urban MMO game built with React, Express, and P
 
 Preferred communication style: Simple, everyday language.
 
+## Recent Changes
+
+### Latest Updates (January 2025)
+- **Complete Admin System Overhaul**: Redesigned admin panel with hierarchical role-based permissions
+- **File Browser Enhancement**: Reorganized into logical folder structure with permission-based access control
+- **Player Role Assignment**: Automatic role assignment system (owner for jarredmilam5, player for others)
+- **Player Main Menu**: Separate player-accessible interface with profile, stats, settings, and help
+- **Enhanced Map Editor**: Added NPC support, collision editing, and current map editing capabilities
+- **Player Logs System**: Comprehensive logging system for player activities with filtering and export
+- **Admin Commands Integration**: Implemented command system from uploaded reference file
+- **File Upload System**: Permission-based file upload with folder selection restrictions
+
 ## System Architecture
 
 ### Frontend Architecture

@@ -8,6 +8,7 @@ import ServerConfig from './ServerConfig';
 import GameFileBrowser from './GameFileBrowser';
 import ScriptingEnvironment from './ScriptingEnvironment';
 import NPCManager from './NPCManager';
+import PlayerLogs from './PlayerLogs';
 
 interface AdminPanelProps {
   isVisible: boolean;
@@ -25,6 +26,8 @@ interface PlayerAction {
 
 export default function AdminPanel({ isVisible, onClose, userRole }: AdminPanelProps) {
   const [activeTab, setActiveTab] = useState<'overview' | 'players' | 'content' | 'development' | 'system' | 'roles'>('overview');
+  const [selectedPlayerForRole, setSelectedPlayerForRole] = useState<string | null>(null);
+  const [newRoleForPlayer, setNewRoleForPlayer] = useState<AdminRoleType>('player');
   const [activeSubTool, setActiveSubTool] = useState<string | null>(null);
   const [serverStats, setServerStats] = useState({
     playersOnline: 0,
@@ -83,6 +86,8 @@ export default function AdminPanel({ isVisible, onClose, userRole }: AdminPanelP
         return <ScriptingEnvironment onClose={() => setActiveSubTool(null)} userRole={userRole} />;
       case 'npc_manager':
         return <NPCManager onClose={() => setActiveSubTool(null)} userRole={userRole} />;
+      case 'player_logs':
+        return <PlayerLogs onClose={() => setActiveSubTool(null)} userRole={userRole} />;
       default:
         return null;
     }
@@ -210,6 +215,15 @@ export default function AdminPanel({ isVisible, onClose, userRole }: AdminPanelP
                     >
                       <div className="text-lg font-bold">Server Config</div>
                       <div className="text-sm text-gray-200">Configure server settings</div>
+                    </button>
+                  )}
+                  {hasPermission(userRole, 'view_logs') && (
+                    <button
+                      onClick={() => setActiveSubTool('player_logs')}
+                      className="bg-cyan-600 hover:bg-cyan-700 p-4 rounded text-left"
+                    >
+                      <div className="text-lg font-bold">Player Logs</div>
+                      <div className="text-sm text-cyan-200">View player activity logs</div>
                     </button>
                   )}
                 </div>

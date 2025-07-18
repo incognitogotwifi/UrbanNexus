@@ -17,6 +17,7 @@ import GangSystem from './GangSystem';
 import PlayerProfile from './PlayerProfile';
 import AdminWeaponManager from './AdminWeaponManager';
 import ServerConfig from './ServerConfig';
+import PlayerMainMenu from './PlayerMainMenu';
 import { GameMap, Player as PlayerType, AdminRoleType } from '../types/game';
 import { PLAYER_SPEED, normalizeVector } from '../lib/gameUtils';
 
@@ -176,8 +177,12 @@ export default function Game({ username, onExit }: GameProps) {
   const [showPlayerProfile, setShowPlayerProfile] = useState(false);
   const [showWeaponManager, setShowWeaponManager] = useState(false);
   const [showServerConfig, setShowServerConfig] = useState(false);
+  const [showPlayerMenu, setShowPlayerMenu] = useState(false);
   const [selectedPlayer, setSelectedPlayer] = useState<PlayerType | null>(null);
-  const [userRole] = useState<AdminRoleType>('owner'); // Mock role
+  const [userRole] = useState<AdminRoleType>(() => {
+    // Auto-assign player role to everyone except the owner
+    return username === 'jarredmilam5' ? 'owner' : 'player';
+  });
   
   const { connect, isConnected, gameState, currentPlayer } = useMultiplayer();
   const { playHit } = useAudio();
@@ -219,9 +224,21 @@ export default function Game({ username, onExit }: GameProps) {
       } else if (event.key === 'F6') {
         event.preventDefault();
         setShowServerConfig(!showServerConfig);
+      } else if (event.key === 'F7') {
+        event.preventDefault();
+        setShowPlayerMenu(!showPlayerMenu);
       } else if (event.key === 'Escape') {
         event.preventDefault();
-        onExit();
+        // Close any open menus first, then exit
+        if (showPlayerMenu) {
+          setShowPlayerMenu(false);
+        } else if (showMapEditor) {
+          setShowMapEditor(false);
+        } else if (showAdminPanel) {
+          setShowAdminPanel(false);
+        } else {
+          onExit();
+        }
       }
     };
     
@@ -304,6 +321,14 @@ export default function Game({ username, onExit }: GameProps) {
             onClose={() => setShowServerConfig(false)}
           />
         )}
+
+        {/* Player Main Menu */}
+        {showPlayerMenu && currentPlayer && (
+          <PlayerMainMenu
+            player={currentPlayer}
+            onClose={() => setShowPlayerMenu(false)}
+          />
+        )}
         
         {/* Shortcuts help */}
         <div className="fixed top-4 right-4 bg-black bg-opacity-70 text-white p-2 rounded text-xs">
@@ -313,6 +338,7 @@ export default function Game({ username, onExit }: GameProps) {
           <div>F4: Gang System</div>
           <div>F5: Weapon Manager</div>
           <div>F6: Server Config</div>
+          <div>F7: Player Menu</div>
           <div>ESC: Exit Game</div>
         </div>
       </KeyboardControls>

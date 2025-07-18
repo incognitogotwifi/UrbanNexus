@@ -1,0 +1,106 @@
+Admin Commands
+You can type commands in the chat bar starting with "/" or type them in the admin console.
+
+Public commands
+/cleartag - removes the clan from your name
+/enter - enters a near building if your clan owns it
+/getposition - prints your current position
+/sethousename newname - sets the name of a near house
+/setname newname - changes your name
+/setnick - same as /setname
+/unstick - same as /leave
+/unstuck - same as /leave
+/leave - leaves the current building / pirate ship
+Emotes
+Angry ( >:( , X( , X-( )
+Bigeyes ( O-O , O.O )
+Cool ( :cool: , B) , B-) , 8) , 8-) , D) , D-) )
+Crosseyes ( X) , XD , X-) , X-D , X-X , X_X , X.X )
+Heart ( <3 )
+Idea ( (i) )
+Kiss ( :* , :-* )
+Phone (:)])
+Sad ( :( , :-( )
+Sleep (ZZ, ZZZ, Z/, Z_Z)
+Smile (:), :-), :D, :-D)
+Sorry (?(, ?-()
+Tears (:_(, :\'()
+Tongue (:P, :-P)
+Neutral Face / Widemouth (:|, :-|)
+Wink (;), ;-))
+If extended emoticons enabled:
+
+BRB (:brb:)
+Help (:help:)
+Go (:go:)
+AFK (:afk:)
+Ok (:ok:)
+Admin commands
+Access is defined in adminrights.json.
+
+/addball balltype - adds a beachball
+/addballoon color - adds a white/red/green/blue/pink/yellow balloon
+/addbomb - adds a bomb
+/addbunny - adds an easter bunny
+/addcar - adds an automatically moving car
+/addcoins (user-id or nick) amount - adds coins to a player, limited by addcoinslimit from main.json
+/addeventcoin userid [amount] - adds items of type eventcurrency configured in main.json
+/addeventgem - same as /addeventcoin
+/addfireworks - adds a fireworks spawner below
+/additem itemid - adds an item on the ground below
+/addmonsters - adds a monster spawner, the type must be included in option availablespawnmonsters in main.json
+/addplayeritem (user-id or nick) itemid - adds an item to a player
+/addscriptnpc - adds a scriptnpc below, click on it to edit
+/addshopnpc itemid - adds an item which can be bought
+/addstats (user-id or nick) amount (onlinetime or kills or streak or mobkills or sparwins or burger) - increase the stats for a player
+/addtalknpc snowman/sign text - adds an NPC with message
+/addtalknpc shop armor(clotharmor) head(head1) hat(hat1) - adds a shop NPC with look
+/addtree [noapples] - adds a tree, first parameter says if it should exclude apples
+/addship - adds a ship decoration NPC
+/addsnowman - adds a snowman NPC
+/addsnowhill - adds a snowhill NPC
+/ani ani - sets your animation
+/countplayers - displays how many players from each platform are online
+/disconnect (user-id or nick) - disconnects a player
+/editevent - opens the pvp event configuration of the current map
+/editnpc NPC id or name - opens the edit-npc menu, must be a scriptnpc
+/itemdisplay itemid - adds an item display for a specific item
+/jail (user-id or nick) duration "reason" - jails a player
+/movenpc deltax deltay - moves the closest NPC below you
+/preloadmap - pre-loads a map template
+/profile (user-id or nick) - opens a player profile
+/refillarrows - maximizes your arrow number
+/refillbullets - same as /refillarrows
+/refillbombs - maximizes your bomb number
+/refundupload (user-id or nick) fileid - refunds an upload for a player
+/reloadconfig - reloads the main server configuration
+/reloadmap - reloads the current map
+/reloadtranslations - reloads the updated translation files
+/removenpc - deletes the closest NPC below you
+/removeitem (user-id or nick) itemid - removes an item from a player
+/resetname (user-id or nick) - resets the name of a player, if no player specified then it resets your own name
+/resetstatus (user-id or nick) - resets the profile status, if no player specified then it resets your own profile status
+/resetstory (user-id or nick) - resets the profile story, if no player specified then it resets your own profile story
+/resetspars - resets the spar stats of all online players
+/servermessage [iosonly/androidonly/fbonly] My message - show a message to all players
+/serverstory storyid - sends a global message which shows a story
+/setadminlevel (user-id or nick) level - changes the adminlevel of a player
+/setclanleader "clanname" user-id - changes the leader of a clan
+/setclanname "clanname" "new name" - renames a clan
+/sethp hp - changes your max hitpoints
+/setmap map template x y - jumps to a map at the specified location
+/setnpcname newname - changes the name of the closest NPC below you
+/setposition x y - jumps to a specific position
+/settag clanname - adds a clan name to your name
+/settitle (user-id or nick) "new title" - changes the profile title of a player
+/shutdown - restarts the game server by shutting it down (it's restarted automatically)
+/stealth on/off/high - makes your invisible to players or lower staff
+/story storyid [loop absolute stop] - plays a story, add 'loop' to play it endlessly, use '/story stop' to end it
+/spar lock/unlock/stop/start id1 id2 - lets you control who spars, for tournaments
+/summon (user-id or nick) - pulls a player to your current position
+/testcoins - adds 200 coins to yourself
+/tojail - jumps to the jail
+/transferaccount from-user-id to-user-id [force] - transfers an account
+/unstickplayer (user-id or nick) - puts a player at the start place
+/warpto (user-id or nick) - jumps to a specific player
+/zoom on/off - enlarges the player 2x
