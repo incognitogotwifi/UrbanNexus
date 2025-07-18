@@ -118,12 +118,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
       return res.status(400).json({ error: "Map data is required" });
     }
     
-    const success = gameServer.saveMap(mapData);
+    const result = gameServer.saveMap(mapData);
     
-    if (success) {
-      res.json({ message: "Map saved successfully" });
+    if (result.success) {
+      res.json({ message: result.message });
     } else {
-      res.status(400).json({ error: "Failed to save map" });
+      res.status(400).json({ error: result.message });
     }
   });
   

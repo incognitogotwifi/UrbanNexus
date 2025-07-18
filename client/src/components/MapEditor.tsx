@@ -305,7 +305,7 @@ export default function MapEditor({ isVisible, onClose }: MapEditorProps) {
     setZoom(prev => Math.min(Math.max(prev * delta, 0.1), 5));
   };
 
-  const saveMap = () => {
+  const saveMap = async () => {
     if (currentMap) {
       const mapData = {
         ...currentMap,
@@ -313,13 +313,54 @@ export default function MapEditor({ isVisible, onClose }: MapEditorProps) {
         width: mapWidth,
         height: mapHeight
       };
-      const blob = new Blob([JSON.stringify(mapData, null, 2)], { type: 'application/json' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `${mapName.replace(/\s+/g, '_')}.json`;
-      a.click();
-      URL.revokeObjectURL(url);
+
+      try {
+        // Save to server for live updates
+        const response = await fetch('/api/map/save', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ mapData }),
+        });
+
+        if (response.ok) {
+          console.log('Map saved to server successfully');
+          
+          // Also save locally as backup
+          const blob = new Blob([JSON.stringify(mapData, null, 2)], { type: 'application/json' });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = `${mapName.replace(/\s+/g, '_')}.json`;
+          a.click();
+          URL.revokeObjectURL(url);
+        } else {
+          console.error('Failed to save map to server');
+          alert('Failed to save map to server, saved locally instead');
+          
+          // Fall back to local save
+          const blob = new Blob([JSON.stringify(mapData, null, 2)], { type: 'application/json' });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = `${mapName.replace(/\s+/g, '_')}.json`;
+          a.click();
+          URL.revokeObjectURL(url);
+        }
+      } catch (error) {
+        console.error('Error saving map:', error);
+        alert('Error saving map to server, saved locally instead');
+        
+        // Fall back to local save
+        const blob = new Blob([JSON.stringify(mapData, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `${mapName.replace(/\s+/g, '_')}.json`;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
     }
   };
 
@@ -330,11 +371,27 @@ export default function MapEditor({ isVisible, onClose }: MapEditorProps) {
     const reader = new FileReader();
     reader.onload = (e) => {
       try {
-        const mapData = JSON.parse(e.target?.result as string);
-        // Here you would load the map data into the game world
-        console.log('Loading map:', mapData);
+        const mapData = JSON.parse(e.target?.result as string) as GameMap;
+        
+        // Validate map data structure
+        if (!mapData.id || !mapData.name || !Array.isArray(mapData.tiles) || !Array.isArray(mapData.spawnPoints)) {
+          alert('Invalid map file format');
+          return;
+        }
+
+        // Load map into game world
+        const { loadMap: loadGameMap } = useGameWorld.getState();
+        loadGameMap(mapData);
+        
+        // Update editor state
+        setMapName(mapData.name);
+        setMapWidth(mapData.width);
+        setMapHeight(mapData.height);
+        
+        console.log('Map loaded successfully:', mapData.name);
       } catch (error) {
         alert('Error loading map file');
+        console.error('Map loading error:', error);
       }
     };
     reader.readAsText(file);
@@ -346,8 +403,34 @@ export default function MapEditor({ isVisible, onClose }: MapEditorProps) {
       if (currentMap) {
         currentMap.tiles.forEach(tile => removeTile(tile.id));
         currentMap.npcs?.forEach(npc => removeNPC(npc.id));
-        // Clear spawn points would need to be implemented in the game world store
+        currentMap.spawnPoints.forEach((_, index) => removeSpawnPoint(index));
       }
+    }
+  };
+
+  const loadMapFromServer = async (mapId: string) => {
+    try {
+      const response = await fetch(`/api/map/load/${mapId}`);
+      if (response.ok) {
+        const mapData = await response.json() as GameMap;
+        
+        // Load map into game world
+        const { loadMap: loadGameMap } = useGameWorld.getState();
+        loadGameMap(mapData);
+        
+        // Update editor state
+        setMapName(mapData.name);
+        setMapWidth(mapData.width);
+        setMapHeight(mapData.height);
+        
+        console.log('Map loaded from server successfully:', mapData.name);
+      } else {
+        console.error('Failed to load map from server');
+        alert('Failed to load map from server');
+      }
+    } catch (error) {
+      console.error('Error loading map from server:', error);
+      alert('Error loading map from server');
     }
   };
 
@@ -572,9 +655,15 @@ export default function MapEditor({ isVisible, onClose }: MapEditorProps) {
                     className="hidden"
                   />
                   <span className="w-full px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded text-sm cursor-pointer block text-center">
-                    Load Map
+                    Load Map File
                   </span>
                 </label>
+                <button
+                  onClick={() => loadMapFromServer('default')}
+                  className="w-full px-3 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded text-sm"
+                >
+                  Load Current Game Map
+                </button>
                 <button
                   onClick={clearMap}
                   className="w-full px-3 py-2 bg-red-600 hover:bg-red-700 text-white rounded text-sm"

@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { GameMap, MapTile } from '../../types/game';
+import { GameMap, MapTile, NPC, SpawnPoint } from '../../types/game';
 
 interface GameWorldState {
   currentMap: GameMap | null;
@@ -13,6 +13,11 @@ interface GameWorldState {
   addTile: (tile: MapTile) => void;
   removeTile: (tileId: string) => void;
   updateTile: (tileId: string, updates: Partial<MapTile>) => void;
+  addNPC: (npc: NPC) => void;
+  removeNPC: (npcId: string) => void;
+  addSpawnPoint: (spawnPoint: SpawnPoint) => void;
+  removeSpawnPoint: (index: number) => void;
+  updateMapSettings: (updates: Partial<GameMap>) => void;
   checkCollision: (x: number, y: number) => boolean;
   getSpawnPoint: () => { x: number; y: number };
 }
@@ -70,6 +75,71 @@ export const useGameWorld = create<GameWorldState>((set, get) => ({
           tiles: state.currentMap.tiles.map(tile =>
             tile.id === tileId ? { ...tile, ...updates } : tile
           )
+        }
+      };
+    });
+  },
+
+  addNPC: (npc: NPC) => {
+    set((state) => {
+      if (!state.currentMap) return state;
+      
+      return {
+        currentMap: {
+          ...state.currentMap,
+          npcs: [...(state.currentMap.npcs || []), npc]
+        }
+      };
+    });
+  },
+
+  removeNPC: (npcId: string) => {
+    set((state) => {
+      if (!state.currentMap) return state;
+      
+      return {
+        currentMap: {
+          ...state.currentMap,
+          npcs: (state.currentMap.npcs || []).filter(npc => npc.id !== npcId)
+        }
+      };
+    });
+  },
+
+  addSpawnPoint: (spawnPoint: SpawnPoint) => {
+    set((state) => {
+      if (!state.currentMap) return state;
+      
+      return {
+        currentMap: {
+          ...state.currentMap,
+          spawnPoints: [...state.currentMap.spawnPoints, spawnPoint]
+        }
+      };
+    });
+  },
+
+  removeSpawnPoint: (index: number) => {
+    set((state) => {
+      if (!state.currentMap) return state;
+      
+      return {
+        currentMap: {
+          ...state.currentMap,
+          spawnPoints: state.currentMap.spawnPoints.filter((_, i) => i !== index)
+        }
+      };
+    });
+  },
+
+  updateMapSettings: (updates: Partial<GameMap>) => {
+    set((state) => {
+      if (!state.currentMap) return state;
+      
+      return {
+        currentMap: {
+          ...state.currentMap,
+          ...updates
         }
       };
     });

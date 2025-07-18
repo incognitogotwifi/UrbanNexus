@@ -523,9 +523,27 @@ export class GameServer {
   }
 
   public saveMap(mapData: any) {
-    // In a real implementation, you'd save to a database or file
-    this.serverLogs.push(`Map saved: ${mapData.name}`);
-    return { success: true, message: 'Map saved successfully' };
+    try {
+      // Update the map in the map manager
+      const success = this.mapManager.updateMap(mapData.id || 'default', mapData);
+      
+      if (success) {
+        this.serverLogs.push(`Map saved: ${mapData.name}`);
+        
+        // Broadcast map update to all connected clients
+        this.broadcast({
+          type: 'MAP_UPDATED',
+          payload: { map: mapData }
+        });
+        
+        return { success: true, message: 'Map saved successfully' };
+      } else {
+        return { success: false, message: 'Failed to save map' };
+      }
+    } catch (error) {
+      console.error('Error saving map:', error);
+      return { success: false, message: 'Error saving map' };
+    }
   }
 
   public getMap(mapId: string) {
