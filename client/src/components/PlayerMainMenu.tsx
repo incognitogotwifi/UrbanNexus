@@ -36,12 +36,12 @@ export default function PlayerMainMenu({ player, onClose }: PlayerMainMenuProps)
     { text: 'Heart', codes: ['<3'] },
     { text: 'Idea', codes: ['(i)'] },
     { text: 'Kiss', codes: [':*', ':-*'] },
-    { text: 'Phone', codes: ['(:'])
+    { text: 'Phone', codes: ['(:']},
     { text: 'Sad', codes: [':(', ':-('] },
     { text: 'Sleep', codes: ['ZZ', 'ZZZ', 'Z/', 'Z_Z'] },
     { text: 'Smile', codes: [':)', ':-)', ':D', ':-D'] },
     { text: 'Sorry', codes: ['?(', '?-('] },
-    { text: 'Tears', codes: [':_(', ':\\'('] },
+    { text: 'Tears', codes: [':_(', ':\\('] },
     { text: 'Tongue', codes: [':P', ':-P'] },
     { text: 'Neutral', codes: [':|', ':-|'] },
     { text: 'Wink', codes: [';)', ';-)'] }
