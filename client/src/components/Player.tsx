@@ -6,9 +6,10 @@ import { Player as PlayerType } from '../types/game';
 interface PlayerProps {
   player: PlayerType;
   isLocal?: boolean;
+  onClick?: (player: PlayerType) => void;
 }
 
-export default function Player({ player, isLocal = false }: PlayerProps) {
+export default function Player({ player, isLocal = false, onClick }: PlayerProps) {
   const meshRef = useRef<Mesh>(null);
   
   // Pre-calculate player color
@@ -52,7 +53,11 @@ export default function Player({ player, isLocal = false }: PlayerProps) {
   return (
     <group>
       {/* Player body */}
-      <mesh ref={meshRef} position={[player.position.x, player.position.y, 0.5]}>
+      <mesh 
+        ref={meshRef} 
+        position={[player.position.x, player.position.y, 0.5]}
+        onClick={() => onClick && onClick(player)}
+      >
         <boxGeometry args={[20, 20, 4]} />
         <meshStandardMaterial color={playerColor} />
       </mesh>

@@ -14,7 +14,10 @@ import MapEditor from './MapEditor';
 import AdminPanel from './AdminPanel';
 import WeaponSystem from './WeaponSystem';
 import GangSystem from './GangSystem';
-import { GameMap } from '../types/game';
+import PlayerProfile from './PlayerProfile';
+import AdminWeaponManager from './AdminWeaponManager';
+import ServerConfig from './ServerConfig';
+import { GameMap, Player as PlayerType } from '../types/game';
 import { PLAYER_SPEED, normalizeVector } from '../lib/gameUtils';
 
 enum Controls {
@@ -37,7 +40,7 @@ const controlsMap = [
   { name: Controls.run, keys: ['ShiftLeft'] }
 ];
 
-function GameScene() {
+function GameScene({ onPlayerClick }: { onPlayerClick?: (player: PlayerType) => void }) {
   const [, get] = useKeyboardControls();
   const [bullets, setBullets] = useState<any[]>([]);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -134,6 +137,7 @@ function GameScene() {
           key={player.id} 
           player={player} 
           isLocal={player.id === currentPlayer?.id}
+          onClick={onPlayerClick}
         />
       ))}
       
@@ -169,10 +173,26 @@ export default function Game({ username, onExit }: GameProps) {
   const [showAdminPanel, setShowAdminPanel] = useState(false);
   const [showWeaponSystem, setShowWeaponSystem] = useState(true);
   const [showGangSystem, setShowGangSystem] = useState(false);
-  const [userRole] = useState<'MOD' | 'STAFF' | 'ADMIN'>('ADMIN'); // Mock role
+  const [showPlayerProfile, setShowPlayerProfile] = useState(false);
+  const [showWeaponManager, setShowWeaponManager] = useState(false);
+  const [showServerConfig, setShowServerConfig] = useState(false);
+  const [selectedPlayer, setSelectedPlayer] = useState<PlayerType | null>(null);
+  const [userRole] = useState<'PLAYER' | 'DEV' | 'TEAM_LEAD' | 'MANAGEMENT' | 'OWNER'>('OWNER'); // Mock role
   
-  const { connect, isConnected } = useMultiplayer();
+  const { connect, isConnected, gameState, currentPlayer } = useMultiplayer();
   const { playHit } = useAudio();
+
+  const handlePlayerClick = (player: PlayerType) => {
+    setSelectedPlayer(player);
+    setShowPlayerProfile(true);
+  };
+
+  const handleUpdatePlayer = (updates: Partial<PlayerType>) => {
+    // In a real implementation, this would send updates to the server
+    if (selectedPlayer) {
+      setSelectedPlayer({ ...selectedPlayer, ...updates });
+    }
+  };
   
   useEffect(() => {
     connect(username);
@@ -193,6 +213,12 @@ export default function Game({ username, onExit }: GameProps) {
       } else if (event.key === 'F4') {
         event.preventDefault();
         setShowGangSystem(!showGangSystem);
+      } else if (event.key === 'F5') {
+        event.preventDefault();
+        setShowWeaponManager(!showWeaponManager);
+      } else if (event.key === 'F6') {
+        event.preventDefault();
+        setShowServerConfig(!showServerConfig);
       } else if (event.key === 'Escape') {
         event.preventDefault();
         onExit();
@@ -201,7 +227,7 @@ export default function Game({ username, onExit }: GameProps) {
     
     window.addEventListener('keydown', handleKeyPress);
     return () => window.removeEventListener('keydown', handleKeyPress);
-  }, [showMapEditor, showAdminPanel, showWeaponSystem, showGangSystem, onExit]);
+  }, [showMapEditor, showAdminPanel, showWeaponSystem, showGangSystem, showWeaponManager, showServerConfig, onExit]);
   
   if (!isConnected) {
     return (
@@ -232,7 +258,7 @@ export default function Game({ username, onExit }: GameProps) {
           }}
         >
           <color attach="background" args={["#1a1a1a"]} />
-          <GameScene />
+          <GameScene onPlayerClick={handlePlayerClick} />
         </Canvas>
         
         <GameUI />
@@ -255,12 +281,38 @@ export default function Game({ username, onExit }: GameProps) {
           onClose={() => setShowGangSystem(false)}
         />
         
+        {/* Player Profile Modal */}
+        {showPlayerProfile && selectedPlayer && (
+          <PlayerProfile
+            player={selectedPlayer}
+            onClose={() => setShowPlayerProfile(false)}
+            onUpdatePlayer={handleUpdatePlayer}
+            currentUserRole={userRole}
+          />
+        )}
+        
+        {/* Admin Weapon Manager */}
+        {showWeaponManager && (
+          <AdminWeaponManager
+            onClose={() => setShowWeaponManager(false)}
+          />
+        )}
+        
+        {/* Server Configuration */}
+        {showServerConfig && (
+          <ServerConfig
+            onClose={() => setShowServerConfig(false)}
+          />
+        )}
+        
         {/* Shortcuts help */}
         <div className="fixed top-4 right-4 bg-black bg-opacity-70 text-white p-2 rounded text-xs">
           <div>F1: Map Editor</div>
           <div>F2: Admin Panel</div>
           <div>F3: Weapons</div>
           <div>F4: Gang System</div>
+          <div>F5: Weapon Manager</div>
+          <div>F6: Server Config</div>
           <div>ESC: Exit Game</div>
         </div>
       </KeyboardControls>
