@@ -52,7 +52,13 @@ export interface GameMap {
   width: number;
   height: number;
   tiles: MapTile[];
-  spawnPoints: { x: number; y: number }[];
+  spawnPoints: SpawnPoint[];
+  npcs?: NPC[];
+}
+
+export interface SpawnPoint {
+  x: number;
+  y: number;
 }
 
 export interface Weapon {
@@ -84,6 +90,84 @@ export interface GameState {
   isRunning: boolean;
 }
 
+export interface AdminRole {
+  id: string;
+  name: string;
+  level: number;
+  permissions: AdminPermission[];
+  canAssign: string[];
+  color: string;
+}
+
+export interface AdminPermission {
+  id: string;
+  name: string;
+  description: string;
+  category: 'player' | 'content' | 'system' | 'development';
+}
+
+export interface NPC {
+  id: string;
+  name: string;
+  type: 'merchant' | 'guard' | 'quest' | 'enemy' | 'neutral';
+  position: { x: number; y: number };
+  mapId: string;
+  dialogue: Record<string, string>;
+  stats: {
+    health: number;
+    damage: number;
+    speed: number;
+    defense: number;
+  };
+  appearance: {
+    sprite: string;
+    color: string;
+    size: number;
+  };
+  script?: string;
+  interactions: string[];
+}
+
+export interface GameFile {
+  id: string;
+  name: string;
+  path: string;
+  content: string;
+  type: 'script' | 'map' | 'config' | 'asset';
+  permissions: { read: boolean; write: boolean };
+  createdBy: string;
+  updatedBy: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface ScriptEnvironment {
+  id: string;
+  name: string;
+  code: string;
+  variables: Record<string, any>;
+  functions: Record<string, Function>;
+  imports: string[];
+  permissions: string[];
+}
+
+export type AdminRoleType = 
+  | 'owner'
+  | 'management'
+  | 'graphics_lead'
+  | 'animation_lead'
+  | 'scripting_lead'
+  | 'sfx_lead'
+  | 'weapons_lead'
+  | 'support_lead'
+  | 'graphics_dev'
+  | 'animation_dev'
+  | 'scripting_dev'
+  | 'sfx_dev'
+  | 'weapons_dev'
+  | 'support_staff'
+  | 'player';
+
 export type GameEvent = 
   | { type: 'PLAYER_JOIN'; payload: { player: Player } }
   | { type: 'PLAYER_LEAVE'; payload: { playerId: string } }
@@ -94,4 +178,7 @@ export type GameEvent =
   | { type: 'CHAT_MESSAGE'; payload: { message: ChatMessage } }
   | { type: 'GANG_CREATE'; payload: { gang: Gang } }
   | { type: 'GANG_JOIN'; payload: { playerId: string; gangId: string } }
-  | { type: 'GAME_STATE_UPDATE'; payload: { gameState: Partial<GameState> } };
+  | { type: 'GAME_STATE_UPDATE'; payload: { gameState: Partial<GameState> } }
+  | { type: 'NPC_INTERACT'; payload: { npcId: string; playerId: string; action: string } }
+  | { type: 'FILE_UPDATE'; payload: { fileId: string; content: string } }
+  | { type: 'SCRIPT_EXECUTE'; payload: { scriptId: string; context: any } };

@@ -1,14 +1,22 @@
 import { useState, useEffect } from 'react';
 import { useMultiplayer } from '../lib/stores/useMultiplayer';
+import { AdminRoleType, AdminPermission } from '../types/game';
+import { ADMIN_ROLES, hasPermission, canAssignRole, getPermissionsByCategory } from '../lib/adminRoles';
+import MapEditor from './MapEditor';
+import AdminWeaponManager from './AdminWeaponManager';
+import ServerConfig from './ServerConfig';
+import GameFileBrowser from './GameFileBrowser';
+import ScriptingEnvironment from './ScriptingEnvironment';
+import NPCManager from './NPCManager';
 
 interface AdminPanelProps {
   isVisible: boolean;
   onClose: () => void;
-  userRole: 'MOD' | 'STAFF' | 'ADMIN';
+  userRole: AdminRoleType;
 }
 
 interface PlayerAction {
-  type: 'kick' | 'ban' | 'mute' | 'teleport' | 'heal' | 'give_item';
+  type: 'kick' | 'ban' | 'mute' | 'heal' | 'teleport' | 'modify';
   playerId: string;
   reason?: string;
   duration?: number;
@@ -16,7 +24,8 @@ interface PlayerAction {
 }
 
 export default function AdminPanel({ isVisible, onClose, userRole }: AdminPanelProps) {
-  const [activeTab, setActiveTab] = useState<'players' | 'logs' | 'settings'>('players');
+  const [activeTab, setActiveTab] = useState<'overview' | 'players' | 'content' | 'development' | 'system' | 'roles'>('overview');
+  const [activeSubTool, setActiveSubTool] = useState<string | null>(null);
   const [serverStats, setServerStats] = useState({
     playersOnline: 0,
     totalPlayers: 0,
@@ -26,6 +35,7 @@ export default function AdminPanel({ isVisible, onClose, userRole }: AdminPanelP
   });
   
   const { gameState } = useMultiplayer();
+  const currentRole = ADMIN_ROLES[userRole];
   
   useEffect(() => {
     // Mock server stats update
@@ -59,234 +69,401 @@ export default function AdminPanel({ isVisible, onClose, userRole }: AdminPanelP
     return `${minutes}m ${seconds % 60}s`;
   };
   
-  if (!isVisible) return null;
+  const renderSubTool = () => {
+    switch (activeSubTool) {
+      case 'map_editor':
+        return <MapEditor isVisible={true} onClose={() => setActiveSubTool(null)} />;
+      case 'weapon_manager':
+        return <AdminWeaponManager onClose={() => setActiveSubTool(null)} />;
+      case 'server_config':
+        return <ServerConfig onClose={() => setActiveSubTool(null)} />;
+      case 'file_browser':
+        return <GameFileBrowser onClose={() => setActiveSubTool(null)} userRole={userRole} />;
+      case 'scripting_env':
+        return <ScriptingEnvironment onClose={() => setActiveSubTool(null)} userRole={userRole} />;
+      case 'npc_manager':
+        return <NPCManager onClose={() => setActiveSubTool(null)} userRole={userRole} />;
+      default:
+        return null;
+    }
+  };
   
+  if (!isVisible) return null;
+
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center pointer-events-auto z-50">
-      <div className="bg-gray-900 text-white p-6 rounded-lg max-w-6xl max-h-[90vh] overflow-y-auto w-full mx-4">
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-2xl font-bold">Admin Panel - {userRole}</h2>
-          <button
-            onClick={onClose}
-            className="text-gray-400 hover:text-white"
-          >
-            ✕
-          </button>
-        </div>
-        
-        {/* Server Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-6">
-          <div className="bg-gray-800 p-4 rounded">
-            <div className="text-sm text-gray-400">Players Online</div>
-            <div className="text-2xl font-bold text-green-400">{serverStats.playersOnline}</div>
-          </div>
-          
-          <div className="bg-gray-800 p-4 rounded">
-            <div className="text-sm text-gray-400">Total Players</div>
-            <div className="text-2xl font-bold">{serverStats.totalPlayers}</div>
-          </div>
-          
-          <div className="bg-gray-800 p-4 rounded">
-            <div className="text-sm text-gray-400">Uptime</div>
-            <div className="text-2xl font-bold text-blue-400">{formatUptime(serverStats.uptime)}</div>
-          </div>
-          
-          <div className="bg-gray-800 p-4 rounded">
-            <div className="text-sm text-gray-400">Memory Usage</div>
-            <div className="text-2xl font-bold text-yellow-400">{serverStats.memoryUsage.toFixed(1)}%</div>
-          </div>
-          
-          <div className="bg-gray-800 p-4 rounded">
-            <div className="text-sm text-gray-400">CPU Usage</div>
-            <div className="text-2xl font-bold text-red-400">{serverStats.cpuUsage.toFixed(1)}%</div>
-          </div>
-        </div>
-        
-        {/* Tab Navigation */}
-        <div className="flex border-b border-gray-700 mb-4">
-          {(['players', 'logs', 'settings'] as const).map(tab => (
+      {activeSubTool && renderSubTool()}
+      {!activeSubTool && (
+        <div className="bg-gray-900 text-white p-6 rounded-lg max-w-7xl max-h-[90vh] overflow-y-auto w-full mx-4">
+          {/* Header */}
+          <div className="flex justify-between items-center mb-4">
+            <div>
+              <h2 className="text-2xl font-bold">Admin Panel</h2>
+              <p className="text-sm" style={{ color: currentRole.color }}>
+                {currentRole.name} (Level {currentRole.level})
+              </p>
+            </div>
             <button
-              key={tab}
-              onClick={() => setActiveTab(tab)}
-              className={`px-4 py-2 capitalize ${
-                activeTab === tab 
-                  ? 'border-b-2 border-blue-500 text-blue-500' 
-                  : 'text-gray-400 hover:text-white'
-              }`}
+              onClick={onClose}
+              className="text-gray-400 hover:text-white text-2xl"
             >
-              {tab}
+              ✕
             </button>
-          ))}
-        </div>
-        
-        {/* Players Tab */}
-        {activeTab === 'players' && (
+          </div>
+          
+          {/* Server Stats */}
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-6">
+            <div className="bg-gray-800 p-4 rounded">
+              <div className="text-sm text-gray-400">Players Online</div>
+              <div className="text-2xl font-bold text-green-400">{serverStats.playersOnline}</div>
+            </div>
+            <div className="bg-gray-800 p-4 rounded">
+              <div className="text-sm text-gray-400">Total Players</div>
+              <div className="text-2xl font-bold">{serverStats.totalPlayers}</div>
+            </div>
+            <div className="bg-gray-800 p-4 rounded">
+              <div className="text-sm text-gray-400">Uptime</div>
+              <div className="text-2xl font-bold text-blue-400">{formatUptime(serverStats.uptime)}</div>
+            </div>
+            <div className="bg-gray-800 p-4 rounded">
+              <div className="text-sm text-gray-400">Memory Usage</div>
+              <div className="text-2xl font-bold text-yellow-400">{serverStats.memoryUsage.toFixed(1)}%</div>
+            </div>
+            <div className="bg-gray-800 p-4 rounded">
+              <div className="text-sm text-gray-400">CPU Usage</div>
+              <div className="text-2xl font-bold text-red-400">{serverStats.cpuUsage.toFixed(1)}%</div>
+            </div>
+          </div>
+          
+          {/* Navigation Tabs */}
+          <div className="flex space-x-1 mb-6 bg-gray-800 p-1 rounded overflow-x-auto">
+            {(['overview', 'players', 'content', 'development', 'system', 'roles'] as const).map((tab) => (
+              <button
+                key={tab}
+                onClick={() => setActiveTab(tab)}
+                className={`px-4 py-2 rounded capitalize transition-colors whitespace-nowrap ${
+                  activeTab === tab
+                    ? 'bg-blue-600 text-white'
+                    : 'text-gray-400 hover:text-white hover:bg-gray-700'
+                }`}
+              >
+                {tab}
+              </button>
+            ))}
+          </div>
+          
+          {/* Content */}
           <div className="space-y-4">
-            <div className="bg-gray-800 rounded">
-              <div className="p-4 border-b border-gray-700">
-                <h3 className="text-lg font-semibold">Online Players</h3>
+            {activeTab === 'overview' && (
+              <div>
+                <h3 className="text-lg font-semibold mb-4">Quick Actions</h3>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  {hasPermission(userRole, 'map_edit') && (
+                    <button
+                      onClick={() => setActiveSubTool('map_editor')}
+                      className="bg-green-600 hover:bg-green-700 p-4 rounded text-left"
+                    >
+                      <div className="text-lg font-bold">Map Editor</div>
+                      <div className="text-sm text-green-200">Create and edit game maps</div>
+                    </button>
+                  )}
+                  {hasPermission(userRole, 'weapon_edit') && (
+                    <button
+                      onClick={() => setActiveSubTool('weapon_manager')}
+                      className="bg-red-600 hover:bg-red-700 p-4 rounded text-left"
+                    >
+                      <div className="text-lg font-bold">Weapon Manager</div>
+                      <div className="text-sm text-red-200">Manage weapons and stats</div>
+                    </button>
+                  )}
+                  {hasPermission(userRole, 'npc_create') && (
+                    <button
+                      onClick={() => setActiveSubTool('npc_manager')}
+                      className="bg-purple-600 hover:bg-purple-700 p-4 rounded text-left"
+                    >
+                      <div className="text-lg font-bold">NPC Manager</div>
+                      <div className="text-sm text-purple-200">Create and manage NPCs</div>
+                    </button>
+                  )}
+                  {hasPermission(userRole, 'file_browser') && (
+                    <button
+                      onClick={() => setActiveSubTool('file_browser')}
+                      className="bg-yellow-600 hover:bg-yellow-700 p-4 rounded text-left"
+                    >
+                      <div className="text-lg font-bold">File Browser</div>
+                      <div className="text-sm text-yellow-200">Browse game files</div>
+                    </button>
+                  )}
+                  {hasPermission(userRole, 'script_create') && (
+                    <button
+                      onClick={() => setActiveSubTool('scripting_env')}
+                      className="bg-indigo-600 hover:bg-indigo-700 p-4 rounded text-left"
+                    >
+                      <div className="text-lg font-bold">Scripting Environment</div>
+                      <div className="text-sm text-indigo-200">Write and test scripts</div>
+                    </button>
+                  )}
+                  {hasPermission(userRole, 'server_config') && (
+                    <button
+                      onClick={() => setActiveSubTool('server_config')}
+                      className="bg-gray-600 hover:bg-gray-700 p-4 rounded text-left"
+                    >
+                      <div className="text-lg font-bold">Server Config</div>
+                      <div className="text-sm text-gray-200">Configure server settings</div>
+                    </button>
+                  )}
+                </div>
               </div>
-              
-              <div className="overflow-x-auto">
-                <table className="w-full">
-                  <thead>
-                    <tr className="border-b border-gray-700">
-                      <th className="text-left p-4">Player</th>
-                      <th className="text-left p-4">Health</th>
-                      <th className="text-left p-4">Gang</th>
-                      <th className="text-left p-4">K/D</th>
-                      <th className="text-left p-4">Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {gameState && Object.values(gameState.players).map(player => (
-                      <tr key={player.id} className="border-b border-gray-700">
-                        <td className="p-4">
-                          <div className="flex items-center gap-2">
-                            <div 
-                              className="w-4 h-4 rounded"
-                              style={{ backgroundColor: player.color }}
-                            />
-                            <span>{player.username}</span>
-                            {!player.isAlive && (
-                              <span className="text-red-400 text-sm">(Dead)</span>
-                            )}
-                          </div>
-                        </td>
-                        <td className="p-4">
-                          <div className="flex items-center gap-2">
-                            <div className="w-12 h-2 bg-gray-600 rounded">
-                              <div 
-                                className="h-full bg-red-500 rounded"
-                                style={{ width: `${(player.health / player.maxHealth) * 100}%` }}
-                              />
+            )}
+            
+            {activeTab === 'players' && (
+              <div>
+                <h3 className="text-lg font-semibold mb-4">Player Management</h3>
+                {gameState && Object.keys(gameState.players).length > 0 ? (
+                  <div className="space-y-2">
+                    {Object.values(gameState.players).map((player) => (
+                      <div key={player.id} className="bg-gray-800 p-4 rounded flex justify-between items-center">
+                        <div className="flex items-center space-x-4">
+                          <div className="w-3 h-3 rounded-full bg-green-400"></div>
+                          <div>
+                            <div className="font-medium">{player.username}</div>
+                            <div className="text-sm text-gray-400">
+                              Health: {player.health}/{player.maxHealth} | 
+                              Kills: {player.kills} | 
+                              Deaths: {player.deaths}
                             </div>
-                            <span className="text-sm">{player.health}/{player.maxHealth}</span>
                           </div>
-                        </td>
-                        <td className="p-4">
-                          {player.gangId ? (
-                            <span className="text-sm px-2 py-1 bg-gray-700 rounded">
-                              {gameState.gangs[player.gangId]?.name || 'Unknown'}
-                            </span>
-                          ) : (
-                            <span className="text-gray-400">None</span>
+                        </div>
+                        <div className="flex space-x-2">
+                          {hasPermission(userRole, 'player_heal') && (
+                            <button
+                              onClick={() => executePlayerAction({ type: 'heal', playerId: player.id })}
+                              className="px-3 py-1 bg-green-600 hover:bg-green-700 text-white rounded text-sm"
+                            >
+                              Heal
+                            </button>
                           )}
-                        </td>
-                        <td className="p-4">
-                          <span className="text-sm">
-                            {player.kills}/{player.deaths} ({player.deaths > 0 ? (player.kills / player.deaths).toFixed(2) : player.kills})
-                          </span>
-                        </td>
-                        <td className="p-4">
-                          <div className="flex gap-2">
+                          {hasPermission(userRole, 'player_teleport') && (
+                            <button
+                              onClick={() => executePlayerAction({ type: 'teleport', playerId: player.id })}
+                              className="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded text-sm"
+                            >
+                              Teleport
+                            </button>
+                          )}
+                          {hasPermission(userRole, 'player_kick') && (
                             <button
                               onClick={() => executePlayerAction({ type: 'kick', playerId: player.id })}
-                              className="px-2 py-1 bg-yellow-600 hover:bg-yellow-700 text-white text-xs rounded"
+                              className="px-3 py-1 bg-yellow-600 hover:bg-yellow-700 text-white rounded text-sm"
                             >
                               Kick
                             </button>
-                            
-                            {userRole === 'STAFF' || userRole === 'ADMIN' ? (
-                              <>
-                                <button
-                                  onClick={() => executePlayerAction({ type: 'ban', playerId: player.id })}
-                                  className="px-2 py-1 bg-red-600 hover:bg-red-700 text-white text-xs rounded"
-                                >
-                                  Ban
-                                </button>
-                                
-                                <button
-                                  onClick={() => executePlayerAction({ type: 'heal', playerId: player.id })}
-                                  className="px-2 py-1 bg-green-600 hover:bg-green-700 text-white text-xs rounded"
-                                >
-                                  Heal
-                                </button>
-                              </>
-                            ) : null}
-                          </div>
-                        </td>
-                      </tr>
+                          )}
+                          {hasPermission(userRole, 'player_ban') && (
+                            <button
+                              onClick={() => executePlayerAction({ type: 'ban', playerId: player.id })}
+                              className="px-3 py-1 bg-red-600 hover:bg-red-700 text-white rounded text-sm"
+                            >
+                              Ban
+                            </button>
+                          )}
+                        </div>
+                      </div>
                     ))}
-                  </tbody>
-                </table>
+                  </div>
+                ) : (
+                  <div className="text-gray-400 text-center py-8">
+                    No players currently online
+                  </div>
+                )}
               </div>
-            </div>
+            )}
+            
+            {activeTab === 'content' && (
+              <div>
+                <h3 className="text-lg font-semibold mb-4">Content Management</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {hasPermission(userRole, 'map_edit') && (
+                    <div className="bg-gray-800 p-4 rounded">
+                      <h4 className="font-bold mb-2">Maps</h4>
+                      <p className="text-sm text-gray-400 mb-3">Create and edit game maps</p>
+                      <button
+                        onClick={() => setActiveSubTool('map_editor')}
+                        className="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded"
+                      >
+                        Open Map Editor
+                      </button>
+                    </div>
+                  )}
+                  {hasPermission(userRole, 'npc_create') && (
+                    <div className="bg-gray-800 p-4 rounded">
+                      <h4 className="font-bold mb-2">NPCs</h4>
+                      <p className="text-sm text-gray-400 mb-3">Create and manage NPCs</p>
+                      <button
+                        onClick={() => setActiveSubTool('npc_manager')}
+                        className="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded"
+                      >
+                        Manage NPCs
+                      </button>
+                    </div>
+                  )}
+                  {hasPermission(userRole, 'weapon_edit') && (
+                    <div className="bg-gray-800 p-4 rounded">
+                      <h4 className="font-bold mb-2">Weapons</h4>
+                      <p className="text-sm text-gray-400 mb-3">Manage weapon properties</p>
+                      <button
+                        onClick={() => setActiveSubTool('weapon_manager')}
+                        className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded"
+                      >
+                        Weapon Manager
+                      </button>
+                    </div>
+                  )}
+                  {hasPermission(userRole, 'asset_manage') && (
+                    <div className="bg-gray-800 p-4 rounded">
+                      <h4 className="font-bold mb-2">Assets</h4>
+                      <p className="text-sm text-gray-400 mb-3">Manage game assets</p>
+                      <button
+                        onClick={() => setActiveSubTool('file_browser')}
+                        className="px-4 py-2 bg-yellow-600 hover:bg-yellow-700 text-white rounded"
+                      >
+                        Browse Files
+                      </button>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+            
+            {activeTab === 'development' && (
+              <div>
+                <h3 className="text-lg font-semibold mb-4">Development Tools</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {hasPermission(userRole, 'script_create') && (
+                    <div className="bg-gray-800 p-4 rounded">
+                      <h4 className="font-bold mb-2">Scripting Environment</h4>
+                      <p className="text-sm text-gray-400 mb-3">Write and test game scripts</p>
+                      <button
+                        onClick={() => setActiveSubTool('scripting_env')}
+                        className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded"
+                      >
+                        Open Scripting
+                      </button>
+                    </div>
+                  )}
+                  {hasPermission(userRole, 'file_browser') && (
+                    <div className="bg-gray-800 p-4 rounded">
+                      <h4 className="font-bold mb-2">File Browser</h4>
+                      <p className="text-sm text-gray-400 mb-3">Browse and edit game files</p>
+                      <button
+                        onClick={() => setActiveSubTool('file_browser')}
+                        className="px-4 py-2 bg-yellow-600 hover:bg-yellow-700 text-white rounded"
+                      >
+                        Browse Files
+                      </button>
+                    </div>
+                  )}
+                  {hasPermission(userRole, 'debug_mode') && (
+                    <div className="bg-gray-800 p-4 rounded">
+                      <h4 className="font-bold mb-2">Debug Tools</h4>
+                      <p className="text-sm text-gray-400 mb-3">Debug game systems</p>
+                      <button className="px-4 py-2 bg-orange-600 hover:bg-orange-700 text-white rounded">
+                        Enable Debug Mode
+                      </button>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+            
+            {activeTab === 'system' && (
+              <div>
+                <h3 className="text-lg font-semibold mb-4">System Management</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {hasPermission(userRole, 'server_config') && (
+                    <div className="bg-gray-800 p-4 rounded">
+                      <h4 className="font-bold mb-2">Server Configuration</h4>
+                      <p className="text-sm text-gray-400 mb-3">Configure server settings</p>
+                      <button
+                        onClick={() => setActiveSubTool('server_config')}
+                        className="px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded"
+                      >
+                        Configure Server
+                      </button>
+                    </div>
+                  )}
+                  {hasPermission(userRole, 'logs_view') && (
+                    <div className="bg-gray-800 p-4 rounded">
+                      <h4 className="font-bold mb-2">Server Logs</h4>
+                      <div className="bg-gray-900 p-3 rounded font-mono text-sm mb-3 max-h-32 overflow-y-auto">
+                        <div className="text-green-400">[INFO] Game server started</div>
+                        <div className="text-blue-400">[DEBUG] Player connected</div>
+                        <div className="text-yellow-400">[WARN] High memory usage</div>
+                      </div>
+                    </div>
+                  )}
+                  {hasPermission(userRole, 'analytics_view') && (
+                    <div className="bg-gray-800 p-4 rounded">
+                      <h4 className="font-bold mb-2">Analytics</h4>
+                      <p className="text-sm text-gray-400 mb-3">View game analytics</p>
+                      <button className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded">
+                        View Analytics
+                      </button>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+            
+            {activeTab === 'roles' && (
+              <div>
+                <h3 className="text-lg font-semibold mb-4">Role Management</h3>
+                {hasPermission(userRole, 'role_assign') ? (
+                  <div>
+                    <div className="bg-gray-800 p-4 rounded mb-4">
+                      <h4 className="font-bold mb-2">Available Roles</h4>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {Object.entries(ADMIN_ROLES).map(([roleId, role]) => (
+                          <div key={roleId} className="bg-gray-700 p-3 rounded">
+                            <div className="flex items-center justify-between">
+                              <div>
+                                <div className="font-medium" style={{ color: role.color }}>
+                                  {role.name}
+                                </div>
+                                <div className="text-sm text-gray-400">Level {role.level}</div>
+                              </div>
+                              {canAssignRole(userRole, roleId as AdminRoleType) && (
+                                <button className="px-2 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded text-sm">
+                                  Assign
+                                </button>
+                              )}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="bg-gray-800 p-4 rounded">
+                      <h4 className="font-bold mb-2">Your Permissions</h4>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                        {currentRole.permissions.map((permission) => (
+                          <div key={permission.id} className="flex items-center space-x-2">
+                            <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+                            <span className="text-sm">{permission.name}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="text-gray-400 text-center py-8">
+                    You don't have permission to manage roles
+                  </div>
+                )}
+              </div>
+            )}
           </div>
-        )}
-        
-        {/* Logs Tab */}
-        {activeTab === 'logs' && (
-          <div className="space-y-4">
-            <div className="bg-gray-800 rounded">
-              <div className="p-4 border-b border-gray-700">
-                <h3 className="text-lg font-semibold">Server Logs</h3>
-              </div>
-              
-              <div className="p-4 font-mono text-sm max-h-96 overflow-y-auto">
-                <div className="text-green-400">[INFO] Server started successfully</div>
-                <div className="text-blue-400">[DEBUG] Player joined: TestPlayer</div>
-                <div className="text-yellow-400">[WARN] High CPU usage detected</div>
-                <div className="text-red-400">[ERROR] Player disconnected unexpectedly</div>
-                <div className="text-gray-400">[TRACE] Bullet collision detected</div>
-              </div>
-            </div>
-          </div>
-        )}
-        
-        {/* Settings Tab */}
-        {activeTab === 'settings' && (
-          <div className="space-y-4">
-            <div className="bg-gray-800 rounded">
-              <div className="p-4 border-b border-gray-700">
-                <h3 className="text-lg font-semibold">Server Settings</h3>
-              </div>
-              
-              <div className="p-4 space-y-4">
-                <div>
-                  <label className="block text-sm font-medium mb-2">Max Players</label>
-                  <input
-                    type="number"
-                    defaultValue="50"
-                    className="w-full p-2 bg-gray-700 border border-gray-600 rounded"
-                  />
-                </div>
-                
-                <div>
-                  <label className="block text-sm font-medium mb-2">Server Name</label>
-                  <input
-                    type="text"
-                    defaultValue="Urban MMO Server"
-                    className="w-full p-2 bg-gray-700 border border-gray-600 rounded"
-                  />
-                </div>
-                
-                <div>
-                  <label className="block text-sm font-medium mb-2">PvP Enabled</label>
-                  <input
-                    type="checkbox"
-                    defaultChecked
-                    className="w-4 h-4"
-                  />
-                </div>
-                
-                <div>
-                  <label className="block text-sm font-medium mb-2">Auto-Restart Time (hours)</label>
-                  <input
-                    type="number"
-                    defaultValue="24"
-                    className="w-full p-2 bg-gray-700 border border-gray-600 rounded"
-                  />
-                </div>
-                
-                <button className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded">
-                  Save Settings
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 }

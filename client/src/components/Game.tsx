@@ -17,7 +17,7 @@ import GangSystem from './GangSystem';
 import PlayerProfile from './PlayerProfile';
 import AdminWeaponManager from './AdminWeaponManager';
 import ServerConfig from './ServerConfig';
-import { GameMap, Player as PlayerType } from '../types/game';
+import { GameMap, Player as PlayerType, AdminRoleType } from '../types/game';
 import { PLAYER_SPEED, normalizeVector } from '../lib/gameUtils';
 
 enum Controls {
@@ -177,7 +177,7 @@ export default function Game({ username, onExit }: GameProps) {
   const [showWeaponManager, setShowWeaponManager] = useState(false);
   const [showServerConfig, setShowServerConfig] = useState(false);
   const [selectedPlayer, setSelectedPlayer] = useState<PlayerType | null>(null);
-  const [userRole] = useState<'PLAYER' | 'DEV' | 'TEAM_LEAD' | 'MANAGEMENT' | 'OWNER'>('OWNER'); // Mock role
+  const [userRole] = useState<AdminRoleType>('owner'); // Mock role
   
   const { connect, isConnected, gameState, currentPlayer } = useMultiplayer();
   const { playHit } = useAudio();
