@@ -10,6 +10,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@neondatabase/serverless": "^1.0.1",
+    "drizzle-kit": "^0.31.4",
+    "drizzle-orm": "^0.44.3",
     "log": "^6.3.2",
     "sanitize-html": "^2.17.0",
     "underscore": "^1.13.7",

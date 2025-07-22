@@ -1,0 +1,549 @@
+@font-face {
+	font-family: 'coolvetica';
+	src: url('../fonts/coolvetica.ttf');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+    font-family: 'brothers';
+    src: url('../fonts/brothers.ttf');
+    font-weight: 200;
+    font-style: italic;
+}
+
+/* Reset styles */
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+font,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	vertical-align: baseline;
+	background: transparent;
+	font-family: coolvetica;
+}
+
+:focus {
+	outline: 0;
+}
+
+input {
+	font-family: brothers;
+}
+
+#npcscriptfield,
+#npcscriptfield div,
+#npcscriptfield span {
+	font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;
+}
+
+img {
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	-webkit-user-drag: none;
+	user-drag: none;
+	-webkit-touch-callout: none;
+}
+
+/* Containers */
+body {
+	background: #000000;
+}
+
+#startscreen,
+#generalmessage,
+#deathscreen,
+#reconnectscreen,
+#errorscreen {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	z-index: 200;
+}
+
+.parchment-back {
+	width: 844px;
+	height: 364px;
+	position: absolute;
+	top: 55%;
+	left: 50%;
+	margin-left: -422px;
+	margin-top: -182px;
+	font-size: 20px;
+	text-align: center;
+}
+
+#underconstruction {
+	font-size: 24px;
+	color: #fffff0;
+	margin-left: 10px;
+	margin-right: 10px;
+	text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 2px 0 #000, 1px 2px 0 #000;
+}
+
+#generalmessage,
+#deathscreen,
+#reconnectscreen,
+#errorscreen {
+	background-color: rgba(0, 0, 0, 0.25);
+}
+
+.parchment-replacer {
+	position: absolute;
+	left: 50%;
+	top: 0;
+	width: 692px;
+	height: 364px;
+	margin-left: -346px;
+}
+
+/* Logo */
+#logo {
+	position: absolute;
+	background: url('../../files/gui/bbuilder_logosingle.png');
+	height: 113px;
+	width: 454px;
+	top: -90px;
+	left: 50%;
+	margin-left: -229px;
+	z-index: 3;
+}
+
+/* Play and revive buttons */
+#playbutton {
+	margin: 10px auto 10px auto;
+}
+
+#playbutton div {
+	position: absolute;
+	top: 0;
+	left: 0;
+	opacity: 1;
+	-moz-transition: 0.4s linear opacity;
+	-webkit-transition: 0.4s linear opacity;
+	-o-transition: 0.4s linear opacity;
+	-ms-transition: 0.4s linear opacity;
+	transition: 0.4s linear opacity
+}
+
+#playbutton img {
+	display: none;
+}
+
+#playbutton.loading img {
+	display: block;
+	position: absolute;
+	left: 332px;
+	top: 228px;
+}
+
+#respawnbutton {
+	margin: 40px auto 0 auto;
+	background: url(../../files/gui/revivebutton.png);
+}
+
+#reconnectbutton {
+	margin: 40px auto 0 auto;
+	background: url(../../files/gui/reconnectbutton.png);
+}
+
+.startbutton {
+	background: url(../../files/gui/playbutton.png);
+	width: 336px;
+	height: 96px;
+}
+
+.startbutton:hover {
+	background: url(../../files/gui/playbutton_active.png);
+}
+
+.startbutton.loading {
+	background: none;
+}
+
+/* Game */
+#gamecontainer {
+	width: 100%;
+	height: 100%;
+	margin-left: auto;
+	margin-right: auto;
+	position: absolute;
+}
+
+#gamecontainer {
+	-moz-transition: 0.5s opacity linear 0.25s;
+	-webkit-transition: 0.5s opacity linear 0.25s;
+	-o-transition: 0.5s opacity linear 0.25s;
+	-ms-transition: 0.5s opacity linear 0.25s;
+	transition: 0.5s opacity linear 0.25s;
+}
+
+canvas {
+	position: absolute;
+	image-rendering: optimizeSpeed;
+	imageSmoothingEnabled: false;
+	image-rendering: pixelated;
+}
+
+#canvas {
+	width: 100%;
+	height: 100%;
+}
+
+#background {
+	background: #000;
+}
+
+#backgroundcontainer {
+	display: inline-block;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
+
+#background,
+#foreground {
+	margin: 0;
+	padding: 0;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	left: -32px;
+	top: -32px;
+}
+
+#guilayer {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	left: 0px;
+	top: 0px;
+}
+
+#entities {
+	image-rendering: optimizeSpeed;
+	image-rendering: pixelated;
+	imageSmoothingEnabled: false;
+	width: 100%;
+	height: 100%;
+	left: 0px;
+	top: 0px;
+}
+
+#foreground {
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+	cursor: pointer;
+}
+
+#canvas,
+#bar-container,
+#minimap,
+#minimapcanvas,
+#foreground,
+#background,
+#gamecontainer,
+#movementhelp,
+#showvs,
+#showvsclans,
+#showvswinner,
+#showvsclanwinner {
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-o-user-select: none;
+	-ms-user-select: none;
+}
+
+#bar-container {
+	position: absolute;
+	left:0; top:0; width:100%; height:100%;
+}
+
+/* Minimap */
+#minimap {
+	position: absolute;
+	right: 8px;
+	top: 8px;
+	width: 144px;
+	height: 144px;
+	border-radius: 5px;
+}
+
+#minimapcanvas {
+	image-rendering: optimizeSpeed;
+	imageSmoothingEnabled: false;
+	width: 144px;
+	height: 144px;
+	border-radius: 5px;
+	border: 1px solid black;
+}
+
+/* Chat */
+#chatbox {
+	background: url('../../files/gui/westlaw_justus-chatbar2.png');
+	position: absolute;
+	z-index: 100;
+	height: 40px;
+	width: 788px;
+	max-width: 90%;
+	left: 185px;
+	top: 8px;
+}
+
+#chatbox input {
+	font-size: 20px;
+	color: #eee;
+	background: none;
+	width: 90%;
+	border: 0;
+	margin-left: 2%;
+	padding: 4px 0;
+}
+
+#chatbox.bigchat {
+	background: none;
+	height: 72px;
+	width: 100%;
+	left: 0px;
+	right: 0px;
+	max-width: initial;
+	top: 120px;
+}
+
+#chatbox.bigchat input {
+	font-size: 56px;
+	height: 72px;
+	width: 100%;
+	margin-left: initial;
+	color: white;
+	text-align: center;
+	text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 2px 0 #000, 1px 2px 0 #000;
+}
+
+/* Game GUI */
+#coinscount {
+	color: #ffffff;
+	position: absolute;
+	font-size: 16px;
+	right: 50px;
+	top: 165px;
+	width: 120px;
+	text-align: right;
+	text-shadow: 2px 2px 0 #000000;
+}
+
+#movepad {
+	background: url('../../files/gui/bbuilder_movepad.png') no-repeat bottom left;
+	background-size: contain;
+	image-rendering: -moz-crispt-edges;
+	position: absolute;
+}
+
+#movepad {
+	left: 0px;
+	bottom: 0px;
+	width: 300px;
+	height: 300px;
+	max-width: 45vh;
+	max-height: 45vh;
+}
+
+#weaponpad {
+	background: url('../../files/gui/bbuilder_weaponpad.png') no-repeat bottom right;
+	background-size: contain;
+	image-rendering: -moz-crispt-edges;
+	position: absolute;
+}
+
+#weaponpad {
+	right: 0px;
+	bottom: 0px;
+	width: 128px;
+	height: 128px;
+}
+
+#bombbutton {
+	background: url('../../files/gui/bbuilder_bombbutton.png') no-repeat bottom right;
+	background-size: contain;
+	image-rendering: -moz-crispt-edges;
+	position: absolute;
+}
+
+#bombbutton {
+	right: 0px;
+	bottom: 120px;
+	width: 96px;
+	height: 96px;
+	max-width: 30vh;
+	max-height: 30vh;
+}
+
+#lightsbutton,
+#hornbutton {
+	display: none;
+}
+
+.scrollable {
+	overflow-y: scroll;
+}
+
+/* -webkit-overflow-scrolling: touch; */
+
+/* Input placeholder color */
+::-webkit-input-placeholder {
+	color: #BBB;
+}
+
+:-moz-placeholder {
+	color: #BBB;
+	opacity: 1;
+}
+
+::-moz-placeholder {
+	color: #BBB;
+	opacity: 1;
+}
+
+:-ms-input-placeholder {
+	color: #BBB;
+}
+
+::-ms-input-placeholder {
+	color: #BBB;
+}
+
+/* Health bar */
+
+#healthbar {
+	height: 26px;
+	width: 204px;
+	left: 50%;
+	margin-left: -102px;
+	top: 4px;
+	position: absolute;
+	pointer-events: none;
+}
+
+#healthbarbar {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background: url('../../files/gui/bbuilder_healthbar.png');
+	image-rendering: -moz-crisp-edges;
+}
+
+#hitpoints {
+	width: 0px;
+	height: 22px;
+	top: 2px;
+	left: 22px;
+	position: absolute;
+	background: #d83939;
+	-moz-transition: .5s width ease;
+	-webkit-transition: .5s width ease;
+	-o-transition: .5s width ease;
+	-ms-transition: .5s width ease;
+	transition: .5s width ease;
+	pointer-events: none;
+}
+
+/* Xol Overides */
+.showvshead {
+	background-size: 600px 200px !important;
+	position: absolute;
+	left: 45px !important;
+	top: 32px !important;
+	width: 160px !important;
+	height: 160px !important;
+}
+
+.showvshat {
+	background-size: 950px 250px !important;
+	position: absolute;
+	left: 1px !important;
+	top: -55px !important; 
+	width: 248px !important;
+	height: 240px !important;
+}
+
+.showvsname {
+	position: absolute;
+	left: 0px !important;
+	top: 190px !important;
+	width: 100% !important;
+	height: 60px !important;
+	color: #d3d3d3;
+}
+
+.showvswindow {
+	border-image: url(../../files/gui/westlaw_justus-windowborder.png) 128 128 fill repeat repeat !important;
+	border-image-source: url(../../files/gui/westlaw_justus-windowborder.png) !important;
+	border-image-slice: 128 fill !important;
+	border-image-width: 1 !important;
+	border-image-outset: 0 !important;
+}

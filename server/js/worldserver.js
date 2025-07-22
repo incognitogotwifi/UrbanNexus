@@ -18,7 +18,8 @@ var cls = require("./lib/class"),
     Messages = require('./message'),
     Properties = require("./properties"),
     Utils = require("./utils"),
-    Types = require("../../shared/js/gametypes");
+    Types = require("../../shared/js/gametypes"),
+    { storage } = require("../storage");
 
 var WorldServer = cls.Class.extend({
     init: function(id, config, log) {
@@ -232,6 +233,8 @@ var WorldServer = cls.Class.extend({
         var connection = this.connections[connectionId];
         
         if (connection && connection.player) {
+            // Save player position and stats to database
+            this.savePlayerData(connection.player, connection.playerProfile);
             this.removePlayer(connection.player);
         }
         
@@ -242,34 +245,129 @@ var WorldServer = cls.Class.extend({
     },
     
     handleHello: function(connection, message) {
+        var self = this;
         var playerName = message[1];
-        var player = this.createPlayer(connection, playerName);
         
-        connection.player = player;
-        this.players[player.id] = player;
-        this.playerCount++;
-        
-        // Send welcome message
-        var spawnPosition = this.getSpawnPosition();
-        this.sendToPlayer(player, [Messages.WELCOME, player.id, spawnPosition.x, spawnPosition.y, player.hitPoints]);
-        
-        // Send existing entities to new player
-        this.sendEntitiesTo(player);
-        
-        // Notify other players about new player
-        this.broadcastToOthers(player, [Messages.SPAWN, player.id, player.type, player.x, player.y, player.name]);
-        
-        console.info("Player '" + playerName + "' joined the game (id: " + player.id + ")");
+        // Try to find or create user in database
+        this.getOrCreatePlayer(playerName, function(user, playerProfile) {
+            var player = self.createPlayer(connection, playerName, user, playerProfile);
+            
+            connection.player = player;
+            connection.user = user;
+            connection.playerProfile = playerProfile;
+            self.players[player.id] = player;
+            self.playerCount++;
+            
+            // Send welcome message
+            var spawnPosition = self.getSpawnPosition();
+            self.sendToPlayer(player, [Messages.WELCOME, player.id, spawnPosition.x, spawnPosition.y, player.hitPoints]);
+            
+            // Send existing entities to new player
+            self.sendEntitiesTo(player);
+            
+            // Notify other players about new player
+            self.broadcastToOthers(player, [Messages.SPAWN, player.id, player.type, player.x, player.y, player.name]);
+            
+            console.info("Player '" + playerName + "' joined the game (id: " + player.id + ")");
+        });
     },
     
-    createPlayer: function(connection, name) {
+    getOrCreatePlayer: function(playerName, callback) {
+        storage.getUserByUsername(playerName)
+            .then(function(user) {
+                if (user) {
+                    // User exists, get their profile
+                    return storage.getPlayerProfile(user.id)
+                        .then(function(profile) {
+                            callback(user, profile);
+                        });
+                } else {
+                    // Create new user and profile
+                    return storage.createUser({ username: playerName })
+                        .then(function(newUser) {
+                            if (newUser) {
+                                return storage.createPlayerProfile({
+                                    userId: newUser.id,
+                                    characterName: playerName,
+                                    level: 1,
+                                    hitPoints: 100,
+                                    maxHitPoints: 100,
+                                    x: 50,
+                                    y: 50
+                                }).then(function(newProfile) {
+                                    callback(newUser, newProfile);
+                                });
+                            } else {
+                                // Fallback if database fails
+                                callback({ id: Date.now(), username: playerName }, null);
+                            }
+                        });
+                }
+            })
+            .catch(function(error) {
+                console.error("Database error in getOrCreatePlayer:", error);
+                // Fallback to temporary user
+                callback({ id: Date.now(), username: playerName }, null);
+            });
+    },
+
+    createPlayer: function(connection, name, user, playerProfile) {
         var player = new Player(this.generateEntityId(), name, this);
         player.connection = connection;
+        player.userId = user ? user.id : null;
+        player.profileId = playerProfile ? playerProfile.id : null;
         
-        var spawnPosition = this.getSpawnPosition();
+        var spawnPosition;
+        if (playerProfile) {
+            spawnPosition = { x: playerProfile.x, y: playerProfile.y };
+            player.level = playerProfile.level;
+            player.experience = playerProfile.experience;
+            player.hitPoints = playerProfile.hitPoints;
+            player.maxHitPoints = playerProfile.maxHitPoints;
+        } else {
+            spawnPosition = this.getSpawnPosition();
+        }
+        
         player.setPosition(spawnPosition.x, spawnPosition.y);
         
         return player;
+    },
+
+    savePlayerData: function(player, playerProfile) {
+        if (player && playerProfile && storage) {
+            storage.updatePlayerProfile(playerProfile.id, {
+                x: player.x,
+                y: player.y,
+                hitPoints: player.hitPoints,
+                level: player.level || 1,
+                experience: player.experience || 0
+            }).catch(function(error) {
+                console.error("Error saving player data:", error);
+            });
+        }
+    },
+
+    handleChat: function(connection, message) {
+        var chatMessage = message[1];
+        var player = connection.player;
+        
+        if (player && chatMessage) {
+            // Save chat message to database
+            if (connection.user && connection.playerProfile) {
+                storage.saveChatMessage({
+                    userId: connection.user.id,
+                    playerProfileId: connection.playerProfile.id,
+                    message: chatMessage,
+                    worldId: this.id
+                }).catch(function(error) {
+                    console.error("Error saving chat message:", error);
+                });
+            }
+            
+            // Broadcast chat message to all players
+            this.broadcast([Messages.CHAT, player.id, chatMessage]);
+            console.info("Chat from " + player.name + ": " + chatMessage);
+        }
     },
     
     removePlayer: function(player) {

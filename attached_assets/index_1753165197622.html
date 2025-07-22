@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge;chrome=1">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+
+        <link rel="apple-touch-icon" sizes="180x180" href="/Servers/server_1/facebook/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/Servers/server_1/facebook/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/Servers/server_1/facebook/favicon-16x16.png">
+
+        <!-- meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" -->
+        <!-- meta name="viewport" content="width=898, initial-scale=1, maximum-scale=1.0, user-scalable=no" -->
+        <meta name="viewport" content="width=898">
+
+        <link rel="stylesheet" href="/Servers/server_1/facebook/css/main.css?m=x1739732178" type="text/css">
+        <link rel="stylesheet" href="/Servers/server_1/facebook/css/newinterface.css?m=x1741902095" type="text/css">
+        <title>West Law by iAppsBeats</title>
+        
+        <!-- script src="/scripts/gameconfig_server_1.js?m=1723876423" type="text/javascript"></script -->
+        <script src="/Servers/server_1/facebook/gameconfig.js?m=1748206573" type="text/javascript"></script>
+    </head>
+
+    <body>
+        <noscript>
+            <div class="alert">
+                You need to enable JavaScript to play West Law.
+            </div>
+        </noscript>
+        <div id="gamecontainer" style="visibility:hidden; height:100%;">
+            <div id="canvas" class="grayed">
+                <div id="backgroundcontainer">
+                   <canvas id="background"></canvas>
+                </div>
+                <canvas id="entities"></canvas>
+            </div>
+            <div id="foreground"></div>
+            <div id="bar-container">
+                <div id="ingamedoms"></div>
+                <div id="healthbar" style="display:none;">
+                    <div id="hitpoints"></div>
+                    <div id="healthbarbar"></div>
+                </div>
+                <div id="coinscount">
+                    <span class="count">0</span>
+                </div>
+
+                <div id="minimap">
+                    <div id="minimapbackcontainer" class="storysmallcontainer" style="display:none;">
+                        <canvas id="minimapcanvasback" width=208 height=208></canvas>
+                    </div>
+                    <canvas id="minimapcanvas" width=144 height=144></canvas>
+                </div>
+                <div id="shipcontrols" style="display:none;">
+                    <div id="leaveshipbutton" class="gamewidebutton tooltip" help="Leave the ship!"></div>
+                    <div id="shipupbutton" class="shipbutton"></div>
+                    <div id="shipleftbutton" class="shipbutton"></div>
+                    <div id="shipdownbutton" class="shipbutton"></div>
+                    <div id="shiprightbutton" class="shipbutton"></div>
+                </div>
+                <div id="shortmessage"></div>
+                <div id="notifications">
+                    <div id="notificationprototype" class="notification" style="display:none;">
+                        <div class="notificationtext"></div>
+                    </div>
+                </div>
+
+                <div id="hotkeys">
+                    <div id="hotkey1" class="hotkey"><div class="hotkeyimage"></div><div class="hotkeynumber">1</div></div>
+                    <div id="hotkey2" class="hotkey"><div class="hotkeyimage"></div><div class="hotkeynumber">2</div></div>
+                    <!-- div id="hotkey3" class="hotkey"><div class="hotkeyimage"></div><div class="hotkeynumber">3</div></div>
+                    <div id="hotkey4" class="hotkey"><div class="hotkeyimage"></div><div class="hotkeynumber">4</div></div>
+                    <div id="hotkey5" class="hotkey"><div class="hotkeyimage"></div><div class="hotkeynumber">5</div></div -->
+                </div>
+                <div id="pinglabel"></div>
+                <!-- div id="movementhelp" style="display:none;"><div id="movementhelpad"></div></div -->
+                <div id="movepad" class="padmaxhalf"></div>
+                <div id="bombbutton"></div>
+                <div id="mode2button"><div class="hotkeynumber" style="right:0;left:28px;">X</div></div>
+                <div id="lightsbutton"><div class="hotkeynumber">Ctrl</div></div>
+                <div id="hornbutton"><div class="hotkeynumber">Space</div></div>
+                <div id="weaponpad" class="padmaxhalf"></div>
+
+                <div id="coinsbutton" class="gamebutton tooltip2" help="Get coins for cool items!"></div>
+                <!-- div id="invitebutton" class="gamebutton tooltip2" help="Invite friends to the game to build your clan!"></div -->
+                <div id="furniturebutton" class="gamebutton tooltip2" help="Get furniture for your house!" style="display:none;"></div>
+                <div id="postpicturebutton" class="gamebutton tooltip2" help="Share a story on Facebook or Twitter!">
+                    <img id="postpicturelogo" src="../files/gui/bbuilder_logosingle.png" style="display:none;">
+                </div>
+                <!-- div id="logoutbutton" class="gamebutton tooltip2" help="Logout from Account!"></div -->
+                <div id="fullscreenbutton" class="gamebutton tooltip2" help="Switch to Fullscreen!" style="display:block;"></div>
+                <div id="coinsarrow" class="bounce" style="display:none"></div>
+
+                <div id="recordinterface" style="display:none;">
+                    <div id="recordborder"></div>
+                    <div id="recordclosebutton" class="closebutton"><div class="closebuttonimage"></div></div>
+                    <div id="recordstartbutton"></div>
+                    <div id="recordstopbutton"></div>
+                </div>
+                <div id="scriptgui"></div>
+                <div id="registerbutton" class="gamebutton tooltip2" help="Register" style="display:none;">Register</div>
+
+                <canvas id="winnercanvas" width=118 height=60 style="display:none;"></canvas>
+                <div id="showvs" class="showvswindow" style="display:none;">
+                    <div id="showvsplayer1" class="showvsplayer">
+                        <div id="showvshead1" class="showvshead pixelimage"></div>
+                        <div id="showvshat1" class="showvshat pixelimage"></div>
+                        <div id="showvsname1" class="showvsname"></div>
+                    </div>
+                    <div class="showvsvs">VS</div>
+                    <div id="showvsplayer2" class="showvsplayer">
+                        <div id="showvshead2" class="showvshead pixelimage"></div>
+                        <div id="showvshat2" class="showvshat pixelimage"></div>
+                        <div id="showvsname2" class="showvsname"></div>
+                    </div>
+                </div>
+                <div id="showvswinner" class="showvswindow" style="display:none;">
+                    <div class="showvslabel">Winner:</div>
+                    <div id="showvsplayerw" class="showvsplayer">
+                        <div id="showvsheadw" class="showvshead pixelimage"></div>
+                        <div id="showvshatw" class="showvshat pixelimage"></div>
+                        <div id="showvsnamew" class="showvsname"></div>
+                        <div id="showvsstreak" class="showvsstreak"></div>
+                    </div>
+                </div>
+                <div id="showvsclans" class="showvswindow" style="display:none;">
+                    <div id="showvsclan1" class="showvsclan"></div>
+                    <div class="showvsclansvs">---VS---</div>
+                    <div id="showvsclan2" class="showvsclan"></div>
+                </div>
+                <div id="showvsclanwinner" class="showvswindow" style="display:none;">
+                    <div class="showvsclanlabel">Winner:</div>
+                    <div id="showvsclanw" class="showvsclan"></div>
+                </div>
+                <div id="clanchatbutton" class="gamebutton tooltip" help="Click to send messages to your clan!" style="display:none;"></div>
+                <div id="chatbutton" class="gamebutton tooltip" help="Click to chat with people!"></div>
+                <div id="menubutton" class="gamewidebutton tooltip" help="Open the menu!"></div>
+                <div id="homebutton" class="gamewidebutton tooltip" help="Go back to start!"></div>
+                <div id="pmbutton" class="gamebutton tooltip" help="View the message!" style="display:none;">
+                    <div id="pmbubble"></div>
+                    <div id="pmbadge" class="pmbadge">1</div>
+                </div>
+            </div>
+            <div id="chatbox" style="display:none;">
+                <form action="none" method="get" accept-charset="utf-8">
+                     <input id="chatinput" class="gp" type="text" maxlength="200" placeholder=" Type a chat message. Please be nice to other players!" autocomplete="off">
+                </form>
+            </div>
+            <div id="identifyscreen">
+                <div id="identifybuttons">
+                    <div id="identifycognitobutton" class="menuitem"><div class="identifybuttonimage"></div><div class="menuitemtext">Sign In Or Sign Up</div></div>
+                </div>
+                <div id="identifywait"><img src="../files/gui/bbuilder_spinner.gif" alt=""></div>
+
+                <div id="identifylinks" style="width:100%;">
+                    <a href="https://discord.gg/Fhx7w3pnvx" target="_blank">Discord</a>
+                    <a href="/privacypolicy.htm" style="float:right; margin-right:20px;" target="_blank">Privacy Policy</a>
+                </div>
+            </div>
+            <div id="deathscreen" style="display:none;">
+                <div class="deathwindow showvswindow">
+                    <div id="deathmessage">You died!</div>
+                    <div id="respawnbutton" class="startbutton"></div>
+                </div>
+            </div>
+            <div id="reconnectscreen" style="display:none;">
+                <div class="windowborder disconnectwindow">
+                    <p>The connection to the game server got interrupted.</p>
+                    <div id="reconnectbutton" class="startbutton"></div>
+                </div>
+            </div>
+        </div>
+        <div id="startscreen">
+            <div class="parchment-back">
+                <div class="parchment-replacer">
+                    <div id="playbutton" class="startbutton" style="background:none;">
+                        <img src="../files/gui/bbuilder_spinner.gif" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="errorscreen" style="display:none;">
+            <div class="windowborder disconnectwindow">
+                <h1>
+                    West Law is an online game!
+                </h1><br>
+                <p>
+                    To play you will need a browser which supports WebSockets, we recommend using the latest version of <a href="https://www.mozilla.org/en-US/firefox/new/" target="_blank">Firefox</a>, <a href="http://www.google.com/chrome/" target="_blank">Chrome</a> or Safari.
+                </p>
+            </div>
+        </div>
+		
+        <script type="text/javascript">
+            var logincookie = "xt:ghost";
+            var isSteam = (window.navigator && window.navigator.userAgent.indexOf(" Electron/") >= 0);
+            var isMobile = (window.navigator && window.navigator.userAgent.match(/(iPad|iPhone|iPod|Android|webOS|BlackBerry|Windows Phone)/g)? true : false);
+            var Config_Extern = { platform: (isSteam? "steam" : "web") };
+            var urlvars = {};
+            var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+                urlvars[key] = decodeURIComponent(value);
+            }); 
+            if (urlvars["logincookie"])
+                logincookie = urlvars["logincookie"];
+            window.autoStartGame = true;
+
+            // Check if Websockets are enabled
+            var supportsWebSocket = window.MozWebSocket || (window.WebSocket && 'CLOSING' in window.WebSocket.prototype);
+            if (!supportsWebSocket) {
+                document.getElementById("startscreen").style.display = "none";
+                document.getElementById("errorscreen").style.display = "block";
+            }
+
+            // Load mobile/desktop css
+            var fileref = document.createElement("link");
+            fileref.setAttribute("rel", "stylesheet");
+            fileref.setAttribute("type", "text/css");
+            if (isMobile)
+                fileref.setAttribute("href", "/Servers/server_1/facebook/css/mobile.css?m=x1689948835");
+            else
+                fileref.setAttribute("href", "/Servers/server_1/facebook/css/desktop.css?m=x1705876326");
+            document.getElementsByTagName("head")[0].appendChild(fileref);
+
+            // Steam/embed css
+            var embedCss;
+            if (urlvars["embed"] == "ios")
+                embedCss = "/Servers/server_1/facebook/css/ios.css?m=x1711997976";
+            else if (urlvars["embed"] == "android")
+                embedCss = "/Servers/server_1/facebook/css/android.css?m=x1711997976";
+            else if (urlvars["embed"] == "steam" || isSteam)
+                embedCss = "/Servers/server_1/facebook/css/steam.css?m=x1711997976";
+            if (embedCss) {
+                var fileref2 = document.createElement("link");
+                fileref2.setAttribute("rel", "stylesheet");
+                fileref2.setAttribute("type", "text/css");
+                fileref2.setAttribute("href", embedCss);
+                document.getElementsByTagName("head")[0].appendChild(fileref2);
+            }
+
+            // Load Facebook Javascript SDK for login
+            (function(d, s, id) { 
+             var js, fjs = d.getElementsByTagName(s)[0];
+             if (d.getElementById(id)) return;
+             js = d.createElement(s); js.id = id;
+             js.src = 'https://connect.facebook.net/en_US/sdk.js#version=v3.2&appId=265222025499658&frictionlessRequests=1';
+             fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
+        </script>
+        
+        <script src="/scripts/evaljs.js?m=1744045816"></script>        
+        <script src="/client/main.min.js?m=1750609252"></script>
+    </body>
+</html>

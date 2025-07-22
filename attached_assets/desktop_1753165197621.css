@@ -1,0 +1,14 @@
+/* Tooltips */
+.menuitem { cursor:pointer; }
+.tooltip, .tooltip2 { cursor:pointer; font-size:18px; text-shadow: 0 1px 0px #542c1b; }
+.tooltip:hover, .tooltip2:hover { -webkit-filter: brightness(1.25); filter: brightness(1.25); }
+.tooltip:hover:before { border: solid; border-color: rgba(0,0,0,0.6) transparent; border-width: 0px 6px 6px 6px; top: 100%; margin-top: -2px; content: ""; left: 50%; margin-left:-6px; position: absolute; z-index: 99; }
+.tooltip:hover:after { background: rgba(0,0,0,.6); border-radius: 5px; top:100%; margin-top:4px; color: #fff; content: attr(help); left: 0; padding: 5px 15px; position: absolute; z-index: 98; width: 170px; }
+
+.tooltip2:hover:before { border: solid; border-color: rgba(0,0,0,0.6) transparent; border-width: 0px 6px 6px 6px; top: 100%; margin-top: -2px; content: ""; right: 50%; margin-right:-6px; position: absolute; z-index: 99; }
+.tooltip2:hover:after { background: rgba(0,0,0,.6); border-radius: 5px; top:100%; margin-top:4px; color: #fff; content: attr(help); right: 0; padding: 5px 15px; position: absolute; z-index: 98; width: 170px; }
+
+.likebutton, .unlikebutton { cursor:pointer; }
+.likebutton:hover, .unlikebutton:hover, .itembuybutton:hover { -webkit-filter: brightness(1.25); filter: brightness(1.25); }
+
+.hotkey:hover { -webkit-filter: brightness(1.6); filter: brightness(1.6); }

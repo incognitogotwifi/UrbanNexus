@@ -1,0 +1,888 @@
+*:not(.resizablewindow *):not(ul.tree *) {
+  font-family: 'brothers' !important;
+}
+
+#outcontainer { width: 100%; height: 100%; }
+.grayed { -webkit-filter: grayscale(50%); filter: grayscale(50%); }
+
+/* Revive, disconnect, error screen */
+.disconnectwindow { width:640px; height:200px; max-width:100%; max-height:100%; text-align: center; }
+
+/* Popup windows border and background */
+.windowborder { border: 64px solid transparent; border-radius:28px; padding: 32px 32px; position:absolute; margin-left:auto; margin-right:auto; margin-top: auto; margin-bottom:auto; left: 0; right: 0; top: 0; bottom: 0; z-index:100; font-size: 20pt; letter-spacing: 1px; text-shadow: 0 1px 0px #542c1b; color:white; max-width: calc(100% - 128px); }
+.windowborder { border-image: url(../../files/gui/westlaw_justus-windowborder.png) 128 128 fill repeat repeat; }
+#deathscreen .windowborder { margin-top: initial; margin-bottomm:initial; top:50px; }
+
+/* Popup window title, menu items and close button */
+.titletext { width:100%; height:48px; position:absolute; left:-8px; top:-16px; font-size:36px; text-shadow: 0 3px 0px #542c1b; text-align:center; color:white; }
+.gameadminbadge { background:url(../../files/gui/bbuilder_gameadmin_badge.png); background-size:cover; width:113px; height:27px; position:absolute; top:100px; margin-right:auto; left:200; right:0; }
+
+.menuitem { width:94px; height:94px; float:left; position:relative; margin-top:10px; }
+.menuitemtext { position:absolute; width:100%; height:20px; top:69px; left: -6px; font-size:16px; text-shadow: 0 1px 0px #542c1b; text-align:center; pointer-events: none; }
+.menuitemtext2 { position:absolute; width:100%; text-align:center; pointer-events: none; }
+.menuitemsubtitle { position:absolute; width:100%; height:14px; right: 5px; bottom:5px; line-height:14px; font-size:14px; text-align:right; pointer-events: none; }
+.menuitemsmall { height: 88px; }
+.menuitem.selected { border: 4px solid #ffe060; border-radius: 12px; height:124px; }
+ 
+.closebutton { position:absolute; top:-40px; right:-32px; width:80px; height:80px; cursor:pointer; }
+.closebuttonimage { position:absolute; right:16px; top:28px; width:80px; height:40px; background:url(../../files/gui/westlaw_justus-exitbutton.png); background-size:contain; }
+
+.backbutton { background:url(../../files/gui/westlaw_justus-goback.png); position:absolute; top:-12px; left:-16px; width:80px; height:40px; }
+
+.likebutton { background:url(../../files/gui/bbuilder_likebutton2.png); position:absolute; bottom:5px; right:0px; width:80px; height:32px; background-size: contain; }
+.unlikebutton { background:url(../../files/gui/bbuilder_unlikebutton.png); position:absolute; bottom:5px; right:0px; width:80px; height:32px; background-size: contain; }
+
+.bigmapimage { background:url(../../files/gui/bbuilder_bigmap.jpg); position:absolute; left:0px; top:0px; width:12896px; height:8000px; }
+.button {position:absolute;cursor:pointer; color: white; border: 2px solid #8b5a41; border-radius:10px; outline: 2px solid #542c1b; box-sizing: border-box; box-shadow: 0 6px 0px #542c1b; background: rgba(124,77,52,1);}
+.button:disabled { color:lightgray; }
+.statuscontent { position: relative; left: 2px; } /* due to overflow:hidden, divs inside profile status needs to be moved 2px */
+
+#ingamedoms { position:absolute; overflow:hidden; left:0px; top:0px; width:100%; height:100%; }
+#ingamedoms iframe { overflow:hidden; }
+
+/* Position of game buttons */
+#chatbutton { left:80px; top:8px; }
+#clanchatbutton { left:130px; top:8px; }
+#menubutton { left: 8px; top: 8px; width: 60px !important; height: 60px !important; position: absolute; background-size: 60px !important; z-index: 100 !important;}
+#homebutton { left:8px; top:80px; }
+#pmbutton { left:183px; top:8px; }
+#pmbubble { width:100%; height:100%; background-size:contain; }
+#coinsbutton { right:5px; top:155px;}
+#helpbutton { right:200px; top:8px; }
+#invitebutton { right:200px; top:8px;  }
+#furniturebutton { right:200px; top:8px; }
+#postpicturebutton { right:160px; top:8px;  display: none; }
+#logoutbutton { right:160px; top:48px;  }
+#fullscreenbutton { right:160px; top:88px; display:none !important; }
+
+/* Image definitions for game and menu buttons */
+#chatbutton { background-image:url(../../files/gui/westlaw_justus-pubchat.png); background-repeat: no-repeat;}
+#clanchatbutton { background-image:url(../../files/gui/westlaw_justus-gangchat.png); background-repeat: no-repeat;}
+#menubutton { background-image:url(../../files/gui/justus-westlaw_menubutton.png); background-repeat: no-repeat;}
+#homebutton { background-image:url(../../files/gui/westlaw-justus_unsticktemp.png); background-repeat: no-repeat;}
+#pmbutton { background-image:url(../../files/gui/westlaw_justus-pmbutton.png); background-repeat: no-repeat;}
+#pmbubble { background-image:url(../../files/gui/westlaw_justus-pmbutton.png); background-repeat: no-repeat; }
+#helpbutton { background-image:url(../../files/gui/westlaw_justus-helpicon.png);background-repeat: no-repeat; }
+#invitebutton { background-image:url(../../files/gui/bbuilder_newbutton_invite.png); background-repeat: no-repeat;}
+#coinsbutton { background-image:url(../../files/gui/bbuilder_newbutton_buycoins.png); background-repeat: no-repeat;}
+#furniturebutton { background-image:url(../../files/gui/bbuilder_newbutton_furniture.png); background-repeat: no-repeat;}
+#postpicturebutton { background-image:url(../../files/gui/bbuilder_newbutton_share.png);background-repeat: no-repeat; }
+#logoutbutton { background-image:url(../../files/gui/westlaw_justus-logout.png); background-repeat: no-repeat;}
+#fullscreenbutton { background-image:url(../../files/gui/bbuilder_newbutton_fullscreen.png); background-repeat: no-repeat;}
+
+/* Size of game and menu buttons */
+
+.gamebutton { background-size: auto 40px; position:absolute; width:40px; height:40px; }
+.gamewidebutton { background-size: auto 40px; position:absolute; width:80px; height:40px; }
+.menuitemimage { background-size: auto 64px; background-repeat: no-repeat; position:absolute; left:16px; width:64px; height:64px; margin-left:auto; margin-right:auto; pointer-events: none; }
+.menuitemhat { clip: rect(0px, 64px, 72px, 0px) !important; left: 12px !important; top: -14px !important;}
+.storymenuimage { left:24px; top:36px; }
+
+/* Popups */
+#modal_background { position: absolute; width: 100%; height: 100%; z-index: 99; background: rgba(0,0,0,0.25); opacity: 0; left: 0px; top: 0px; }
+#likearrow { background: url("../../files/gui/bbuilder_likebutton.png"); width:78px; height:40px; position:absolute; left:30px; top:85px; }
+#coinsarrow { background: url("../../files/gui/bbuilder_coinsarrow.png"); width:117px; height:44px; position:absolute; right:168px; top:63px; pointer-events: none; }
+
+/* Map markers */
+.pin {
+  width: 120px;
+  height: 20px;
+  position: absolute;
+  margin: -48px 0px 0px -68px;
+
+  color: white;
+  font: bold 15px Coolvetica;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 2px 0 #000, 1px 2px 0 #000;
+  text-align:center;
+  padding: 8px 8px;
+}
+
+.friendpin {
+  width: 240px;
+  height: 20px;
+  position: absolute;
+  margin: -52px 0px 0px -128px;
+
+  color: gold;
+  font: bold 18px Coolvetica;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 2px 0 #000, 1px 2px 0 #000;
+  text-align:center;
+  padding: 8px 8px;
+}
+
+/* Input */
+.gamelink { color:lime; }
+input[type=text], input[type=number], textarea { height:24px; font-size:21px; }
+input[type=submit] { -webkit-appearance: button; width:120px; height:30px; font-size:21px; }
+input[type=checkbox] { width:24px; height:24px; }
+
+/* Images in GUI */
+
+.pixelimage { image-rendering: optimizeSpeed; image-rendering: -moz-crisp-edges; image-rendering: -webkit-optimize-contrast; image-rendering: optimize-contrast; image-rendering: pixelated; -ms-interpolation-mode: nearest-neighbor; } 
+.flipximage { -moz-transform: scaleX(-1); -o-transform: scaleX(-1); -webkit-transform: scaleX(-1); transform: scaleX(-1); filter: FlipH; -ms-filter: "FlipH"; }
+
+/* Movement help for Facebook version */
+
+#movementhelp { background:url(../../files/gui/bbuilder_movementhelp_fb.png); margin: auto; position: absolute; top: 0; left: 0; bottom: 0; right: 0; width:518px; height:518px; opacity: 0.8; }
+#movementhelpad { position:absolute; left: 20px; top: 274px; right: 15px; bottom: 15px; color:white; font-size:19px; text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; }
+
+/* Short message */
+
+#shortmessage { position:absolute; left: 0px; right: 0px; top: 60px; height: 30px; text-align:center; font-size: 20pt; text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 2px 0 #000, 1px 2px 0 #000; color:white; display:none; }
+
+#pinglabel { position:absolute; left: 0px; right: 0px; bottom: 15px; height: 20px; text-align:center; font-size: 15pt; text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 2px 0 #000, 1px 2px 0 #000; color:white; pointer-events:none; display:none; }
+
+
+/* PM blinking */
+
+@-moz-keyframes blink {
+    0% { opacity: 1; filter: none; }
+   50% { opacity: 0; filter: alpha(opacity=0); }
+  100% { opacity: 1; filter: none; }
+}
+@-webkit-keyframes blink {
+    0% { opacity: 1; filter: none; }
+   50% { opacity: 0; filter: alpha(opacity=0); }
+  100% { opacity: 1; filter: none; }
+}
+@keyframes blink {
+    0% { opacity: 1; filter: none; }
+   50% { opacity: 0; filter: alpha(opacity=0); }
+  100% { opacity: 1; filter: none; }
+}
+#pmbubble {
+  -webkit-animation: blink 1s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: steps(1, end);
+  -moz-animation: blink 1s;
+  -moz-animation-iteration-count: infinite;
+  -moz-animation-timing-function: steps(1, end);
+  -ms-animation: blink 1s;
+  -ms-animation-iteration-count: infinite;
+  -ms-animation-timing-function: steps(1, end);
+  animation: blink 1s;
+  animation-iteration-count: infinite;
+  animation-timing-function: steps(1, end);
+}
+
+.pmbadge { position:absolute; top: -6px; right:-6px; min-width:10px; padding:1px 2px 1px 2px; background-color:red; color:white; font-weight:bold; font-size:0.55em; border-radius:30px; box-shadow:1px 1px 1px gray; text-shadow:none; text-align:center; }
+
+/* Winner message */
+
+#winnercanvas { position:absolute; left:8px; top:90px; width:118px; height:60px; }
+
+/* Admin console */
+
+.chatnick { color: #1e1e1ebd; font-weight: 600; }
+
+.resizablewindow { -webkit-user-select: text; user-select: text; position: absolute; left: 10px; top: 10px; width:400px; height: 240px; max-width:100%; max-height:100%; background-color: rgba(35, 36, 35,0.8); border-width: 1px; border-color: black; border-radius: 4px; border-style: solid; z-index: 1000; resize: both; overflow: auto; }
+.resizablewindowtitle { position: absolute; left:0px; top:0px; right:0px; height:28px; padding-left: 5px; padding-top: 4px; -webkit-user-select: none; color: white; font-family: Verdana; font-size: 16px; cursor: move; }
+.resizablewindowtitle::after { content:attr(title); }
+.resizablewindowclose { background:url(../../files/gui/etherion_closebutton.png); background-size:contain; position: absolute; top: 2px; right: 2px; width:24px; height: 24px; cursor: pointer; }
+.adminconsoletext {position: absolute;left: 2px;right: 2px;bottom: 30px;top: 28px;background-color: #8b5a41;color: white;font-family: Verdana;font-size: 14px;padding: 2px;border-width: 0px;border-style: solid;border-color: gray;resize: none;overflow: auto;}
+.adminconsoleinputcontainer { position: absolute; left: 2px; bottom: 4px; right: 20px; height: 24px; }
+input[type=text].adminconsoleinput {width: 100%;height: 100%;padding: 0;padding-left: 2px;border-width: 0px;background-color: #1E1E1E;color: white;font-family: Verdana;font-size: 15px;border-width: 0px;border-style: solid;border-color: gray;resize: none;}
+.resizablewindowcontent { position:absolute; left:0px; right:0px; top:28px;bottom:40px; }
+.ace_editor * { font: 14px/normal 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace; }
+
+/* Custom uploads */
+.uploadstitched { padding: 10px; margin: 10px; background: #1e1e1ebd; color: #fff; font-size: 21px; font-weight: bold; line-height: 1.3em; border: 2px dashed #fff; border-radius: 10px; box-shadow: 0 0 0 4px #1e1e1ebd, 2px 1px 6px 4px rgba(10, 10, 0, 0.5); font-weight: normal; }
+.uploaddroptext { position:absolute; left:0px; right:0px; bottom:10px; text-align:center; -webkit-user-select:none; pointer-events:none; }
+
+/* Offerwall */
+.offer .menuitemimage { border-radius:15px; }
+.itembuybutton { background-size: auto 96px; background-repeat: no-repeat; position:absolute; width: 96px; height: 96px; cursor:pointer; }
+
+/* Notifications */
+#notifications, .notification {-moz-user-select:none;-webkit-user-select:none;-o-user-select:none;-ms-user-select:none;}
+#notifications {width:100%;left:0px;top:64px;bottom:0px;position:absolute;overflow:hidden; pointer-events: none; }
+.notification { position:relative; width:100%; height:auto; text-align:center; }
+.notificationtext { position:relative; width:auto; height:auto; max-width:calc(100% - 270px); /*background:rgba(20,90,20,0.5);*/ margin-right:60px; margin-bottom:4px; padding:0px 8px 0px 12px;border-radius:8px;color:rgba(255,255,255,0.8); display:inline-block; text-align:center; font-size: 18pt; text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 2px 0 #000, 1px 2px 0 #000; color:white; cursor:pointer; pointer-events: auto; }
+.notificationtitle { position:relative; float:left; min-height:30px; margin-right:16px; }
+.notificationbutton, .notificationbutton[type=submit] { position:relative; cursor:pointer; background:white; float:right; width:auto; min-width:60px; margin: 1px 2px 1px 0px; line-height:100%; border-radius:6px; }
+.dismissnotification { background-image:url(../../files/gui/bbuilder_dismissarrow.png); background-repeat: no-repeat; position:absolute; right:6px; top:8px; width:20px; height:20px; margin-left:8px; display:inline-block; }
+
+.pmtranslate { text-decoration:underline; color:lightblue; cursor:pointer; }
+.pmtranslated { color:lightblue; }
+
+/* Custom change to same brown as ui buttons */
+.notificationtext {
+ background: rgba(124, 77, 52, 0.5);
+}
+
+/* Hotkeys */
+#hotkeys { position:absolute; left: 0px; bottom:0px; right:128px; height:75px; overflow:hidden; }
+.hotkey { float:left; position:relative; width: 75px; height:75px; background-image:url(../../files/gui/westlaw-justus_hotkey.png); background-size:contain; cursor:pointer; }
+.hotkeynumber { color:white; position:absolute; right: 15px; top:10px; font-size:20px; pointer-events:none;  }
+.hotkeyimage { width:100%; height:100%; pointer-events:none; transform: translate(10px, 2px) rotate(225deg); }
+
+/* ShowVs spar display */
+
+.showvswindow { background:rgba(20,90,20,0.5);padding:0px 12px 0px 12px;border-radius:8px;color:white; text-align:center; position:absolute; margin-left:auto; margin-right:auto; margin-top: auto; margin-bottom:auto; left: 0; right: 0; top: 0; bottom: 0; font-size: 28px; line-height:28px; text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 2px 0 #000, 1px 2px 0 #000; color:white; max-width:100%; max-height:100%; }
+.deathwindow { width:640px; height:220px; margin-top: initial; margin-bottom: initial; top:50px; max-width:100%; max-height:100%; text-align: center; padding:20px; }
+#showvs { width:600px; height:250px;  }
+.showvsplayer { position:absolute; width:250px; height:100%;  }
+.showvshead { background-size: 480px 200px; position:absolute; left:45px; top:32px; width:160px; height:160px; }
+.showvshat { background-size: 480px 280px; position:absolute; left:45px; top:-16px; width:160px; height:240px; }
+.showvsvs { position:absolute; left:250px; top: 100px; width:100px; height: 100px; font-size: 48px; line-height:48px; }
+.showvsname { position:absolute; left:0px; top: 190px; width:100%; height: 60px; color:lightgray; }
+#showvsplayer1 { left:0px; }
+#showvsplayer2 { left:350px;  }
+
+#showvsclans { width:360px; height:300px; background:rgba(20,90,20,0.8);  }
+.showvsclan { position:absolute; left:0px; width:100%; height: 120px; font-size: 48px; line-height:48px; color:lightgray; }
+.showvsclansvs { position:absolute; left:0px; top: 120px; width:100%; height: 60px; font-size: 48px; line-height:48px; }
+#showvsclan1 { top:30px; }
+#showvsclan2 { top:200px; }
+
+#showvswinner { width:250px; height:330px; }
+#showvsplayerw { left:10px; top:60px; height:270px; }
+.showvslabel, .showvsclanlabel { position:absolute; left:0px;top:0px;width:100%;height:60px; font-size: 48px; line-height:48px; }
+.showvsstreak { position:absolute; left:0px;top:235px;width:100%;height:20px; font-size: 20px; line-height:20px; font-style: italic; }
+
+#showvsclanwinner { width:360px; height: 200px;  }
+#showvsclanw { top:80px; }
+
+/* Story interface */
+
+#recordinterface { position:absolute; margin-left: auto; margin-top: auto; margin-right:auto; margin-bottom: auto; left:0px;right:0; top:28px;bottom:0; width:256px; height:326px; }
+#recordborder { background:url(../../files/gui/bbuilder_recordborder.png); background-size:contain; position:absolute; width:256px;height:256px; left:0px;top:35px; }
+#recordclosebutton { right:-24px;top:-24px; }
+#recordstartbutton { background:url(../../files/gui/bbuilder_recordbutton.png); background-size:contain; position: absolute; left:88px; bottom:0px;width:80px;height:32px; cursor:pointer; }
+#recordstopbutton { background:url(../../files/gui/bbuilder_recordstopbutton.png); background-size:contain; position: absolute; left:88px; bottom:0px;width:80px;height:32px; cursor:pointer; display:none; }
+
+#recordborder.recording {
+  -webkit-animation: blink 1s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+  -moz-animation: blink 1s;
+  -moz-animation-iteration-count: infinite;
+  -moz-animation-timing-function: linear;
+  -ms-animation: blink 1s;
+  -ms-animation-iteration-count: infinite;
+  -ms-animation-timing-function: linear;
+  animation: blink 1s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+.storycanvas { border: 4px solid #006000; border-radius:24px; -webkit-mask-image: -webkit-radial-gradient(white, black); }
+.storymenu .menuitem { border: 4px solid #006000; border-radius:24px; margin-right: 8px; width: 114px; height: 114px;  }
+.storymenu .menuitem.selectedstory { border: 4px solid #ffe060; }
+.storymenu .menuitemtext { font-size: 18px; padding:4px; width:calc(100% - 8px); height:auto;top:0px;bottom:initial; background:rgba(0,0,0,0.4); border-radius:8px; border-top-left-radius:20px; border-top-right-radius:20px; }
+.storymenu .menuitemhead { left:32px !important; top:52px !important; }
+.storymenu .menuitemhat { left:32px !important; top:36px !important; }
+#playlistcontainer { margin-left: -8px; }
+.storysmallcontainer { border: 4px solid #006000; border-radius:6px; -webkit-mask-image: -webkit-radial-gradient(white, black); margin:-4px; overflow:hidden; position:absolute; width:144px; height:144px; }
+
+/* New profile */
+
+div[style*="width: 710px"] #newpopup_dialog {height: 458px !important; max-height: calc(100%) !important;}
+.profilefieldlabel { position:absolute; font-size:18px; width:180px; }
+.profilefield { position:absolute; right:-40px; top:0px; width: 218px; height: 434px; box-sizing: border-box; box-shadow: 0 0px 0px rgb(78 46 30 / 1); background: url(../../files/gui/westlaw_justus-statsimage5.png); background-size: contain; z-index: -1; }
+.profilebuttons { position:absolute;left:-18px;bottom:-18px;width:100%;width:calc(100% + 36px);height:44px; }
+.profilebutton { position:absolute; top:0px; height:100%; text-align:center; line-height: 1.6; cursor:pointer; border: 2px solid #8b5a41; border-radius:20px; outline: 2px solid #542c1b; box-sizing: border-box; box-shadow: 0 6px 0px #542c1b; background: rgba(124,77,52,1); }
+.profilebutton.selected:before { border: solid; border-color: #542c1b transparent; border-width: 0px 8px 8px 8px; top: 0px; margin-top: -12px; content: ""; left: 50%; margin-left:-8px; position: absolute; z-index: 99; }
+#profilebuttonsocial { left:0px; width:100px; }
+#profilebuttonprofile {left: 50%; transform: translateX(-50%); width: 300px; font-size: 22px;}
+#profilebuttonmore {right:23px; width:215px; font-size: 22px; }
+
+.profilehpback { position:absolute;left:0px;top:20px;width:180px;height:22px;border: 2px solid #ffffff; box-sizing: border-box;border-radius:15px; }
+.profilehp { position:absolute;left:0px;top:20px;height:22px;background:white; border: solid 2px #ffffff; box-sizing: border-box; border-radius:15px; }
+
+#profilecharacter { pointer-events: none;}
+
+.profile_specialtitle { position:absolute; right: 0px; top:22px; width:100%; font-size:22px; text-align: right; color:white;}
+.profile_specialtitle_level { font-size:12px;}
+.profile_specialtitle_id { position: relative; left: 50%; transform: translateX(-50%); top: 24px; width: 100px; height: 30px; font-size:16px; line-height: 1.8; letter-spacing: 1px; text-align: center; color: white; text-shadow: none; overflow: hidden; }
+.profile_specialtitle_id::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #542c1b; border: none; border-radius: 15px; z-index: -1; }
+.profile_achievementtitle { position:absolute; left:0px; top:4px; width:100%; font-size:22px; text-align:center; font-style:italic; color:#e0e0e0; display:block; line-height:18px; }
+.profile_achievementexp { font-size:18px; }
+.profile_value { font-size:16px; font-weight:400; border: none; outline: none;}
+.profile_id          { position:absolute; left:120px; top:48px; width:100%; text-align:center; font-style:italic; color:#e0e0e0;  }
+.profile_offlinetime::before { content: ""; display: inline-block; margin-left: 80px; margin-top: 24px; }
+.profile_offlinetime { position:absolute; top: 25px; }
+.profile_online::before { content: ""; display: inline-block; margin-left: 86px; margin-top: 23px; }
+.profile_online { position:absolute; top: 25px;}
+
+.profile_onlinetime::before { display: inline-block; font-size: 16px; margin-right: 50px; margin-left: 20px; vertical-align: top;}
+.profile_onlinetime  { position:absolute; left: 25px; top: 70px; display: inline-block; vertical-align: top; image-rendering: pixelated;}
+.profile_relationship::before { content: "Status:"; display: inline-block; font-size: 16px; margin-right: 5px; margin-left: 20px; }
+.profile_relationship { position:absolute; left:10px; top: 100px; vertical-align: top; display: inline-block;}
+.profile_coins:before { content: "Coins:"; display: inline-block; font-size: 16px; margin-right: 5px; margin-left: 20px;}
+.profile_coins { position:absolute; left:10px; top: 125px; vertical-align: top; display: inline-block; }
+.profile_faction:before { content: "Faction:"; display: inline-block; font-size: 16px; margin-right: 5px; margin-left: 20px;}
+.profile_faction { position:absolute; left:10px; top: 150px; vertical-align: top; display: inline-block;}
+
+.profile_kills:before { content: "Kills:"; display: inline-block; font-size: 16px; margin-right: 5px; margin-left: 20px;}
+.profile_kills { position:absolute; left:  10px; top:200px; vertical-align: top; display: inline-block; }
+.profile_spar:before { content: "Spar:"; display: inline-block; font-size: 16px; margin-right: 5px; margin-left: 20px;}
+.profile_spar { position:absolute; left: 10px; top:225px; vertical-align: top; display: inline-block;}
+.profile_mobkills:before { content: "Mob Kills:"; display: inline-block; font-size: 16px; margin-right: 5px; margin-left: 20px; }
+.profile_mobkills { position:absolute; left: 10px; top:250px; vertical-align: top; display: inline-block; }
+
+.profile_arrows:before { content: "Arrows:"; display: inline-block; font-size: 16px; margin-right: 5px; margin-left: 20px; }
+.profile_arrows { position:absolute; left:10px; top: 95px; vertical-align: top; display: none;}
+
+.profile_eventcoin:before { content: "Horse Shoes:"; display: inline-block; font-size: 16px; margin-right: 5px; margin-left: 20px;}
+.profile_eventcoin { position:absolute; left:  10px; top:300px; vertical-align: top; display: inline-block; }
+.profile_bombs:before { content: "Horses:"; display: inline-block; font-size: 16px; margin-right: 5px; margin-left: 20px;}
+.profile_bombs { position:absolute; left:10px; top: 325px; vertical-align: top; display: inline-block;}
+.profile_westlawcoins:before { content: "West Law Coins:"; display: inline-block; font-size: 16px; margin-right: 5px; margin-left: 20px;}
+.profile_westlawcoins { position:absolute; left: 10px; top:350px;vertical-align: top; display: inline-block; }
+.profile_eggs        { position:absolute; left:  0px; top:197px; }
+.profile_deaths      { position:absolute; left:  0px; top:235px; display:none; }
+.profile_holidayloot { position:absolute; left:  0px; top:270px; display:none;}
+.profile_holidayloot2 { position:absolute; left: 80px; top:270px; display:none;}
+.profile_holidayloot3 { position:absolute; left: 160px; top:270px; display:none;}
+.profile_status      { position: absolute; text-align: center; left: 50%; transform: translate(-50%, -50%); font-size: 18px; line-height: 2; height: 115px; width: 300px; right: 0; bottom: 16px; overflow: hidden;border: 2px solid #8b5a41; border-radius:20px; outline: 2px solid #542c1b; box-sizing: border-box; box-shadow: 0 6px 0px #542c1b; background: rgba(124,77,52,1);}
+.profile_status::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 2px solid transparent; outline: 2px solid transparent; border: none; box-sizing: border-box; border-radius: 25px; }
+.profile_kills .profile_value { color:red; text-shadow: 0 1px 0 black;}
+.profile_coins .profile_value { color:palegreen; }
+.profile_streak { font-style:italic; font-size:18px; }
+
+.profile_addfriend, .profile_removefriend { position:absolute; left: calc(100% - 220px); height:44px; width:215px; font-size:16px; line-height: 2; text-align:center; cursor:pointer; border: 2px solid #8b5a41; border-radius:20px; outline: 2px solid #542c1b; box-sizing: border-box; box-shadow: 0 6px 0px #542c1b; background: rgba(124,77,52,1); bottom:145px; cursor:pointer; z-index:1; }
+
+.profile_addmessage  { position:absolute; left: calc(100% - 220px); height:44px; width:215px; line-height: 1.5; font-size: 22px; text-align:center; cursor:pointer; border: 2px solid #8b5a41; border-radius:20px; outline: 2px solid #542c1b; box-sizing: border-box; box-shadow: 0 6px 0px #542c1b; background: rgba(124,77,52,1); bottom:74px; cursor:pointer; z-index:1; }
+.profile_viewclan    { position:absolute; right:20px; bottom:28px; font-size:20px; cursor:pointer; z-index:1; display:none; }
+.profile_ping        { position:absolute; left:  0px; top:305px; display:none;}
+.profile_like        { position:absolute; left:50px; font-size:20px; cursor:pointer; z-index:1; }
+.profile_editstatus {
+  width: auto !important;
+  font-size: 14px !important;
+  border: none;
+  box-shadow: none;
+  outline: none;
+  background: #542c1b;
+  display: inline-block;
+  padding: 0px 8px;
+  line-height: 1.8 !important;
+  height: 25px !important;
+  color: #8b5a41;
+  right: 246px !important;
+}
+
+
+/* Identify */
+#identifyscreen { position: absolute; left:0px; top:0px; width: 100%; height: 100%; z-index: 99; }
+#identifybuttons { position: absolute; width:240px; height:120px; left: 50%; margin-left:-120px; top: 50%; margin-top:-60px; }
+#identifyscreen .windowborder { display:none;position:absolute; width:320px; height:100px; left:50%;margin-left:-224px;top:50%;margin-top:-104px; }
+#identifyscreen .backbutton { position:absolute; left: -10px; width: 160px; top:-10px; height:40px; cursor:pointer; background-size:contain; background-repeat: no-repeat; }
+#identifyscreen .menuitem:hover,
+#identifyscreen .backbutton:hover,
+#identifyscreen input[type=submit]:hover { -webkit-filter: brightness(1.4); filter: brightness(1.4); }
+
+#identifybuttons .menuitem { position:absolute;top:0px;margin-top:0px;height:120px;cursor:pointer; background:rgba(0,64,0,0.5); border-radius:8px; text-align:center; text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 2px 0 #000, 1px 2px 0 #000; color:white; }
+.identifybuttonimage { position:absolute; left:5px; width:96px;height:96px; background-size:contain; }
+
+#identifydevicebutton.menuitem   { left:0px; }
+#identifydevicebutton .identifybuttonimage   { background-image:url(../../files/gui/bbuilder_newbutton_logindevice.png); }
+#identifyfacebookbutton.menuitem { left:56px; }
+#identifyfacebookbutton .identifybuttonimage { background-image:url(../../files/gui/bbuilder_newbutton_loginfacebook.png); }
+#identifygooglebutton.menuitem { left:0px; top: 0px; }
+#identifygooglebutton .identifybuttonimage { background-image:url(../../files/gui/bbuilder_newbutton_logingoogle.png); }
+#identifycognitobutton.menuitem { left:56px; }
+#identifycognitobutton .identifybuttonimage { background-image:url(../../files/gui/bbuilder_newbutton_loginnewuser.png); }
+#identifysteambutton.menuitem { left:240px; display:none; }
+#identifysteambutton .identifybuttonimage { background-image:url(../../files/gui/bbuilder_newbutton_loginsteam.png); }
+#identifyemailbutton.menuitem    { left:168px; }
+#identifyemailbutton.menuitem    { left:168px; }
+#identifyemailbutton .identifybuttonimage    { background-image:url(../../files/gui/bbuilder_newbutton_loginemail.png); }
+#identifynewuserbutton.menuitem  { left:280px; }
+#identifynewuserbutton .identifybuttonimage  { background-image:url(../../files/gui/bbuilder_newbutton_loginnewuser.png); }
+#identifyforumsbutton.menuitem   { left:168px; top: 128px; }
+#identifyforumsbutton .identifybuttonimage   { background-image:url(../../files/gui/bbuilder_newbutton_forum.png); }
+
+#identifyscreen label { position:absolute; left:20px; top:50px; }
+#identifyscreen label#identifynewuserdesc { right:20px; top:80px; font-size:20px; text-align:center; }
+#identifyscreen input[type=text], #identifyscreen input[type=password] { position:absolute; left:160px; right:20px; top:50px; height:24px; font-size:21px; }
+#identifyscreen input[type=submit] { position:absolute; width: 160px; left:50%; margin-left:-80px; bottom:0px; height:32px; }
+#identifyscreen input[type=submit]#identifynewusersendbutton { width:240px; margin-left:-120px;  }
+
+#identifywait { display:none; position:absolute; width:64px;height:64px; left:50%; margin-left:-32px; top:50%; margin-top:-32px; }
+#identifylinks { position:absolute; left:4px; bottom:4px; font-size:21px; color:#C0C0C0; }
+#identifylinks a:link { color:white; }
+#identifylinks a:visited { color:white; }
+
+/* Trading */
+.tradeitem { border: 4px solid #006000; border-radius:24px; margin-top:4px; margin-left:4px; height:88px; }
+.tradeitem .menuitemtext { top: 68px; font-size: 16px; line-height:14px; }
+.tradeplayername { position:absolute;text-align:center;width:100%;top:105px;font-style:italic;opacity:0.5; }
+#tradechattext { position: absolute; left: 0px; right: 0px; bottom: 36px; top: 0px; background-color: white; color: black; font-family: Verdana; font-size: 14px; padding: 2px; border-width: 1px; border-style: solid; border-color: gray; resize: none; overflow: auto; text-shadow: none; }
+#tradechatinputcontainer { position: absolute; left: 0px; bottom: 4px; right: 4px; height: 30px; }
+#tradechatinput { position:absolute; width: 100%; height: 100%; padding: 0; padding-left: 2px; border-width: 0px; background-color: white; color: black; font-family: Verdana; font-size: 21px; border-width: 1px; border-style: solid; border-color: gray; resize: none; }
+.tradebutton { width:70px; height: 70px; margin: 0 16px 0 -16px; }
+.tradehistoryitem { height: 88px;  }
+.tradehistoryitem .menuitemtext { font-size:18px; line-height:16px; top:64px;  }
+
+/* Tree */
+
+ul.tree, ul.tree ul { list-style: none; margin: 0; padding: 0; }
+ul.tree { display: none; }
+ul.tree.active { display: block; }
+ul.tree ul { margin-left: 1.0em; }
+ul.tree li { margin-left: 0.35em; border-left: thin solid #000; }
+ul.tree li:last-child { border-left: none; }
+ul.tree li:before { width: 0.9em; height: 0.6em; margin-right: 0.1em; vertical-align: top; border-bottom: thin solid #000; content: ""; display: inline-block; }
+ul.tree li:last-child:before { border-left: thin solid #000; }
+ul.tree .foldertitle, ul.tree li { -webkit-user-select: none; user-select: none; cursor:pointer; }
+ul.tree .foldertitle:before { content:""; display:inline-block; margin: 0 4px 0 0; width:1em; height:1em; background:url(../../files/gui/bbuilder_fileicon_folder.png); background-size: contain; }
+ul.tree .foldertitle.active:before { background-image:url(../../files/gui/bbuilder_fileicon_folderopen.png); }
+ul.tree .filetitle { background-image: url(../../files/gui/bbuilder_fileicon_default.png); background-size: 0; }
+ul.tree .filetitle:before { content:""; display:inline-block; margin: 0 4px 0 0; width:1em; height:1em; background-image: inherit; background-size: contain; }
+
+/* Right-click menu */
+
+.contextmenu_background { position:absolute; left:0px; top:0px; width:100%; height:100%; z-index:200; }
+.contextmenucontainer { background:rgba(0,0,0,.6); border-radius:5px; position:absolute; line-height:40px; z-index:201; color:white; font-size:20px; padding: 5px 15px; cursor:pointer; text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 2px 0 #000, 1px 2px 0 #000; }
+.contextmenu { float:left; clear:left; width:100%; }
+
+
+
+/*  Custom Changes for player hat / head due to template change */
+/* Notification head */
+.notificationtext > img.pixelimage:nth-child(1) {
+  /*  rect( <top> , <right> , <bottom> , <left> )   */
+   clip: rect(0px 48px 48px 0px) !important; 
+  left: 0px !important;
+  top: 10px !important;
+}
+
+/* Notification hat */
+.notificationtext > img.pixelimage:nth-child(2) {
+  /*  rect( <top> , <right> , <bottom> , <left> )   */
+   clip: rect(0px 78px 78px 0px) !important; 
+  left: -12px  !important;
+  top: -11px  !important;
+}
+
+/* Clan Stuff */
+.clan_news     { position:absolute; left:325px; top:0px; width:300px; height:270px; overflow:hidden; border-style: solid; border-width: 2px; border-radius: 10px; padding: 5px 5px; }
+.clan_logo     { position:absolute; left:55px; top:0px; width:200px; height:200px; }
+.clan_leader   { position:absolute; left:5px; top:205px; width:300px; }
+.clan_founded  { position:absolute; left:5px; top:245px; width:300px; }
+.clan_jointime { position:absolute; left:5px; top:76px; width:300px; display: none; }
+.clan_basetime { position:absolute; left:5px; top:285px; width:300px; }
+.clan_kills    { position:absolute; left:5px; top:325px; width:300px; }
+.clan_spar     { position:absolute; left:5px; top:190px; width:300px; display: none; }
+.clan_members  { position:absolute; left:5px; top:365px; width:180px; }
+.clan_value    { position:absolute; top:0px; right:0px; }
+.clan_editnews { position:absolute; right:25px; top:300px; width:160px !important; height:40px !important; }
+.clan_settag { position:absolute; right:25px; top:0px; width:145px !important; height:40px !important; }
+.clan_showmembers { position:absolute; left:200px; top:360px; width:105px !important; height:40px !important; }
+div[style*="position: absolute"][style*="left: 0px"][style*="bottom: 0px"][style*="width: 640px"][style*="height: 120px"] .menuitem .menuitemimage {
+  display: none !important;
+}
+div[style*="position: absolute"][style*="left: 0px"][style*="bottom: 0px"][style*="width: 640px"][style*="height: 120px"] .menuitem .menuitemtext {
+    font-size: 21px;
+    cursor: pointer;
+    color: #fff;
+    border: 2px solid #8b5a41;
+    border-radius: 10px;
+    outline: 2px solid #542c1b;
+    box-sizing: border-box;
+    box-shadow: 0 6px 0 #542c1b;
+    background: #7c4d34;
+    top: 54px;
+    height: 38px;
+    width: 160px;
+    left: -67px;
+    line-height: 32px;
+  }
+
+  .pixelimage[style*="hats/"] {
+    width: 72px !important;
+    height: 72px !important;
+    left: -30px !important;
+    top: -32px !important;
+    clip: rect(0px, 72px, 72px, 0px) !important;
+}
+
+#clanscorestext div[style*="height:48px"] .pixelimage[src*="hats/"] {
+  margin-left: -16px !important;
+  margin-top: -26px !important;
+  clip: rect(0px 72px 72px 0px) !important;
+}
+
+#clanscorestext [id^="playerscorelink"] {
+  color: gold !important; 
+}
+
+#clanscorestext div[style*="height:48px"] .gamelink[id^="playerscorelink"] {
+  position: absolute !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  margin-left: 0 !important;
+  text-align: center !important;
+}
+
+#clanscorestext div[style*="height:48px"] div[style*="width:180px"][style*="float:right"] {
+  color: red !important;
+}
+
+#clanscorestext div[style*="height:160px"] > .pixelimage:nth-of-type(1) {
+  -webkit-transform: scale(2.5) !important;
+  transform: scale(2.5) !important;
+}
+
+#clanscorestext div[style*="height:160px"] > .pixelimage:nth-of-type(2) {
+  -webkit-transform: scale(2) !important;
+  transform: scale(2) !important;
+}
+
+#clanscorestext div[style*="height:160px"] > .pixelimage:nth-of-type(2) {
+  -webkit-transform: scale(1.5) !important;
+  transform: scale(1.5) !important;
+}
+
+#clanscorestext div[style*="height:160px"] {
+  height: 240px !important; 
+}
+
+/* First parent's images */
+#clanscorestext div[style*="height:160px"] > .pixelimage:nth-of-type(1) img[src*="/heads/"] {
+  left: 110px !important; 
+}
+#clanscorestext div[style*="height:160px"] > .pixelimage:nth-of-type(1) img[src*="/hats/"] {
+  left: 98px !important;
+  top: -5px !important;
+  clip: rect(0px 72px 72px 0px) !important;
+}
+
+#clanscorestext div[style*="height:160px"] > .pixelimage:nth-of-type(2) img[src*="/hats/"] {
+  left: 18px !important; 
+  top: 5px !important; 
+  clip: rect(0px 72px 72px 0px) !important; 
+}
+
+#clanscorestext div[style*="height:160px"] .gamelink[id="playerscorelink0"] {
+  top: 165px !important;
+}
+
+#clanscorestext div[style*="height:160px"] .gamelink[id="playerscorelink1"] {
+  top: 145px !important;
+}
+
+#clanscorestext div[style*="height:160px"] .gamelink[id="playerscorelink2"] {
+  top: 145px !important;
+}
+
+
+#clanscorestext div[style*="height:160px"] > div[style*="left:370px"][style*="top:86px"] {
+  top: 202.5px !important; 
+  left: 52% !important; 
+  transform: translateX(-50%) !important; 
+}
+
+#clanscorestext div[style*="height:160px"] > div[style*="left:140px"][style*="top:106px"] {
+  top: 182.5px !important; 
+  left: 40px !important; 
+}
+
+#clanscorestext div[style*="height:160px"] > div[style*="left:580px"][style*="top:106px"] {
+  top: 182.5px !important; 
+  left: 485px !important; 
+}
+
+#clanscorestext div[style*="height:48px"] .pixelimage[src*="hats/"] {
+  margin-left: -16px !important;
+  margin-top: -26px !important;
+  clip: rect(0px 72px 72px 0px) !important;
+}
+
+#clanscorestext [id^="playerscorelink"] {
+  color: gold !important; 
+}
+
+#clanscorestext div[style*="height:48px"] .gamelink[id^="playerscorelink"] {
+  position: absolute !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  margin-left: 0 !important;
+  text-align: center !important;
+}
+
+#clanscorestext div[style*="height:48px"] div[style*="width:180px"][style*="float:right"] {
+  color: red !important;
+}
+
+#clanscorestext div[style*="height:160px"] > .pixelimage:nth-of-type(1) {
+  -webkit-transform: scale(2.5) !important;
+  transform: scale(2.5) !important;
+}
+
+#clanscorestext div[style*="height:160px"] > .pixelimage:nth-of-type(2) {
+  -webkit-transform: scale(2) !important;
+  transform: scale(2) !important;
+}
+
+#clanscorestext div[style*="height:160px"] > .pixelimage:nth-of-type(2) {
+  -webkit-transform: scale(1.5) !important;
+  transform: scale(1.5) !important;
+}
+
+#clanscorestext div[style*="height:160px"] {
+  height: 240px !important; 
+}
+
+/* First parent's images */
+#clanscorestext div[style*="height:160px"] > .pixelimage:nth-of-type(1) img[src*="/heads/"] {
+  left: 110px !important; 
+}
+#clanscorestext div[style*="height:160px"] > .pixelimage:nth-of-type(1) img[src*="/hats/"] {
+  left: 98px !important;
+  top: -5px !important;
+  clip: rect(0px 72px 72px 0px) !important;
+}
+
+#clanscorestext div[style*="height:160px"] > .pixelimage:nth-of-type(2) img[src*="/hats/"] {
+  left: 18px !important; 
+  top: 5px !important; 
+  clip: rect(0px 72px 72px 0px) !important; 
+}
+
+#clanscorestext div[style*="height:160px"] .gamelink[id="playerscorelink0"] {
+  top: 165px !important;
+}
+
+#clanscorestext div[style*="height:160px"] .gamelink[id="playerscorelink1"] {
+  top: 145px !important;
+}
+
+#clanscorestext div[style*="height:160px"] .gamelink[id="playerscorelink2"] {
+  top: 145px !important;
+}
+
+
+#clanscorestext div[style*="height:160px"] > div[style*="left:370px"][style*="top:86px"] {
+  top: 202.5px !important; 
+  left: 52% !important; 
+  transform: translateX(-50%) !important; 
+}
+
+#clanscorestext div[style*="height:160px"] > div[style*="left:140px"][style*="top:106px"] {
+  top: 182.5px !important; 
+  left: 40px !important; 
+}
+
+#clanscorestext div[style*="height:160px"] > div[style*="left:580px"][style*="top:106px"] {
+  top: 182.5px !important; 
+  left: 485px !important; 
+}
+
+#clanscorestext div[style*="height:160px"] > div[style*="left:580px"][style*="top:106px"] {
+  top: 182.5px !important; 
+  left: 485px !important; 
+}
+
+#clanscorestext div[style*="height:160px"] > .pixelimage:nth-of-type(3) img[src*="/hats/"] {
+  position: absolute !important;
+  position: absolute !important;
+  left: 238px !important;  
+  top: 5px !important;   
+  clip: rect(0px 72px 72px 0px) !important;  
+}
+
+#clanscorestext div[style*="height:160px"] > .pixelimage:nth-of-type(3) {
+  -webkit-transform: scale(2) !important;
+  transform: scale(2) !important;
+  position: absolute !important;
+}
+
+/* Player Scores */ 
+
+#playerscorestext div[style*="height:48px"] .pixelimage[src*="hats/"] {
+  margin-left: -16px !important;
+  margin-top: -26px !important;
+  clip: rect(0px 72px 72px 0px) !important;
+}
+
+#playerscorestext [id^="playerscorelink"] {
+  color: gold !important; 
+}
+
+#playerscorestext div[style*="height:48px"] .gamelink[id^="playerscorelink"] {
+  position: absolute !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  margin-left: 0 !important;
+  text-align: center !important;
+}
+
+#playerscorestext div[style*="height:48px"] div[style*="width:180px"][style*="float:right"] {
+  color: red !important;
+}
+
+#playerscorestext div[style*="height:160px"] > .pixelimage:nth-of-type(1) {
+  -webkit-transform: scale(2.5) !important;
+  transform: scale(2.5) !important;
+}
+
+#playerscorestext div[style*="height:160px"] > .pixelimage:nth-of-type(2) {
+  -webkit-transform: scale(2) !important;
+  transform: scale(2) !important;
+}
+
+#playerscorestext div[style*="height:160px"] > .pixelimage:nth-of-type(2) {
+  -webkit-transform: scale(1.5) !important;
+  transform: scale(1.5) !important;
+}
+
+#playerscorestext div[style*="height:160px"] {
+  height: 240px !important; 
+}
+
+#playerscorestext div[style*="height:160px"] > .pixelimage:nth-of-type(1) img[src*="/heads/"] {
+  left: 110px !important; 
+}
+#playerscorestext div[style*="height:160px"] > .pixelimage:nth-of-type(1) img[src*="/hats/"] {
+  left: 98px !important;
+  top: -5px !important;
+  clip: rect(0px 72px 72px 0px) !important;
+}
+
+#playerscorestext div[style*="height:160px"] > .pixelimage:nth-of-type(2) img[src*="/hats/"] {
+  left: 18px !important;
+  top: 5px !important;
+  clip: rect(0px 72px 72px 0px) !important;
+}
+
+#playerscorestext div[style*="height:160px"] > .pixelimage:nth-of-type(3) img[src*="/hats/"] {
+  left: 238px !important;
+  top: 5px !important;
+  clip: rect(0px 72px 72px 0px) !important;
+}
+
+#playerscorestext div[style*="height:160px"] .gamelink[id="playerscorelink0"] {
+  top: 165px !important;
+}
+
+#playerscorestext div[style*="height:160px"] .gamelink[id="playerscorelink1"] {
+  top: 145px !important;
+}
+
+#playerscorestext div[style*="height:160px"] .gamelink[id="playerscorelink2"] {
+  top: 145px !important;
+}
+
+
+#playerscorestext div[style*="height:160px"] > div[style*="left:370px"][style*="top:86px"] {
+  top: 202.5px !important; 
+  left: 52% !important; 
+  transform: translateX(-50%) !important; 
+}
+
+#playerscorestext div[style*="height:160px"] > div[style*="left:140px"][style*="top:106px"] {
+  top: 182.5px !important; 
+  left: 40px !important; 
+}
+
+#playerscorestext div[style*="height:160px"] > div[style*="left:580px"][style*="top:106px"] {
+  top: 182.5px !important; 
+  left: 485px !important; 
+}
+
+#playerscorestext div[style*="height:48px"] .pixelimage[src*="hats/"] {
+  margin-left: -16px !important;
+  margin-top: -26px !important;
+  clip: rect(0px 72px 72px 0px) !important;
+}
+
+#playerscorestext [id^="playerscorelink"] {
+  color: gold !important; 
+}
+
+#playerscorestext div[style*="height:48px"] .gamelink[id^="playerscorelink"] {
+  position: absolute !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  margin-left: 0 !important;
+  text-align: center !important;
+}
+
+#playerscorestext div[style*="height:48px"] div[style*="width:180px"][style*="float:right"] {
+  color: red !important;
+}
+
+#playerscorestext div[style*="height:160px"] > .pixelimage:nth-of-type(1) {
+  -webkit-transform: scale(2.5) !important;
+  transform: scale(2.5) !important;
+}
+
+#playerscorestext div[style*="height:160px"] > .pixelimage:nth-of-type(2) {
+  -webkit-transform: scale(2) !important;
+  transform: scale(2) !important;
+}
+
+#playerscorestext div[style*="height:160px"] > .pixelimage:nth-of-type(2) {
+  -webkit-transform: scale(1.5) !important;
+  transform: scale(1.5) !important;
+}
+
+#playerscorestext div[style*="height:160px"] {
+  height: 240px !important; 
+}
+
+#playerscorestext div[style*="height:160px"] > .pixelimage:nth-of-type(1) img[src*="/heads/"] {
+  left: 110px !important; 
+}
+#playerscorestext div[style*="height:160px"] > .pixelimage:nth-of-type(1) img[src*="/hats/"] {
+  left: 98px !important;
+  top: -5px !important;
+  clip: rect(0px 72px 72px 0px) !important;
+}
+
+#playerscorestext div[style*="height:160px"] > .pixelimage:nth-of-type(2) img[src*="/hats/"] {
+  left: 18px !important; 
+  top: 5px !important; 
+  clip: rect(0px 72px 72px 0px) !important; 
+}
+
+#playerscorestext div[style*="height:160px"] .gamelink[id="playerscorelink0"] {
+  top: 165px !important;
+}
+
+#playerscorestext div[style*="height:160px"] .gamelink[id="playerscorelink1"] {
+  top: 145px !important;
+}
+
+#playerscorestext div[style*="height:160px"] .gamelink[id="playerscorelink2"] {
+  top: 145px !important;
+}
+
+
+#playerscorestext div[style*="height:160px"] > div[style*="left:370px"][style*="top:86px"] {
+  top: 202.5px !important; 
+  left: 52% !important; 
+  transform: translateX(-50%) !important; 
+}
+
+#playerscorestext div[style*="height:160px"] > div[style*="left:140px"][style*="top:106px"] {
+  top: 182.5px !important; 
+  left: 40px !important; 
+}
+
+#playerscorestext div[style*="height:160px"] > div[style*="left:580px"][style*="top:106px"] {
+  top: 182.5px !important; 
+  left: 485px !important; 
+}
+
+#playerscorestext div[style*="height:160px"] > div[style*="left:580px"][style*="top:106px"] {
+  top: 182.5px !important; 
+  left: 485px !important; 
+}
+
+.itembuybutton center div {
+    display: none !important;
+}
+
+#newpopup_dialog:has(.itembuybutton) .pixelimage {
+  left: 108px !important; 
+  -ms-transform: scale(2) !important;;
+  -webkit-transform: scale(2) !important;;
+  transform: scale(2) !important;;
+}
+
+#newpopup_dialog:has(.itembuybutton) .pixelimage img {
+  clip: rect(0px 72px 72px 0px) !important;
+}
