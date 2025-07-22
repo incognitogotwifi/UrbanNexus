@@ -2,92 +2,217 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge;chrome=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+
+    <meta name="viewport" content="width=898">
+
+    <link rel="stylesheet" href="css/main.css" type="text/css">
+    <link rel="stylesheet" href="css/newinterface.css" type="text/css">
+    <title>West Law - BrowserQuest</title>
     
-    <title>BrowserQuest</title>
-    
-    <link rel="stylesheet" type="text/css" href="css/main.css">
-    <link rel="stylesheet" type="text/css" href="css/game.css">
-    <link rel="stylesheet" type="text/css" href="css/intro.css">
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
-    
-    <script data-main="js/main" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.9/require.min.js"></script>
+    <script src="js/gameconfig.js" type="text/javascript"></script>
 </head>
 
 <body>
-    <div id="container">
-        <div id="intro">
-            <h1 id="logo">BrowserQuest</h1>
-            <div id="parchment" class="parchment">
-                <div id="loginbox">
-                    <div id="logintitle">Enter your name</div>
-                    <input type="text" id="nameinput" class="input" name="player-name" maxlength="15" autocomplete="off" />
-                    <div id="loginbutton">Create character</div>
+    <noscript>
+        <div class="alert">
+            You need to enable JavaScript to play West Law.
+        </div>
+    </noscript>
+    <div id="gamecontainer" style="visibility:hidden; height:100%;">
+        <div id="canvas" class="grayed">
+            <div id="backgroundcontainer">
+               <canvas id="background"></canvas>
+            </div>
+            <canvas id="entities"></canvas>
+        </div>
+        <div id="foreground"></div>
+        <div id="bar-container">
+            <div id="ingamedoms"></div>
+            <div id="healthbar" style="display:none;">
+                <div id="hitpoints"></div>
+                <div id="healthbarbar"></div>
+            </div>
+            <div id="coinscount">
+                <span class="count">0</span>
+            </div>
+
+            <div id="minimap">
+                <div id="minimapbackcontainer" class="storysmallcontainer" style="display:none;">
+                    <canvas id="minimapcanvasback" width=208 height=208></canvas>
+                </div>
+                <canvas id="minimapcanvas" width=144 height=144></canvas>
+            </div>
+            <div id="shipcontrols" style="display:none;">
+                <div id="leaveshipbutton" class="gamewidebutton tooltip" help="Leave the ship!"></div>
+                <div id="shipupbutton" class="shipbutton"></div>
+                <div id="shipleftbutton" class="shipbutton"></div>
+                <div id="shipdownbutton" class="shipbutton"></div>
+                <div id="shiprightbutton" class="shipbutton"></div>
+            </div>
+            <div id="shortmessage"></div>
+            <div id="notifications">
+                <div id="notificationprototype" class="notification" style="display:none;">
+                    <div class="notificationtext"></div>
+                </div>
+            </div>
+
+            <div id="hotkeys">
+                <div id="hotkey1" class="hotkey"><div class="hotkeyimage"></div><div class="hotkeynumber">1</div></div>
+                <div id="hotkey2" class="hotkey"><div class="hotkeyimage"></div><div class="hotkeynumber">2</div></div>
+            </div>
+            <div id="pinglabel"></div>
+            <div id="movepad" class="padmaxhalf"></div>
+            <div id="bombbutton"></div>
+            <div id="mode2button"><div class="hotkeynumber" style="right:0;left:28px;">X</div></div>
+            <div id="lightsbutton"><div class="hotkeynumber">Ctrl</div></div>
+            <div id="hornbutton"><div class="hotkeynumber">Space</div></div>
+            <div id="weaponpad" class="padmaxhalf"></div>
+
+            <div id="coinsbutton" class="gamebutton tooltip2" help="Get coins for cool items!"></div>
+            <div id="furniturebutton" class="gamebutton tooltip2" help="Get furniture for your house!" style="display:none;"></div>
+            <div id="postpicturebutton" class="gamebutton tooltip2" help="Share a story on Facebook or Twitter!">
+                <img id="postpicturelogo" src="../files/gui/bbuilder_logosingle.png" style="display:none;">
+            </div>
+            <div id="fullscreenbutton" class="gamebutton tooltip2" help="Switch to Fullscreen!" style="display:block;"></div>
+            <div id="coinsarrow" class="bounce" style="display:none"></div>
+
+            <div id="recordinterface" style="display:none;">
+                <div id="recordborder"></div>
+                <div id="recordclosebutton" class="closebutton"><div class="closebuttonimage"></div></div>
+                <div id="recordstartbutton"></div>
+                <div id="recordstopbutton"></div>
+            </div>
+            <div id="scriptgui"></div>
+            <div id="registerbutton" class="gamebutton tooltip2" help="Register" style="display:none;">Register</div>
+
+            <canvas id="winnercanvas" width=118 height=60 style="display:none;"></canvas>
+            <div id="showvs" class="showvswindow" style="display:none;">
+                <div id="showvsplayer1" class="showvsplayer">
+                    <div id="showvshead1" class="showvshead pixelimage"></div>
+                    <div id="showvshat1" class="showvshat pixelimage"></div>
+                    <div id="showvsname1" class="showvsname"></div>
+                </div>
+                <div class="showvsvs">VS</div>
+                <div id="showvsplayer2" class="showvsplayer">
+                    <div id="showvshead2" class="showvshead pixelimage"></div>
+                    <div id="showvshat2" class="showvshat pixelimage"></div>
+                    <div id="showvsname2" class="showvsname"></div>
+                </div>
+            </div>
+            <div id="showvswinner" class="showvswindow" style="display:none;">
+                <div class="showvslabel">Winner:</div>
+                <div id="showvsplayerw" class="showvsplayer">
+                    <div id="showvsheadw" class="showvshead pixelimage"></div>
+                    <div id="showvshatw" class="showvshat pixelimage"></div>
+                    <div id="showvsnamew" class="showvsname"></div>
+                    <div id="showvsstreak" class="showvsstreak"></div>
+                </div>
+            </div>
+            <div id="showvsclans" class="showvswindow" style="display:none;">
+                <div id="showvsclan1" class="showvsclan"></div>
+                <div class="showvsclansvs">---VS---</div>
+                <div id="showvsclan2" class="showvsclan"></div>
+            </div>
+            <div id="showvsclanwinner" class="showvswindow" style="display:none;">
+                <div class="showvsclanlabel">Winner:</div>
+                <div id="showvsclanw" class="showvsclan"></div>
+            </div>
+            <div id="clanchatbutton" class="gamebutton tooltip" help="Click to send messages to your clan!" style="display:none;"></div>
+            <div id="chatbutton" class="gamebutton tooltip" help="Click to chat with people!"></div>
+            <div id="menubutton" class="gamewidebutton tooltip" help="Open the menu!"></div>
+            <div id="homebutton" class="gamewidebutton tooltip" help="Go back to start!"></div>
+            <div id="pmbutton" class="gamebutton tooltip" help="View the message!" style="display:none;">
+                <div id="pmbubble"></div>
+                <div id="pmbadge" class="pmbadge">1</div>
+            </div>
+        </div>
+        <div id="chatbox" style="display:none;">
+            <form action="none" method="get" accept-charset="utf-8">
+                 <input id="chatinput" class="gp" type="text" maxlength="200" placeholder=" Type a chat message. Please be nice to other players!" autocomplete="off">
+            </form>
+        </div>
+        <div id="identifyscreen">
+            <div id="identifybuttons">
+                <div id="identifycognitobutton" class="menuitem"><div class="identifybuttonimage"></div><div class="menuitemtext">Sign In Or Sign Up</div></div>
+            </div>
+            <div id="identifywait"><div class="spinner"></div></div>
+
+            <div id="identifylinks" style="width:100%;">
+                <a href="https://discord.gg/Fhx7w3pnvx" target="_blank">Discord</a>
+                <a href="/privacypolicy.htm" style="float:right; margin-right:20px;" target="_blank">Privacy Policy</a>
+            </div>
+        </div>
+        <div id="deathscreen" style="display:none;">
+            <div class="deathwindow showvswindow">
+                <div id="deathmessage">You died!</div>
+                <div id="respawnbutton" class="startbutton"></div>
+            </div>
+        </div>
+        <div id="reconnectscreen" style="display:none;">
+            <div class="windowborder disconnectwindow">
+                <p>The connection to the game server got interrupted.</p>
+                <div id="reconnectbutton" class="startbutton"></div>
+            </div>
+        </div>
+    </div>
+    <div id="startscreen">
+        <div class="parchment-back">
+            <div class="parchment-replacer">
+                <div id="playbutton" class="startbutton" style="background:none;">
+                    <div class="spinner"></div>
                 </div>
             </div>
         </div>
-        
-        <div id="game">
-            <div id="gamecontainer">
-                <canvas id="background"></canvas>
-                <canvas id="entities"></canvas>
-                <canvas id="foreground"></canvas>
-                <canvas id="cursor"></canvas>
-                
-                <div id="bubbles"></div>
-                <div id="chatbox">
-                    <div id="chatlog"></div>
-                    <input type="text" id="chatinput" />
-                </div>
-                
-                <div id="footer">
-                    <div id="buttons">
-                        <div id="mutebutton"></div>
-                        <div id="helpbutton">?</div>
-                    </div>
-                </div>
-                
-                <div id="helpscreen" class="screen">
-                    <div class="container">
-                        <h1>Help</h1>
-                        <div class="content">
-                            <p><strong>Movement:</strong> Click where you want to go</p>
-                            <p><strong>Combat:</strong> Click on monsters to attack them</p>
-                            <p><strong>Chat:</strong> Press Enter to chat with other players</p>
-                            <p><strong>Items:</strong> Click on loot to equip it</p>
-                        </div>
-                        <div id="helpclose">Close</div>
-                    </div>
-                </div>
-                
-                <div id="death" class="screen">
-                    <div class="container">
-                        <h1>You have died!</h1>
-                        <p>Don't worry, you'll respawn in a few seconds...</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div id="error">
-            <div id="errormessage"></div>
+    </div>
+    <div id="errorscreen" style="display:none;">
+        <div class="windowborder disconnectwindow">
+            <h1>
+                West Law is an online game!
+            </h1><br>
+            <p>
+                To play you will need a browser which supports WebSockets, we recommend using the latest version of <a href="https://www.mozilla.org/en-US/firefox/new/" target="_blank">Firefox</a>, <a href="http://www.google.com/chrome/" target="_blank">Chrome</a> or Safari.
+            </p>
         </div>
     </div>
+
+    <script type="text/javascript">
+        var logincookie = "xt:ghost";
+        var isSteam = (window.navigator && window.navigator.userAgent.indexOf(" Electron/") >= 0);
+        var isMobile = (window.navigator && window.navigator.userAgent.match(/(iPad|iPhone|iPod|Android|webOS|BlackBerry|Windows Phone)/g)? true : false);
+        var Config_Extern = { platform: (isSteam? "steam" : "web") };
+        var urlvars = {};
+        var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+            urlvars[key] = decodeURIComponent(value);
+        }); 
+        if (urlvars["logincookie"])
+            logincookie = urlvars["logincookie"];
+        window.autoStartGame = true;
+
+        // Check if Websockets are enabled
+        var supportsWebSocket = window.MozWebSocket || (window.WebSocket && 'CLOSING' in window.WebSocket.prototype);
+        if (!supportsWebSocket) {
+            document.getElementById("startscreen").style.display = "none";
+            document.getElementById("errorscreen").style.display = "block";
+        }
+
+        // Load mobile/desktop css
+        var fileref = document.createElement("link");
+        fileref.setAttribute("rel", "stylesheet");
+        fileref.setAttribute("type", "text/css");
+        if (isMobile)
+            fileref.setAttribute("href", "css/mobile.css");
+        else
+            fileref.setAttribute("href", "css/desktop.css");
+        document.getElementsByTagName("head")[0].appendChild(fileref);
+    </script>
     
-    <div id="instructions">
-        <div id="instructionstext">
-            Click anywhere to start playing
-        </div>
-    </div>
-    
-    <audio id="audio">
-        <source src="audio/village.mp3" type="audio/mpeg">
-        <source src="audio/village.ogg" type="audio/ogg">
-    </audio>
+    <script src="js/evaljs.js"></script>        
+    <script data-main="js/main" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.9/require.min.js"></script>
 </body>
 </html>

@@ -11,8 +11,8 @@ define(['../shared/js/gametypes', '../shared/js/messages'], function(Types, Mess
         this.playerName = null;
         
         // Connection settings
-        this.host = window.location.hostname;
-        this.port = window.location.port || 5000;
+        this.host = window.location.hostname || 'localhost';
+        this.port = 5000; // Fixed port for our server
         this.secure = window.location.protocol === 'https:';
         
         // Callbacks

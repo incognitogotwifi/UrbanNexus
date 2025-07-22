@@ -1,0 +1,65 @@
+/* Mobile-specific CSS for West Law */
+@media screen and (max-width: 1024px) {
+    
+    /* Game buttons positioning for mobile */
+    #menubutton { left: 4px; top: 4px; width: 50px !important; height: 50px !important; }
+    #chatbutton { left: 60px; top: 4px; width: 35px; height: 35px; }
+    #homebutton { left: 4px; top: 60px; width: 70px; height: 35px; }
+    
+    /* Minimap for mobile */
+    #minimap { width: 120px; height: 120px; }
+    #minimapcanvas { width: 120px; height: 120px; }
+    
+    /* Chat box for mobile */
+    #chatbox { left: 100px; width: calc(100% - 120px); height: 35px; }
+    #chatbox input { font-size: 16px; }
+    
+    /* Touch-friendly controls */
+    #movepad { width: 200px; height: 200px; max-width: 35vh; max-height: 35vh; }
+    #weaponpad { width: 100px; height: 100px; }
+    #bombbutton { width: 80px; height: 80px; bottom: 100px; }
+    
+    /* Hotkeys for mobile */
+    .hotkey { width: 60px; height: 60px; }
+    .hotkeynumber { font-size: 16px; }
+    
+    /* Health bar */
+    #healthbar { width: 150px; margin-left: -75px; }
+    
+    /* Coins display */
+    #coinscount { right: 30px; top: 130px; font-size: 14px; }
+    
+    /* Button sizes */
+    .gamebutton { width: 35px; height: 35px; background-size: auto 35px; }
+    .gamewidebutton { width: 70px; height: 35px; background-size: auto 35px; }
+    
+    /* Popup windows */
+    .windowborder { border-width: 32px; padding: 16px; max-width: calc(100% - 64px); }
+    
+    /* Notifications */
+    .notificationtext { font-size: 16pt; max-width: calc(100% - 150px); }
+    
+    /* ShowVs windows */
+    .showvswindow { font-size: 20px; }
+    #showvs { width: 400px; height: 200px; }
+    .showvsplayer { width: 180px; }
+    .showvshead { width: 100px; height: 100px; }
+    .showvshat { width: 100px; height: 150px; }
+    
+}
+
+/* Portrait mode adjustments */
+@media screen and (max-width: 768px) and (orientation: portrait) {
+    
+    #chatbox { top: 50px; left: 0; width: 100%; }
+    #chatbox input { font-size: 18px; text-align: center; }
+    
+    /* Stack UI vertically */
+    #minimap { right: 4px; top: 100px; }
+    #coinscount { right: 4px; top: 230px; }
+    
+    /* Larger touch targets */
+    .gamebutton { width: 40px; height: 40px; background-size: auto 40px; }
+    .gamewidebutton { width: 80px; height: 40px; background-size: auto 40px; }
+    
+}

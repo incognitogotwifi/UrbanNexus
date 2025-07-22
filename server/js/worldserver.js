@@ -93,33 +93,47 @@ var WorldServer = cls.Class.extend({
     
     handleHttpRequest: function(req, res) {
         var pathname = url.parse(req.url).pathname;
+        var self = this;
         
         if (pathname === '/') {
-            // Serve the main game page from the parent directory
-            this.serveFile('../client/index.html', 'text/html', res);
-        } else if (pathname.startsWith('/client/')) {
-            // Serve client files from the parent directory
-            var filePath = '..' + pathname;
+            // Serve the main game page
+            this.serveFile('../../client/index.html', 'text/html', res);
+        } else if (pathname.startsWith('/css/')) {
+            // Serve CSS files
+            var filePath = '../../client' + pathname;
+            this.serveFile(filePath, 'text/css', res);
+        } else if (pathname.startsWith('/js/')) {
+            // Serve JavaScript files
+            var filePath = '../../client' + pathname;
+            this.serveFile(filePath, 'application/javascript', res);
+        } else if (pathname.startsWith('/shared/')) {
+            // Serve shared files
+            var filePath = '../..' + pathname;
             var contentType = this.getContentType(filePath);
             this.serveFile(filePath, contentType, res);
-        } else if (pathname.startsWith('/shared/')) {
-            // Serve shared files from the parent directory
-            var filePath = '..' + pathname;
+        } else if (pathname.startsWith('/files/') || pathname.startsWith('/fonts/')) {
+            // Serve asset files
+            var filePath = '../../client' + pathname;
             var contentType = this.getContentType(filePath);
             this.serveFile(filePath, contentType, res);
         } else {
             res.writeHead(404);
-            res.end('Not Found');
+            res.end('Not Found: ' + pathname);
         }
     },
     
     serveFile: function(filePath, contentType, res) {
-        fs.readFile(filePath, function(err, data) {
+        var fullPath = path.join(__dirname, filePath);
+        fs.readFile(fullPath, function(err, data) {
             if (err) {
-                res.writeHead(404);
-                res.end('File not found');
+                console.log('File not found: ' + fullPath);
+                res.writeHead(404, {'Content-Type': 'text/plain'});
+                res.end('File not found: ' + filePath);
             } else {
-                res.writeHead(200, { 'Content-Type': contentType });
+                res.writeHead(200, { 
+                    'Content-Type': contentType,
+                    'Cache-Control': 'no-cache'
+                });
                 res.end(data);
             }
         });
