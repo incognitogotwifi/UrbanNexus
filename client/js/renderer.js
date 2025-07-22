@@ -50,7 +50,7 @@ define(['camera'], function(Camera) {
     Renderer.prototype.initCanvas = function() {
         this.canvas.background = document.getElementById('background');
         this.canvas.entities = document.getElementById('entities');
-        this.canvas.foreground = document.getElementById('foreground');
+        this.canvas.foreground = document.getElementById('foreground-canvas');
         this.canvas.cursor = document.getElementById('cursor');
         
         if (!this.canvas.background) {
@@ -58,10 +58,19 @@ define(['camera'], function(Camera) {
             this.createCanvases();
         }
         
-        this.context.background = this.canvas.background.getContext('2d');
-        this.context.entities = this.canvas.entities.getContext('2d');
-        this.context.foreground = this.canvas.foreground.getContext('2d');
-        this.context.cursor = this.canvas.cursor.getContext('2d');
+        // Safety check for canvas elements before getting context
+        if (this.canvas.background && this.canvas.background.getContext) {
+            this.context.background = this.canvas.background.getContext('2d');
+        }
+        if (this.canvas.entities && this.canvas.entities.getContext) {
+            this.context.entities = this.canvas.entities.getContext('2d');
+        }
+        if (this.canvas.foreground && this.canvas.foreground.getContext) {
+            this.context.foreground = this.canvas.foreground.getContext('2d');
+        }
+        if (this.canvas.cursor && this.canvas.cursor.getContext) {
+            this.context.cursor = this.canvas.cursor.getContext('2d');
+        }
         
         this.initCanvasSize();
         

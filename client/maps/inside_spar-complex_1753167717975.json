@@ -1,0 +1,638 @@
+{ "compressionlevel":-1,
+ "height":330,
+ "infinite":false,
+ "layers":[
+        {
+         "compression":"zlib",
+         "data":"eJzt3c+O5EYdB3D3zLLJBYlbsoEbAy+we0ngGYA8RLKbHIEXSC4JV+5o8w78vWRG4h2i5B1AuSJxwta0tZ7CXXaVy\/\/Gn49UsrvH7R631t\/9VbnaU1UAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPv0+vSwAWyZzAL2RGYBeyKzgK0Lc2quBlBCkyffXKXlz7f19t+NfE27b4AS1FnAnsgsYE9KZdJXMgtYwKWM+WJgvCp1DAygBH1DYE9KZ9Ola4oAS\/j6Wp0F7IvMAvZk7LXBJTPreb3PF6dll8A+XMqh9xOuHZb2Wb3Pz0\/LLoF92GLfUJ0F9EkZgw\/7jt05XCXdXauzgH53G7xu2OToGnVW875wVM2\/\/6bdXt\/nwhyP+9b\/eW5js+aDulb6ReKc97kza606S2ZxZGtl1tfn5fedPIldD\/yyzqs\/RDJr7H1pSrpbqc66lVkc2JqZdZtYa22tb7hWnSWzOLLUjJlj\/fed3Br6TvTWMkudBcuK9dsuZc3Q49RtS42vL51ZDdcNYVlDeXOplcqstpXIo77xsLBuK838LFhWicy6Tcisvm27fcOhDFJnlT8G2JNLeTPUwhyK9fuGtr3NrLNS7\/f3WMaz4Mhi9VCsDfUJ2\/XY\/KyfF+oTrpVZzfGYnwXLiuXNUGaFr7mJ1FV92\/ZlSsrf\/1o7s9aqs2QWRxbLm6HxrJvr4Xqr73EzftWdSzpHW+I+pX3HbX4WzGvJ64Z980fnGGdfss4Kj9v8LJhXamblznG4ifQHYy3l3lhbyCx1FsxrSma9U7d36\/bs3Nr190ZkWHhtMfZ7bFXu95bUWZBPZuXr+53HZJY6C\/LJrHy5mTW1ztryZwJzy8msNqtSMyu2zyNllnnwkC+sefrqoO58rW59Fcus8PXd\/YQZFdv2MWaWefCQL3ZutXOwwp+l1lmxzAr7hXvKrL7rhOosmNdQZvXNe5+aWbGxrj1lViOsg9RZMK+czPqobh93li\/PrV1\/dWFfffu7NP6+l8wa69LYXt9z7baNvs8Hjiwns0qsp2y71ucS5kfXr54+bKWE2XQpy+CoYvMRwswaM\/89NbPGvGYNYf2zlrb\/3e13w5GNyaxL1xSXqLFy8qJEXRL2XXMN1WNDP5dZ8NBv63Pgd4kZlLr91PxKVaJGGtrHUv1XmQUP9V3PK\/146lhZqpwaqZ3X0T2GvvvzjLn2WbIv2V7n6F7fgCNbM7PuRm439jhugn2G1+bC+RRhRuXmbiyzwu1TcrDRPY41r0nAVmypzgpbSs2S8p6lj+EueF2YS+1zY95TZkFczvlZcr0vS0pnVl9NNUdmjfl5yjhgw3gWPJQzNp66\/VCeXKq1SmZWrJ6RWbAfW+obhrVWamZdGiuaM7O6yzkyyxg8PLRmZt0VzqzHUmd1x626n0vK5wGP1dbqrNw6Z2pmlRiTK5lZse3hyEqfv3OsD22Xmlk5Y3hja61Ypo7Ny6Ht4chyzt85zvfULCmZeWFexPaTW6eNrbFkFsTlnL8lz\/cxORXbdo78G5slc9WXQ9vBkeWev6XO96X6j2Oybuz7zJlZY7eFo8o5f0ue72tlVmw99v2aJeqsof8rZBZHNuX8LXG+bzGzxo41laybUl4HRzb3OT50vpey1DGU7Ivm7h+ObMnM6jsfS1n6GGLrPy2wH6Df2uf4VN0aLqfPtdRxpvaxgX4552\/J873U7790ZnWf22KWw2O1RmZ1nyv1+6e8d879pPdWf8Jjtfb94KdKzaxS43Bj17t\/tzb8W7WyCo4nN7O6j2UWsBSZBezJ3jPr4\/oYrk9V9bKSWXAEWx\/Pau8z2t5jVJ0FzCWskbqm5l977ePSNgCpUjPrZwXrOoBUc9ZZMgsoTWYBe1Iis569VVV\/r9sff\/CmvaofP327ql6f\/r\/JLCBXicx6GeRV0\/7x1sOcauY7XJ3nO8gsIFeJzLqu66lPgtwKa6u\/1fv7sF7+uZJZQL5YZg1paqcPrqrq+9N9\/\/DHdftJ3b6tn\/vu6k1t1bQndfv1ObMAck3JrFd1+7LOpq9O9\/3D50+r6tN6+f45r5qcamqrf9Xth0+q6kd1+2iOgwBW0df\/6ntc0pTM+kt13+\/75uo+s16cM6vNq990suo\/dfvvE3UWPCZ9mRUuS3yHp2tKZjWazGrqrGZM68nb99cKmyx7Vrf3qjdZ9e96m3fqx3+d\/jEBG3Dpu35bz6xGk1tfnMe1mvz6Zadv+KfTw7xqfg7s394z63WQRe11wg\/VV\/AoXcqsMKe6rURmhfdk6Hpe582L0+VlTNM\/fLe67yPKK3h8cjIrbH2vvxnIrKFcii2B4xrKrL7nxmTW0D2yPquz5\/NT3hI4rrUyS50F5Foqs7rr6iwgVyyzxuRWTmaps4BcY8bgY7mlzgKW1JctU1+vzgK2Kid31FnAWnJyR50FrGXpOst9+4Aplq6zZBYwhToL2BN1FrAH7fysNeosuQXkWqPOkllALnUWsCfqLGBP1FnAnkypmXKWMguYYkrNlLOUWcAUS9dZAFMsXWcBLEUdBQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAsI7\/AfVJMS0=",
+         "encoding":"base64",
+         "height":330,
+         "id":29,
+         "name":"floor",
+         "opacity":1,
+         "properties":[
+                {
+                 "name":"collision",
+                 "type":"bool",
+                 "value":false
+                }],
+         "type":"tilelayer",
+         "visible":true,
+         "width":301,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "compression":"zlib",
+         "data":"eJzt3V1Kw0AUBtC0m5PqAtWNuQN1DdIXA1IsYVrN5GZ+knNguODTMA8facy9MwwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADA3n0dhuF8WL8CRHg4DsPp+FOnLn+PqAARZBYAAAAAAAAAAAAAAAAAAPAfpWbALKk53gr1Q9c4j9wzgS2ImpewZm3ZX3Mj1jiP1s8E1tRCJsksmQUAAAAAAAAAAAAAAAAAACWcxvWYWE81NwVww\/O4XhLrteamAG54H9dHYn0W3EOp2X4AAAAA9CV1n8I9te+wAPYtNZv8njnz3XueBw+0SWYBAJAj+u7UKNNeAz0GkG9LvTvR9xRGmX63W\/J7Xdialnp3lj4XRWdWK89pwK8Wenculrzjj3wuSu0npwLbJrMAAADy9dBH0+q+gPLmvmupodV9rcn\/DyFNZrXJu3igJzIL6JHeHaAnencAAAAAAAAAAAAAAAAAAAAAAOq6nl1lbhXQuuvZVeZWAQAA1DfnDsYlFSDCnPvMllSACDIL6InMAnois4CeyCwAgH3wzQTQE78xAQAAAGiN+VlAT8zPAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgLK+AUvknyo=",
+         "encoding":"base64",
+         "height":330,
+         "id":34,
+         "name":"rug",
+         "opacity":1,
+         "properties":[
+                {
+                 "name":"collision",
+                 "type":"bool",
+                 "value":false
+                }],
+         "type":"tilelayer",
+         "visible":true,
+         "width":301,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "compression":"zlib",
+         "data":"eJzt3c2OHFcZBuDqGewEJXfgOB7DxjuQYAuxBHdgSAx3kNgeYOMd3rIIWYQfS2QXCE7uAGwn2bKIsgQpRIg\/S7CDRMCaU2ofpaZcXf99qqrreaRPR5rume5pqd6p803VOVkGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPN3IdRzoZ4PdSnUyY6xWFVfq6qq510O9YV9\/1LAwfpNqFdC3Qh1M9RpqFul8ebjulX62q2GKn5vrO+F+n6S3ww4RHlm\/TbUz4\/2\/1p3w2u8F8b39\/9SwIGKmfX3QmZdPA5zxVCXQp0cj\/daj8JrPLPJsmc34\/1MYF2qMutGyKmboW6FOh05s74R6psJzumAw3QunPOcD\/X0uSx7abOt+yGnHoR6GOrdUNc328ofe3HA+MGxzAKGiedZDz6XZb\/ebKvs3mZb+WNvDRg\/PNbPAoaJmZWKfhYwROrMMjcEhoj9rFRSZyRwWK6FvPqWzAIWwnkWsCSpz7NSZyRwWMwNgSVJnSEyC5apzxowVeu8dH1+uT4J51ifbtKtHzNWZo31+VlPB9rpswZMrK7Pn9P6MWP1s4Z8fnP6PGApUq4BM8TY68eM1T+b6vOzng5rVbWewhyNvX7Mm+Hn\/HLEzEr9+VlPh7VaUmaNeb\/NWP2sKTPL\/UesUXkNmLhmy\/WWY9fn9x2\/PPL6MWP1s3Z9fmVz\/zxgKcprwMQ1W+61HLs+v2q8cr75eXdGXj9m7H5W+fMrG\/L5pPg8YCnmcJ1Snlmpjd3PmoJ+Fms0h8y6fT59bo3dz5qCuSFrNJf77lLn1tj9rCnILNYo9X1+dVJm1ljnR1N+fjKLNZrD3DC6vcDMmvLz04NnjeaUWSkdQmbpwbNGa82sMe831IOHdObSg7+SuAc\/Vh9KDx7SmjqzYlbdPp+2n3UI12fpZ7FGU88NryTOqkg\/C5ZpqmOueH41Bf0sWKYpjrkp5oJl+lmwTKmPuSnPrYrG6me5phTS6nrMxfXPTx5X03rkFwrPratLLZ5Tt2Z8m9co1uvhWP\/JCMf7WNnXh8xijbrODfPn\/2fzWTUdM\/lxVXz+0Lp69Nl66MU10k871p\/Dz\/nLCMe7fhak1Sez8j0b4rHfdNx\/dNQuQ9rkzgtH8\/s\/mX4WpNUns4rPv9twzIy1t8Pdma4lrJ8FaXU9Tyhn1qOGY6ZunfSLx1n2fKhLoU6O63\/OXNc\/18+CtLqeZ5Uzbkhm3Qg5dTPUrVCnLTJrn9d91+2tOqQuZ\/vbN1VmsUZ954bFvRTqxL0dqvZiuB++90Goh6HeDfWl4917YuSvs8\/rvuv2Vh1S+9w3VWaxRn0zq7iXQp24t0PVXgxlPzzevSfGnYZ9ZvruQR+\/Hq99GHNv1bwH92qoH4d6rWfVnafJLNZoaD8rpbpjtMse9MWKj8drH8pz2S49t7J8Ppv\/3\/SPoT7uWXXnaTKLNRraz0qpKbOG7kF\/tyKzuvTcyh4NPG9r2t9eZrFGXTNryuOkTWYVM6frOVKeMcWe2ksVPbe8v\/ajc9uKz9s15j24IftLN+1vL7NYo\/xYz\/stbf9H9vqCMqvrOVKeEcWe2q69VX9\/blvxebvGOyNkVt3vLLNYo\/K9OG1qjPv0+oj97LoeevE8qeocqWk\/+Ta+eH5bbRTfT9exaX97mcUaxd5123v2xrpPr4\/Yz67roRfPk8ra7CffRpwbtlF8P13H\/P28erT7b4TMYo369K6b7tfZl6b3mOp9xblhCh\/V\/I2QWaxRVR+oSdO17\/vS9B5Tva8uc8Oh8pzelcUyizWSWd11mRsOlf\/Ou34vmcUaxcyqu8emPH7Q8TqlsTS9x7Y99KFSzg1lFpwVM6vuHpvy+OFEmdX0Htv20IdKOTfM\/++4K4tlFms09V5hS\/SD89tKoW4eKrNYI5k1b3XzUJnFGsmseaubh8os1mjKe55pVjcPlVmskfOs5ZJZrJHzrOWSWayR86zlklms0VwyK66NfDE7uz7yGGsQHyqZxRrNJbNezs6ujRzXQx5jDeIli1l+UlFx\/R1Yk7n0s94O7+GdAe9jyn0G96mY5eWacl0gmMqU+yAX\/Te8h\/8NeB\/7yt7fPTX8Z1Rdx972Huu5nAfDXMzl\/GRoZs0le6tUXcfe9h5rPSs4ay5\/x4cemymzN\/aYdvWZylX1v4ELLb9XzwrOGrpn6Bh1kg0\/NlOeZ+X5mK+LH\/tMp1l1vyl+varnlK8\/WvU9sfL\/KVw90rOCsqF7ho5RY6wzv6\/zrKq+07XHmZW\/Xlwrpmksa3q+OSEctn+F\/Pj3HjKrqu8Uz7O+frTdoyJft6tpLGt6vsyCw\/a1o22GjK1qTYViZu2LzILlKva8i9fJF8dPQoZ8unny68U9ENuMsS5nu6+tl1lAnbzn9sLRk9fJtx1PO4yx8h54nktV19bLLKBJn30Y+8r35nqz0Gcvu1bz2FhkFixbvM69y55mfT1qyKy6x8Yis2DZ4vVXc8osc0Ngl3j9VarMyntof9pxzVjdY2ORWbBsffa77svcEBhqjv2s\/NqKk6y+mtYi\/MW5LHuj4rpVmQXLFvtZ+b0tL262e923Ha93HPN7Z9pk1tWjs9dHVFXTWoT\/CHn1T5kFByf2s\/J7W97abPe6bzve6zjm98607WfVXXuRXzPRN3tkFixb6vVU22ZW3Vz1Uc\/M+sOArAPmIfWafj8NefEgjD+ryI3iY99+PAetGoeszyCzYNlSr6f615AXT4fX+1tFbhQf+9XjOWjVGNdniPdBnmTtR2v9wbKlPs\/Ke\/1frVn7atdjZXlm5b36rvc9WusPli31eVbe6\/9KzdpXux4rM8eDdZrLXhtdySxYpznvq1NHZsE6Oc8ClmRf673vm8yCddrXeu\/7JrNgneI+jLvWg68bT7Lme5X3RWbBOsV9GPuuB990r\/K+yCxYp3i\/zP1sOz7sMOb32LwXxvcneN8yC9Yp3i\/z1GY7fr7DmN9j80wYn52ghy+zYJ3iulnxHuQu62fl99jILCCluG5WvAe5y\/pZd2QWsDAyC1gSmQUsicwClkRmAUsis4AlkVnAknwn5NV3ZRawEG+HvHpHZgELEdeFeK1D1a0FcSHUc9nZdSZOsid\/hv1zgD7iuhAfd6i6tSBeDvVKdnadiXz9iPLPsH8OkErdfNKcD5ibXfPJk8ycD5ifXfNJe6YCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA0f8B9Mv+Zw==",
+         "encoding":"base64",
+         "height":330,
+         "id":28,
+         "name":"Walls",
+         "opacity":1,
+         "properties":[
+                {
+                 "name":"collision",
+                 "type":"bool",
+                 "value":false
+                }],
+         "type":"tilelayer",
+         "visible":true,
+         "width":301,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "compression":"zlib",
+         "data":"eJzt3UuPFFUYBuDT3dOZRt0g163+AdAdaiIgG9REN86oe9jKRrkJAn8BtoAJM+jGS4Irt8pFE7fudSuaoOLGS\/wmdCXFUDNTM1RX14HnSd50+mQyqdWb+k6q66QEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcM++fkp\/9O7P\/v60rwqg2tnBg2vnKtYAukBnAbmYjzlwd0U\/7Yq1uV771wOwmsXopdMVnXUq1hZ0FgAAAAAAAAAAAAAAADy2vEcHyIl3UgA50VlATnQWkJMfKvrp65n2rwMAAAAAAABo37XZlL6anfZVANTTG6XUH037KgDWdnSQ0rHI8ciJyMnIh54jBTrqevTTjcjNyK3Id5Hvx521fGY0QwLTtmUmpa2RbZHtkR2RneNn35fPjGZIoGs+i776PPJF5MvSp\/kR6KK\/o5\/+ifwb+a\/0udL8CDBNB4cpvRp5LfJ66bNqfrS\/BeSg6Cz7W0AOyvv0AF1nNoR8OOfBbAg58f5hsyHkRGeZDSEX8zEH7q7op12xNtdr\/3qmxWwIeViMXjpd0VmnYm2hQ51lzw3IifkVaEsT90g6C2hLE33zfMXfP6ezgAloorPOVPz9RzoLmABzHZCTts6fPz9K6cJo7TWALvgpuunn0dprADmocx\/mXg3oijr3Ye7VAAAAAAAAAAAAAAAAqOOZQUrPDjb+HaBN70X\/HBls\/DtAm2ZnUhpFNo3zROmznE3L1gHaVMx4V6J\/FiKL41ytGYA2FTPeW9E\/c5H5cd6uGQAAuq1q72wpT0aecj8HdMxK8+g7kXd1FtAxK+37fxL5VGcBAADQgh\/7074CAIDuuDiT0qXI5cjHDe\/Tvz9I6YPI0cixGjkeOeH3l8Aqfomeuh35NfJbw531TfTPt5HrkRs1cjNyS2cBq9gzTOmFyIuRl4bN\/u\/N0YFPR7ZEttbItsh2z2QAAAAAAAAAAACPsB3jd0Pv9KwUkIFD4846rLOADit+H3htA\/dZ5fNlnTULTFK5q5Z+H9gb3kt\/Hb\/lKZ8v66xZYBKqumqpp94Y5811dFbVebQATVitq9bTU0uKObDqbEeAh9FkVxWKObDqDG2Ah9FkVy3nPgto2iS6qqCzgKZNoqvsZwE5KfazdBaQE50F5ERnATmwnwXkxH4WkKM70VG\/R\/6M3I38pbOADnt5mNLeyP7IK5EDDT9TAdAk76IBcuJdNAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADw+PkfMe3T7Q==",
+         "encoding":"base64",
+         "height":330,
+         "id":30,
+         "name":"tables",
+         "opacity":1,
+         "properties":[
+                {
+                 "name":"collision",
+                 "type":"bool",
+                 "value":false
+                }],
+         "type":"tilelayer",
+         "visible":true,
+         "width":301,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "compression":"zlib",
+         "data":"eJzt3ctqE2EYBuBfm9DehaabVquggqer0IVeR915WnpaeQJ1ZwW9BE9XoNWlp5UnUJd6D76FlpaYkpHmMJk8D7xMEkKYWczLNz8TphQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAYFw6M6Us9sn8zLj3cufu5RjuJw8acCwwzZZzDi\/0ybkGnOc\/cgw\/k18NOBag+Q61SjmcHGkN7jePpv+OJceTE8nJ\/+zD5wPcF4B+rqSjribXkuvJDTMcUGPv0lHvkw\/Jx+RTV2dVmcN2OqsBVLUn13Z7k04y3+M6r8ocZlYD6qLfHFb1OwCj0G8Oq\/odAAAAAAAAAAAAAAAAAAAAAACq6TTk+UDAdFhuyPOBAAAmjWtHYJK4dgQAGI6bmbFuJbeTO8ldMxdQY5\/TUV+Sr8m35PuIOmttHW2xQqy1AVvta5WyP1lKDiQHR\/RcrrV1tIVkaX273WtrbTDdXnZ10vm8v5BcTC4llz1LEKixV+mo18lq8iZ5O6TOck8FMEncUwFMg1NzpZyeG\/deAFTzMH21orOAIXuxvi52pl3K2fbmFqDOHqennrQ3twCjspLOedSjd7b7HGCcfqeX\/vTopo3Pu+\/9AgAAoHla1qwAAACm2tPZUp7NjnsvAP7V3rJutdFVu+ZK2e0\/NEBN6SpgkugqoM6sVwGTxFwFAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAIPwFtzxOSg==",
+         "encoding":"base64",
+         "height":330,
+         "id":31,
+         "name":"chairs",
+         "opacity":1,
+         "properties":[
+                {
+                 "name":"collision",
+                 "type":"bool",
+                 "value":false
+                }],
+         "type":"tilelayer",
+         "visible":true,
+         "width":301,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "compression":"zlib",
+         "data":"eJzt3clqU3EYxuEPkpwkS8dVWwsW51vQ3o+tgqWOt6BekMPOcaVuHW9BvQPfXYWCp4j1f44+D\/wghLP4Vi8EQlIFAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPxtq5OqtXQqrU9aXwPwa1vZqe10LV23WcDAPcpOPU5P0lObBQAAAAAAAAAAAAAAAAD8ZDZrfQEAAAAAAEP3ZlL1Nr3r+T27gz4HcJhWplWraW36Z54DOExXs0Fbabtniw76HADDN\/V9LQAAAAAAAAbkdFe1kc50e683uv3vAwzBjezRTtrt9l7vdPvfH4pP86rP6cu89SUA\/S4sqi6mS4vWlwD0u5Otupvu2SxgBF5mq16l1zYLGIHjy6oT6eSy9SUAAAAAAAAAAAAAAAAAAMC\/xn\/4AWMx69mriT0DAAAAAAAAAAAA4Dd87aq+pe9d60sA+l2eV11Jm\/PWlwD0u5+tepAe2ixgBN5nqz6kjzYLGIGzi6pz6fyi9SUA\/W5mq26l2zYLGIFn2arn6YXNAkbgyLLqaDq2bH0JAAAAAAAAAAAAAACM39R\/YwMAABAznw8BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD+Cz8AK3Iodw==",
+         "encoding":"base64",
+         "height":330,
+         "id":33,
+         "name":"objects",
+         "opacity":1,
+         "type":"tilelayer",
+         "visible":true,
+         "width":301,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "compression":"zlib",
+         "data":"eJzt2LENwlAMBFAnLSwBq4R9kgVhNv4I7syh9yT3V53kqwIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD4D491z+kQAE3nums6BEDTe91nOgRA022rum\/TKQB6jr3qtU+nAOjRWUASexaQxJ4FJPEbAkl0FpBEZwFJbPBAEhs8kMRvCCTRWUASnQUkscEDSWzwQBK\/IZBEZwEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADwa748cwzh",
+         "encoding":"base64",
+         "height":330,
+         "id":36,
+         "name":"drawover",
+         "opacity":1,
+         "properties":[
+                {
+                 "name":"collision",
+                 "type":"bool",
+                 "value":false
+                }, 
+                {
+                 "name":"drawover",
+                 "type":"bool",
+                 "value":true
+                }],
+         "type":"tilelayer",
+         "visible":true,
+         "width":301,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "compression":"zlib",
+         "data":"eJzt3ctu2zAQQNEUBbrw\/39wF2lQ27AepEgORzwH4KJFaklEdUE6cvL1BQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADz+x00AGpoFpCJZgGZaBaQyZmeaBYwC80CMvnUk19vQ7OAWWx1qtfQLOAKzQIy0SwgE80CMtEsIBPNAjLRLCATzQLO6PGcZu8xU7Oi50J3WU30\/aZZmgUlou83zdIsKBF9v2mWZkGJ6Pvtrs06+3WaBWWi+3OXZkXQLFYU3Z+7Nuv9eD1oFitq2YEr\/Yg4ZstmRc2bZrGaWZo1+hw0C3KaoVkR3dIsyGmWZv3cg9nud82CsTQr7\/xpFiuaqVkZ7\/fn+Xv8G9muATLRrHbzp1nQn2a1mb+ez5JpFvw3S7Oyf99wr1nv669W6zHNYkXRzYo6vmZBTjM0K7KVvebvqGUt9o+axYqi1zmRrdQsyCfqfaSoVs3YrNq9omaxotKGlK4TSu7diDF6\/j7NjWbBeZo1dv5arjk1ixVlbNZMrLNgLM26RrNgLM26xt4QxhrRrK+Nf7d1LhHN6tHWozmyzoJykeusrXPRLM2CLZHNqt1H7l3HXYdmwbfaZtW+B3NlaJZmwc\/\/+8fJsVqzRh1Hs+AczdIsyKTlPTRbs1pc69Y5aBbEyNisnmukkvPYO6\/WjdMs+HbnZtX8+9JmPTZe51FwTM2C8+7WrJHn8dOs9269P29V29NPazrNYnWada1ZR+NoHXb0NZoFrzSrf7OO1mF7X6NZ8Eqz+jar57E0ixVplmZBJpENyjo0C+Jo1txDs+CVZs09NAteadbcQ7PglWblHZrFijQr79AsVqRZeYdmsaJZmlX7nNgMz41FzxmspPW9vvW5lKM\/a9Z+l\/YGrGS2Zs1yHbMMzYJXre\/1q+ukWa6jdXfO\/N3efALfWt3rrfZ40dehWTC3uzWr9vebljbo6vtso+YF7uZqY1qPq9ehWXBv0Y1q3azSdtTu60Y1C7insw0oXYdpFtBDVLN67z+BfKL3q5oFlNAsIJvszXoUDM2C\/DQLyCRrs64eG8gpW7OiPxcAxNIsIJNZm1XyGn+ehu8bwr1pFpCJZgGZPN\/7ez1p\/UynZgE1ejdqRLNqjg\/klL1ZtQPIadZmlbyOZsE6sjcLWMtMzap5HWAto5p15f3z5884t\/q9jUBOI59t0Czgql7N2urUc3NadA9YS+tmHbWq5OfGn\/k8NLCW3s9B1bRKs4Ato5rV6z0xYC0zNkqzgC0zN8veEHjXqlWtv++oWcAnMzfL3hBoTbOATOwNgUw0C8jE3hDIRLOATEY0y891AFrRLCCTEc3a2y8ClGj9HGrpawCU0Czg7s40C2AW1k9AJpoFAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHPkLbTg8Yg==",
+         "encoding":"base64",
+         "height":330,
+         "id":32,
+         "name":"tiletypes",
+         "opacity":0.4,
+         "properties":[
+                {
+                 "name":"collision",
+                 "type":"bool",
+                 "value":false
+                }, 
+                {
+                 "name":"tiletypes",
+                 "type":"bool",
+                 "value":true
+                }],
+         "type":"tilelayer",
+         "visible":true,
+         "width":301,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":35,
+         "name":"Object Layer 1",
+         "objects":[
+                {
+                 "class":"",
+                 "height":48,
+                 "id":8,
+                 "name":"Team Spar",
+                 "rotation":0,
+                 "visible":true,
+                 "width":64,
+                 "x":3744,
+                 "y":2048
+                }, 
+                {
+                 "class":"",
+                 "height":48,
+                 "id":9,
+                 "name":"Reward Room",
+                 "properties":[
+                        {
+                         "name":"destx",
+                         "type":"string",
+                         "value":"24"
+                        }, 
+                        {
+                         "name":"desty",
+                         "type":"string",
+                         "value":"19.65"
+                        }, 
+                        {
+                         "name":"map",
+                         "type":"string",
+                         "value":"inside_spar-rewards"
+                        }, 
+                        {
+                         "name":"template",
+                         "type":"string",
+                         "value":"inside_spar-rewards"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":64,
+                 "x":4240,
+                 "y":1616
+                }, 
+                {
+                 "class":"Link",
+                 "height":64,
+                 "id":11,
+                 "name":"Single Spar",
+                 "properties":[
+                        {
+                         "name":"destx",
+                         "type":"string",
+                         "value":"14"
+                        }, 
+                        {
+                         "name":"desty",
+                         "type":"string",
+                         "value":"24"
+                        }, 
+                        {
+                         "name":"map",
+                         "type":"string",
+                         "value":"inside_spar-1"
+                        }, 
+                        {
+                         "name":"template",
+                         "type":"string",
+                         "value":"inside_spar-1"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":64,
+                 "x":4016,
+                 "y":2016
+                }, 
+                {
+                 "class":"Link",
+                 "height":32,
+                 "id":12,
+                 "name":"Spar Complex",
+                 "properties":[
+                        {
+                         "name":"destx",
+                         "type":"string",
+                         "value":"65.74"
+                        }, 
+                        {
+                         "name":"desty",
+                         "type":"string",
+                         "value":"41.76"
+                        }, 
+                        {
+                         "name":"map",
+                         "type":"string",
+                         "value":"westlaw_overworld"
+                        }, 
+                        {
+                         "name":"template",
+                         "type":"string",
+                         "value":"westlaw_overworld"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":80,
+                 "x":4032,
+                 "y":3024
+                }, 
+                {
+                 "class":"Link",
+                 "height":64,
+                 "id":16,
+                 "name":"Single Spar 2",
+                 "properties":[
+                        {
+                         "name":"destx",
+                         "type":"string",
+                         "value":"14.5"
+                        }, 
+                        {
+                         "name":"desty",
+                         "type":"string",
+                         "value":"21.5"
+                        }, 
+                        {
+                         "name":"map",
+                         "type":"string",
+                         "value":"inside_spar-2"
+                        }, 
+                        {
+                         "name":"template",
+                         "type":"string",
+                         "value":"inside_spar-2"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":64,
+                 "x":3360.66666666667,
+                 "y":1951.33333333333
+                }, 
+                {
+                 "class":"Link",
+                 "height":64,
+                 "id":23,
+                 "name":"Box Spar",
+                 "properties":[
+                        {
+                         "name":"destx",
+                         "type":"string",
+                         "value":"22.5"
+                        }, 
+                        {
+                         "name":"desty",
+                         "type":"string",
+                         "value":"29"
+                        }, 
+                        {
+                         "name":"map",
+                         "type":"string",
+                         "value":"inside_box-spar"
+                        }, 
+                        {
+                         "name":"template",
+                         "type":"string",
+                         "value":"inside_box-spar"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":64,
+                 "x":3488,
+                 "y":1375.66666666666
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }],
+ "nextlayerid":37,
+ "nextobjectid":24,
+ "orientation":"orthogonal",
+ "properties":[
+        {
+         "name":"musicareas",
+         "type":"string",
+         "value":"[{\"x\":40.78, \"y\":19.87, \"w\":85, \"h\":44, \"music\":\"westlaw_soundtrack-1.mp3\"}]"
+        }],
+ "renderorder":"right-down",
+ "tiledversion":"1.9.0",
+ "tileheight":16,
+ "tilesets":[
+        {
+         "columns":5,
+         "firstgid":1,
+         "image":"..\/Pictures\/tiletypes.png",
+         "imageheight":32,
+         "imagewidth":80,
+         "margin":0,
+         "name":"tiletypes",
+         "spacing":0,
+         "tilecount":10,
+         "tileheight":16,
+         "tilewidth":16
+        }, 
+        {
+         "columns":78,
+         "firstgid":11,
+         "image":"..\/Pictures\/westlaw_tileset.png",
+         "imageheight":480,
+         "imagewidth":1250,
+         "margin":0,
+         "name":"westlaw_tileset",
+         "spacing":0,
+         "tilecount":2340,
+         "tileheight":16,
+         "tilewidth":16,
+         "wangsets":[
+                {
+                 "colors":[
+                        {
+                         "color":"#ff0000",
+                         "name":"",
+                         "probability":1,
+                         "tile":-1
+                        }],
+                 "name":"Unnamed Set",
+                 "tile":-1,
+                 "type":"corner",
+                 "wangtiles":[
+                        {
+                         "tileid":1415,
+                         "wangid":[0, 1, 0, 1, 0, 1, 0, 1]
+                        }, 
+                        {
+                         "tileid":1806,
+                         "wangid":[0, 0, 0, 1, 0, 0, 0, 0]
+                        }, 
+                        {
+                         "tileid":1807,
+                         "wangid":[0, 0, 0, 1, 0, 1, 0, 0]
+                        }, 
+                        {
+                         "tileid":1808,
+                         "wangid":[0, 0, 0, 1, 0, 1, 0, 0]
+                        }, 
+                        {
+                         "tileid":1809,
+                         "wangid":[0, 0, 0, 0, 0, 1, 0, 0]
+                        }, 
+                        {
+                         "tileid":1884,
+                         "wangid":[0, 1, 0, 1, 0, 0, 0, 0]
+                        }, 
+                        {
+                         "tileid":1885,
+                         "wangid":[0, 1, 0, 0, 0, 1, 0, 1]
+                        }, 
+                        {
+                         "tileid":1886,
+                         "wangid":[0, 1, 0, 1, 0, 0, 0, 1]
+                        }, 
+                        {
+                         "tileid":1887,
+                         "wangid":[0, 0, 0, 0, 0, 1, 0, 1]
+                        }, 
+                        {
+                         "tileid":1962,
+                         "wangid":[0, 1, 0, 1, 0, 0, 0, 0]
+                        }, 
+                        {
+                         "tileid":1963,
+                         "wangid":[0, 0, 0, 1, 0, 1, 0, 1]
+                        }, 
+                        {
+                         "tileid":1964,
+                         "wangid":[0, 1, 0, 1, 0, 1, 0, 0]
+                        }, 
+                        {
+                         "tileid":1965,
+                         "wangid":[0, 0, 0, 0, 0, 1, 0, 1]
+                        }, 
+                        {
+                         "tileid":2040,
+                         "wangid":[0, 1, 0, 0, 0, 0, 0, 0]
+                        }, 
+                        {
+                         "tileid":2041,
+                         "wangid":[0, 1, 0, 0, 0, 0, 0, 1]
+                        }, 
+                        {
+                         "tileid":2042,
+                         "wangid":[0, 1, 0, 0, 0, 0, 0, 1]
+                        }, 
+                        {
+                         "tileid":2043,
+                         "wangid":[0, 0, 0, 0, 0, 0, 0, 1]
+                        }]
+                }, 
+                {
+                 "colors":[
+                        {
+                         "color":"#ff0000",
+                         "name":"",
+                         "probability":1,
+                         "tile":-1
+                        }],
+                 "name":"Grass to sajd ?",
+                 "tile":-1,
+                 "type":"corner",
+                 "wangtiles":[
+                        {
+                         "tileid":12,
+                         "wangid":[0, 1, 0, 0, 0, 1, 0, 1]
+                        }, 
+                        {
+                         "tileid":13,
+                         "wangid":[0, 1, 0, 0, 0, 0, 0, 1]
+                        }, 
+                        {
+                         "tileid":14,
+                         "wangid":[0, 1, 0, 0, 0, 0, 0, 1]
+                        }, 
+                        {
+                         "tileid":15,
+                         "wangid":[0, 1, 0, 1, 0, 0, 0, 1]
+                        }, 
+                        {
+                         "tileid":90,
+                         "wangid":[0, 0, 0, 0, 0, 1, 0, 1]
+                        }, 
+                        {
+                         "tileid":91,
+                         "wangid":[0, 0, 0, 1, 0, 0, 0, 0]
+                        }, 
+                        {
+                         "tileid":92,
+                         "wangid":[0, 0, 0, 0, 0, 1, 0, 0]
+                        }, 
+                        {
+                         "tileid":93,
+                         "wangid":[0, 1, 0, 1, 0, 0, 0, 0]
+                        }, 
+                        {
+                         "tileid":168,
+                         "wangid":[0, 0, 0, 0, 0, 1, 0, 1]
+                        }, 
+                        {
+                         "tileid":169,
+                         "wangid":[0, 1, 0, 0, 0, 0, 0, 0]
+                        }, 
+                        {
+                         "tileid":170,
+                         "wangid":[0, 0, 0, 0, 0, 0, 0, 1]
+                        }, 
+                        {
+                         "tileid":171,
+                         "wangid":[0, 1, 0, 1, 0, 0, 0, 0]
+                        }, 
+                        {
+                         "tileid":246,
+                         "wangid":[0, 0, 0, 1, 0, 1, 0, 1]
+                        }, 
+                        {
+                         "tileid":247,
+                         "wangid":[0, 0, 0, 1, 0, 1, 0, 0]
+                        }, 
+                        {
+                         "tileid":248,
+                         "wangid":[0, 0, 0, 1, 0, 1, 0, 0]
+                        }, 
+                        {
+                         "tileid":249,
+                         "wangid":[0, 1, 0, 1, 0, 1, 0, 0]
+                        }, 
+                        {
+                         "tileid":326,
+                         "wangid":[0, 1, 0, 1, 0, 1, 0, 1]
+                        }]
+                }, 
+                {
+                 "colors":[
+                        {
+                         "color":"#ff0000",
+                         "name":"",
+                         "probability":1,
+                         "tile":-1
+                        }],
+                 "name":"Grass To Dirt",
+                 "tile":-1,
+                 "type":"corner",
+                 "wangtiles":[
+                        {
+                         "tileid":1026,
+                         "wangid":[0, 0, 0, 1, 0, 0, 0, 0]
+                        }, 
+                        {
+                         "tileid":1027,
+                         "wangid":[0, 0, 0, 1, 0, 1, 0, 0]
+                        }, 
+                        {
+                         "tileid":1028,
+                         "wangid":[0, 0, 0, 1, 0, 1, 0, 0]
+                        }, 
+                        {
+                         "tileid":1029,
+                         "wangid":[0, 0, 0, 0, 0, 1, 0, 0]
+                        }, 
+                        {
+                         "tileid":1102,
+                         "wangid":[0, 1, 0, 1, 0, 1, 0, 1]
+                        }, 
+                        {
+                         "tileid":1104,
+                         "wangid":[0, 1, 0, 1, 0, 0, 0, 0]
+                        }, 
+                        {
+                         "tileid":1105,
+                         "wangid":[0, 1, 0, 0, 0, 1, 0, 1]
+                        }, 
+                        {
+                         "tileid":1106,
+                         "wangid":[0, 1, 0, 1, 0, 0, 0, 1]
+                        }, 
+                        {
+                         "tileid":1107,
+                         "wangid":[0, 0, 0, 0, 0, 1, 0, 1]
+                        }, 
+                        {
+                         "tileid":1182,
+                         "wangid":[0, 1, 0, 1, 0, 0, 0, 0]
+                        }, 
+                        {
+                         "tileid":1183,
+                         "wangid":[0, 0, 0, 1, 0, 1, 0, 1]
+                        }, 
+                        {
+                         "tileid":1184,
+                         "wangid":[0, 1, 0, 1, 0, 1, 0, 0]
+                        }, 
+                        {
+                         "tileid":1185,
+                         "wangid":[0, 0, 0, 0, 0, 1, 0, 1]
+                        }, 
+                        {
+                         "tileid":1260,
+                         "wangid":[0, 1, 0, 0, 0, 0, 0, 0]
+                        }, 
+                        {
+                         "tileid":1261,
+                         "wangid":[0, 1, 0, 0, 0, 0, 0, 1]
+                        }, 
+                        {
+                         "tileid":1262,
+                         "wangid":[0, 1, 0, 0, 0, 0, 0, 1]
+                        }, 
+                        {
+                         "tileid":1263,
+                         "wangid":[0, 0, 0, 0, 0, 0, 0, 1]
+                        }]
+                }]
+        }],
+ "tilewidth":16,
+ "type":"map",
+ "version":"1.9",
+ "width":301
+}
