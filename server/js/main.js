@@ -4,7 +4,8 @@ var fs = require('fs'),
 function main(config) {
     var ws = require("./ws"),
         WorldServer = require("./worldserver"),
-        Log = require('log'),
+        // Setup console logging since we don't have the 'log' package configured
+        Log = { ERROR: 'error', DEBUG: 'debug', INFO: 'info' },
         _ = require('underscore'),
         server = new ws.MultiVersionWebsocketServer(config.port),
         metrics = config.metrics_enabled ? new Metrics(config) : null;
@@ -23,14 +24,8 @@ function main(config) {
             }
         }, 1000);
 
-    switch(config.debug_level) {
-        case "error":
-            log = new Log(Log.ERROR); break;
-        case "debug":
-            log = new Log(Log.DEBUG); break;
-        case "info":
-            log = new Log(Log.INFO); break;
-    };
+    // Use console for logging
+    log = console;
 
     log.info("Starting BrowserQuest game server...");
 
@@ -117,8 +112,8 @@ function getConfigFile(path, callback) {
     });
 }
 
-var defaultConfigPath = './server/config.json',
-    customConfigPath = './server/config_local.json';
+var defaultConfigPath = './config.json',
+    customConfigPath = './config_local.json';
 
 process.argv.forEach(function (val, index, array) {
     if(index === 2) {

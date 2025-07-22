@@ -1,298 +1,157 @@
-var _ = require('underscore');
-var Character = require('./character');
-var Types = require('../shared/js/gametypes');
-var Properties = require('./properties');
-var Formulas = require('./formulas');
-var Utils = require('./utils');
+var cls = require("./lib/class"),
+    _ = require("underscore"),
+    Messages = require("./message"),
+    Properties = require("./properties"),
+    Types = require("../../shared/js/gametypes"),
+    Utils = require("./utils");
 
-var Mob = Character.extend({
-    init: function(id, type, world) {
-        this._super(id, type, world);
-        
-        this.mobType = type;
-        this.type = 'mob';
-        
-        // Spawn information
-        this.spawnX = 0;
-        this.spawnY = 0;
-        this.maxDistanceFromSpawn = 7;
-        
-        // AI properties
-        this.aggroRange = 3;
-        this.isAggressive = true;
-        this.roamDistance = 3;
-        this.returnDistance = 15;
-        
-        // Movement
-        this.moveSpeed = 800;
-        this.walkSpeed = 200;
-        this.idleSpeed = 700;
-        this.lastRoamTime = 0;
-        this.roamingInterval = 5000;
-        
-        // Combat
-        this.attackRate = 1000;
-        this.attackRange = 1;
-        
-        // Respawn
-        this.respawnTime = 30000; // 30 seconds
-        
-        // Loot
-        this.drops = [];
-        
-        // Load mob properties
-        this.loadProperties();
-    },
-    
-    loadProperties: function() {
-        var props = Properties.getMobProperties(this.mobType);
-        
-        if (props) {
-            this.hitPoints = props.hitPoints;
-            this.maxHitPoints = props.hitPoints;
-            this.attackRate = props.attackRate || 1000;
-            this.moveSpeed = props.moveSpeed || 800;
-            this.aggroRange = props.aggroRange || 3;
-            this.isAggressive = props.isAggressive !== false;
-            this.drops = props.drops || [];
-            this.respawnTime = props.respawnTime || 30000;
-        }
-    },
-    
-    spawn: function(x, y) {
-        this.setPosition(x, y);
-        this.spawnX = x;
-        this.spawnY = y;
+module.exports = Mob = Character.extend({
+    init: function(id, kind, x, y) {
+        this._super(id, "mob", kind, x, y);
+
+        this.updateHitPoints();
+        this.spawningX = x;
+        this.spawningY = y;
+        this.armorLevel = Properties.getArmorLevel(this.kind);
+        this.weaponLevel = Properties.getWeaponLevel(this.kind);
+        this.hatelist = [];
+        this.respawnTimeout = null;
+        this.returnTimeout = null;
         this.isDead = false;
-        this.hitPoints = this.maxHitPoints;
-        this.target = null;
-        this.attackers = [];
     },
-    
-    receiveDamage: function(damage, attacker) {
-        this._super(damage, attacker);
-        
-        // Aggro the attacker
-        if (attacker && attacker.type === 'player') {
-            this.aggro(attacker);
+
+    destroy: function() {
+        this.isDead = true;
+        this.hatelist = [];
+        this.clearTarget();
+        this.updateHitPoints();
+        this.resetPosition();
+
+        this.handleRespawn();
+    },
+
+    receiveDamage: function(points, playerId) {
+        this.hitPoints -= points;
+    },
+
+    hates: function(playerId) {
+        return _.any(this.hatelist, function(obj) {
+            return obj.id === playerId;
+        });
+    },
+
+    increaseHateFor: function(playerId, points) {
+        if(this.hates(playerId)) {
+            _.detect(this.hatelist, function(obj) {
+                return obj.id === playerId;
+            }).hate += points;
         }
-        
-        return damage;
+        else {
+            this.hatelist.push({ id: playerId, hate: points });
+        }
+
+        if(this.returnTimeout) {
+            // Prevent the mob from returning to its spawning position
+            // since it has aggroed a new player
+            clearTimeout(this.returnTimeout);
+            this.returnTimeout = null;
+        }
     },
-    
-    die: function() {
-        this._super();
-        
-        // Award experience to attackers
-        this.rewardAttackers();
-        
-        // Drop loot
-        this.dropLoot();
-        
-        // Schedule respawn
-        this.scheduleRespawn();
+
+    getHatedPlayerId: function(hateRank) {
+        var i, playerId,
+            sorted = _.sortBy(this.hatelist, function(obj) { return obj.hate; }),
+            size = _.size(this.hatelist);
+
+        if(hateRank && hateRank <= size) {
+            i = size - hateRank;
+        }
+        else {
+            i = size - 1;
+        }
+        if(sorted && sorted[i]) {
+            playerId = sorted[i].id;
+        }
+
+        return playerId;
     },
-    
-    rewardAttackers: function() {
-        var exp = this.getExperienceReward();
-        
-        _.each(this.attackers, function(attacker) {
-            if (attacker.type === 'player' && !attacker.isDead) {
-                attacker.gainExperience(Math.floor(exp / this.attackers.length));
-                attacker.addKill(this.mobType);
+
+    forgetPlayer: function(playerId, duration) {
+        this.hatelist = _.reject(this.hatelist, function(obj) { return obj.id === playerId; });
+
+        if(this.hatelist.length === 0) {
+            this.returnToSpawningPosition(duration);
+        }
+    },
+
+    forgetEveryone: function() {
+        this.hatelist = [];
+        this.returnToSpawningPosition(1);
+    },
+
+    drop: function(item) {
+        if(item) {
+            return new Messages.Drop(this, item);
+        }
+    },
+
+    handleRespawn: function() {
+        var delay = 30000,
+            self = this;
+
+        if(this.area && this.area instanceof MobArea) {
+            // Respawn inside the area if part of a MobArea
+            this.area.respawnMob(this, delay);
+        }
+        else {
+            if(this.area && this.area instanceof ChestArea) {
+                this.area.removeFromArea(this);
             }
-        }, this);
-    },
-    
-    getExperienceReward: function() {
-        return Formulas.getMobExperience(this.mobType);
-    },
-    
-    dropLoot: function() {
-        if (this.drops.length === 0) {
-            return;
-        }
-        
-        var drop = Utils.randomChoice(this.drops);
-        if (drop && Math.random() < drop.chance) {
-            var item = this.world.createItem(drop.type, this.x, this.y);
-            this.world.items[item.id] = item;
-            this.world.broadcast([Messages.SPAWN, item.id, item.type, item.x, item.y]);
-        }
-    },
-    
-    scheduleRespawn: function() {
-        var self = this;
-        setTimeout(function() {
-            self.respawn();
-        }, this.respawnTime);
-    },
-    
-    respawn: function() {
-        this.spawn(this.spawnX, this.spawnY);
-        this.world.mobs[this.id] = this;
-        this.world.broadcast([Messages.SPAWN, this.id, this.mobType, this.x, this.y]);
-    },
-    
-    aggro: function(player) {
-        if (!this.isAggressive || this.isDead) {
-            return false;
-        }
-        
-        if (!this.target || this.distanceTo(player) < this.distanceTo(this.target)) {
-            this.target = player;
-            return true;
-        }
-        
-        return false;
-    },
-    
-    canAggro: function(player) {
-        if (!this.isAggressive || this.isDead || player.isDead) {
-            return false;
-        }
-        
-        return this.distanceTo(player) <= this.aggroRange;
-    },
-    
-    roam: function() {
-        if (this.isDead || this.hasTarget() || this.isMoving) {
-            return;
-        }
-        
-        var now = Date.now();
-        if (now - this.lastRoamTime < this.roamingInterval) {
-            return;
-        }
-        
-        this.lastRoamTime = now;
-        
-        var x = this.spawnX + Math.floor(Math.random() * this.roamDistance * 2) - this.roamDistance;
-        var y = this.spawnY + Math.floor(Math.random() * this.roamDistance * 2) - this.roamDistance;
-        
-        if (this.world.isValidPosition(x, y)) {
-            this.moveTo(x, y);
-        }
-    },
-    
-    returnToSpawn: function() {
-        if (this.isDead || this.isMoving) {
-            return;
-        }
-        
-        this.target = null;
-        this.clearAttackers();
-        this.moveTo(this.spawnX, this.spawnY, function() {
-            // Heal when back at spawn
-            this.heal(this.maxHitPoints);
-        }.bind(this));
-    },
-    
-    shouldReturnToSpawn: function() {
-        var distanceFromSpawn = Utils.getDistance(this.x, this.y, this.spawnX, this.spawnY);
-        return distanceFromSpawn > this.maxDistanceFromSpawn;
-    },
-    
-    findNearestPlayer: function() {
-        var nearestPlayer = null;
-        var minDistance = this.aggroRange + 1;
-        
-        _.each(this.world.players, function(player) {
-            if (!player.isDead) {
-                var distance = this.distanceTo(player);
-                if (distance <= this.aggroRange && distance < minDistance) {
-                    nearestPlayer = player;
-                    minDistance = distance;
+
+            setTimeout(function() {
+                if(self.respawn_callback) {
+                    self.respawn_callback();
                 }
-            }
-        }, this);
-        
-        return nearestPlayer;
-    },
-    
-    getDamage: function() {
-        return Formulas.getMobDamage(this.mobType);
-    },
-    
-    getLoot: function() {
-        if (this.drops.length === 0) {
-            return null;
-        }
-        
-        var drop = Utils.randomChoice(this.drops);
-        if (drop && Math.random() < drop.chance) {
-            return drop.type;
-        }
-        
-        return null;
-    },
-    
-    update: function(deltaTime) {
-        this._super(deltaTime);
-        
-        if (this.isDead) {
-            return;
-        }
-        
-        // Check if should return to spawn
-        if (this.shouldReturnToSpawn()) {
-            this.returnToSpawn();
-            return;
-        }
-        
-        // AI behavior
-        if (this.hasTarget()) {
-            this.handleCombat();
-        } else {
-            this.handleIdle();
+            }, delay);
         }
     },
-    
-    handleCombat: function() {
-        if (!this.target || this.target.isDead) {
-            this.target = null;
-            return;
-        }
-        
-        var distance = this.distanceTo(this.target);
-        
-        // Target too far away
-        if (distance > this.returnDistance) {
-            this.target = null;
-            return;
-        }
-        
-        // Move towards target if not adjacent
-        if (distance > this.attackRange && !this.isMoving) {
-            this.moveTo(this.target.x, this.target.y);
-        }
-        
-        // Attack if in range
-        if (distance <= this.attackRange && this.canAttack(this.target)) {
-            this.attack(this.target);
-            
-            var damage = this.getDamage();
-            this.target.receiveDamage(damage, this);
-            
-            // Broadcast attack
-            this.world.broadcast([Messages.ATTACK, this.id, this.target.id]);
-            this.world.broadcast([Messages.HIT, this.id, this.target.id, damage]);
+
+    onRespawn: function(callback) {
+        this.respawn_callback = callback;
+    },
+
+    resetPosition: function() {
+        this.setPosition(this.spawningX, this.spawningY);
+    },
+
+    returnToSpawningPosition: function(waitDuration) {
+        var self = this,
+            delay = waitDuration || 4000;
+
+        this.clearTarget();
+
+        this.returnTimeout = setTimeout(function() {
+            self.resetPosition();
+            self.move(self.x, self.y);
+        }, delay);
+    },
+
+    onMove: function(callback) {
+        this.move_callback = callback;
+    },
+
+    move: function(x, y) {
+        this.setPosition(x, y);
+        if(this.move_callback) {
+            this.move_callback(this);
         }
     },
-    
-    handleIdle: function() {
-        // Look for nearby players to aggro
-        if (this.isAggressive) {
-            var nearestPlayer = this.findNearestPlayer();
-            if (nearestPlayer) {
-                this.aggro(nearestPlayer);
-                return;
-            }
-        }
-        
-        // Roam around spawn point
-        this.roam();
+
+    updateHitPoints: function() {
+        this.resetHitPoints(Properties.getHitPoints(this.kind));
+    },
+
+    distanceToSpawningPoint: function(x, y) {
+        return Utils.distanceTo(x, y, this.spawningX, this.spawningY);
     }
 });
-
-module.exports = Mob;

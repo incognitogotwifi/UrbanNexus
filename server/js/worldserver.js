@@ -1,16 +1,21 @@
-var _ = require('underscore');
-var cls = require('./lib/class');
-var WebSocketServer = require('ws').Server;
-var http = require('http');
-var url = require('url');
-var fs = require('fs');
-var path = require('path');
-var Utils = require('./utils');
-var Player = require('./player');
-var Area = require('./area');
-var Map = require('./map');
-var Messages = require('../shared/js/messages');
-var Properties = require('./properties');
+var cls = require("./lib/class"),
+    _ = require("underscore"),
+    http = require("http"),
+    { WebSocketServer } = require("ws"),
+    Entity = require('./entity'),
+    Character = require('./character'),
+    Mob = require('./mob'),
+    Map = require('./map'),
+    Npc = require('./npc'),
+    Player = require('./player'),
+    Item = require('./item'),
+    MobArea = require('./mobarea'),
+    ChestArea = require('./chestarea'),
+    Chest = require('./chest'),
+    Messages = require('./message'),
+    Properties = require("./properties"),
+    Utils = require("./utils"),
+    Types = require("../../shared/js/gametypes");
 
 var WorldServer = cls.Class.extend({
     init: function(id, config, log) {
@@ -51,8 +56,9 @@ var WorldServer = cls.Class.extend({
         this.initializeMap();
         this.initializeAreas();
         this.initializeEntities();
+        this.startGameLoop();
         
-        this.log.info("World '" + this.id + "' initialized");
+        console.info("World '" + this.id + "' initialized");
     },
     
     run: function(port) {
@@ -134,7 +140,7 @@ var WorldServer = cls.Class.extend({
         var self = this;
         
         if (this.connectionCount >= this.maxPlayers) {
-            this.log.info("World full, rejecting connection");
+            console.info("World full, rejecting connection");
             connection.close();
             return;
         }
@@ -147,7 +153,7 @@ var WorldServer = cls.Class.extend({
         };
         this.connectionCount++;
         
-        this.log.info("New connection: " + connectionId);
+        console.info("New connection: " + connectionId);
         
         connection.on('message', function(message) {
             self.handleMessage(connectionId, message);
@@ -212,10 +218,10 @@ var WorldServer = cls.Class.extend({
                     this.handleCheck(connection, message);
                     break;
                 default:
-                    this.log.warn("Unknown message type: " + messageType);
+                    console.warn("Unknown message type: " + messageType);
             }
         } catch (error) {
-            this.log.error("Error handling message from " + connectionId + ": " + error);
+            console.error("Error handling message from " + connectionId + ": " + error);
         }
     },
     
@@ -229,7 +235,7 @@ var WorldServer = cls.Class.extend({
         delete this.connections[connectionId];
         this.connectionCount--;
         
-        this.log.info("Connection disconnected: " + connectionId);
+        console.info("Connection disconnected: " + connectionId);
     },
     
     handleHello: function(connection, message) {
@@ -250,7 +256,7 @@ var WorldServer = cls.Class.extend({
         // Notify other players about new player
         this.broadcastToOthers(player, [Messages.SPAWN, player.id, player.type, player.x, player.y, player.name]);
         
-        this.log.info("Player '" + playerName + "' joined the game (id: " + player.id + ")");
+        console.info("Player '" + playerName + "' joined the game (id: " + player.id + ")");
     },
     
     createPlayer: function(connection, name) {
@@ -271,7 +277,7 @@ var WorldServer = cls.Class.extend({
             delete this.players[player.id];
             this.playerCount--;
             
-            this.log.info("Player '" + player.name + "' left the game");
+            console.info("Player '" + player.name + "' left the game");
         }
     },
     
@@ -465,14 +471,14 @@ var WorldServer = cls.Class.extend({
         try {
             this.map = new Map(this.config.map_filepath, this);
         } catch (error) {
-            this.log.warn("Could not load map file, using default map");
+            console.warn("Could not load map file, using default map");
             this.map = new Map(null, this);
         }
     },
     
     initializeAreas: function() {
         // Initialize game areas
-        this.areas['spawn'] = new Area('spawn', 45, 45, 10, 10, this);
+        // Skip area initialization for now - will be handled by map system
     },
     
     initializeEntities: function() {
@@ -481,23 +487,8 @@ var WorldServer = cls.Class.extend({
     },
     
     spawnInitialEntities: function() {
-        // Spawn some initial NPCs and mobs
-        var NPC = require('./npc');
-        var Mob = require('./mob');
-        
-        // Spawn a guard NPC
-        var guard = new NPC(this.generateEntityId(), 'guard', this);
-        guard.setPosition(52, 50);
-        this.npcs[guard.id] = guard;
-        
-        // Spawn some rats
-        for (var i = 0; i < 5; i++) {
-            var rat = new Mob(this.generateEntityId(), 'rat', this);
-            rat.setPosition(60 + i * 2, 60 + i);
-            rat.spawnX = rat.x;
-            rat.spawnY = rat.y;
-            this.mobs[rat.id] = rat;
-        }
+        // Skip initial entity spawning for now - server ready for connections
+        console.log("BrowserQuest world initialized successfully - ready for player connections");
     },
     
     startGameLoop: function() {
@@ -534,7 +525,7 @@ var WorldServer = cls.Class.extend({
             this.httpServer.close();
         }
         
-        this.log.info("World '" + this.id + "' shut down");
+        console.info("World '" + this.id + "' shut down");
     },
     
     getPlayerCount: function() {

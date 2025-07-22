@@ -1,13 +1,4 @@
-var Utils = {},
-    sanitizer = require('sanitizer'),
-    Types = require("../../shared/js/gametypes");
-
-module.exports = Utils;
-
-Utils.sanitize = function(string) {
-    // Strip unsafe tags, then escape as html entities.
-    return sanitizer.escape(sanitizer.sanitize(string));
-};
+var Utils = {};
 
 Utils.random = function(range) {
     return Math.floor(Math.random() * range);
@@ -47,16 +38,22 @@ Utils.randomOrientation = function() {
 };
 
 Utils.Mixin = function(target, source) {
-  if (source) {
-    for (var key, keys = Object.keys(source), l = keys.length; l--; ) {
-      key = keys[l];
-
-      if (source.hasOwnProperty(key)) {
-        target[key] = source[key];
-      }
+    if(source) {
+        for(var key, keys = Object.keys(source), l = keys.length; l--; ) {
+            key = keys[l];
+            if(source[key] != null && source[key] != target[key] && typeof source[key] !== 'function') {
+                if(source[key] && source[key].constructor === Object) {
+                    if(!target[key]) {
+                        target[key] = {};
+                    }
+                    Utils.Mixin(target[key], source[key]);
+                } else {
+                    target[key] = source[key];
+                }
+            }
+        }
     }
-  }
-  return target;
+    return target;
 };
 
 Utils.distanceTo = function(x, y, x2, y2) {
@@ -65,3 +62,5 @@ Utils.distanceTo = function(x, y, x2, y2) {
 
     return (distX > distY) ? distX : distY;
 };
+
+module.exports = Utils;

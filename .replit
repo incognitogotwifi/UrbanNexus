@@ -22,7 +22,15 @@ author = "agent"
 [[workflows.workflow.tasks]]
 task = "shell.exec"
 args = "cd server && npm install && node js/main.js"
-waitForPort = 8000
+waitForPort = 5000
 
 [agent]
 expertMode = true
+
+[[ports]]
+localPort = 5000
+externalPort = 5000
+
+[[ports]]
+localPort = 8000
+externalPort = 80

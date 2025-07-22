@@ -1,246 +1,93 @@
-var _ = require('underscore');
-var Entity = require('./entity');
-var Utils = require('./utils');
+var cls = require("./lib/class"),
+    Messages = require("./message"),
+    Utils = require("./utils"),
+    Properties = require("./properties"),
+    Types = require("../../shared/js/gametypes");
 
-var Character = Entity.extend({
-    init: function(id, type, world) {
-        this._super(id, type, world);
-        
-        // Health
-        this.hitPoints = 100;
-        this.maxHitPoints = 100;
-        
-        // Combat
-        this.attackRate = 1000; // milliseconds between attacks
-        this.lastAttackTime = 0;
-        this.target = null;
-        this.attackers = [];
-        
-        // Movement
-        this.moveSpeed = 150; // milliseconds per tile
-        this.lastMoveTime = 0;
-        this.isMoving = false;
-        this.path = [];
-        this.nextStep = null;
-        this.moveCallback = null;
-        
-        // AI properties
+module.exports = Character = Entity.extend({
+    init: function(id, type, kind, x, y) {
+        this._super(id, type, kind, x, y);
+
         this.orientation = Utils.randomOrientation();
-        
-        // Combat state
-        this.isDead = false;
-    },
-    
-    receiveDamage: function(damage, attacker) {
-        if (this.isDead) {
-            return 0;
-        }
-        
-        this.hitPoints -= damage;
-        
-        if (attacker && this.attackers.indexOf(attacker) === -1) {
-            this.attackers.push(attacker);
-        }
-        
-        if (this.hitPoints <= 0) {
-            this.hitPoints = 0;
-            this.die();
-        }
-        
-        return damage;
-    },
-    
-    heal: function(amount) {
-        if (!this.isDead) {
-            this.hitPoints = Math.min(this.hitPoints + amount, this.maxHitPoints);
-        }
-    },
-    
-    die: function() {
-        this.isDead = true;
-        this.hitPoints = 0;
+        this.attackers = {};
         this.target = null;
-        this.attackers = [];
-        this.clearPath();
     },
-    
-    resurrect: function() {
-        this.isDead = false;
+
+    getState: function() {
+        var basestate = this._getBaseState(),
+            state = [];
+
+        state.push(this.orientation);
+        if(this.target) {
+            state.push(this.target);
+        }
+
+        return basestate.concat(state);
+    },
+
+    resetHitPoints: function(maxHitPoints) {
+        this.maxHitPoints = maxHitPoints;
         this.hitPoints = this.maxHitPoints;
-        this.target = null;
-        this.attackers = [];
     },
-    
-    canAttack: function(target) {
-        if (this.isDead || !target || target.isDead) {
-            return false;
-        }
-        
-        var now = Date.now();
-        if (now - this.lastAttackTime < this.attackRate) {
-            return false;
-        }
-        
-        return this.isAdjacentTo(target);
-    },
-    
-    attack: function(target) {
-        if (!this.canAttack(target)) {
-            return false;
-        }
-        
-        this.lastAttackTime = Date.now();
-        this.target = target;
-        this.turnTowards(target);
-        
-        return true;
-    },
-    
-    addAttacker: function(character) {
-        if (this.attackers.indexOf(character) === -1) {
-            this.attackers.push(character);
+
+    regenHealthBy: function(value) {
+        var hp = this.hitPoints,
+            max = this.maxHitPoints;
+
+        if(hp < max) {
+            if(hp + value <= max) {
+                this.hitPoints += value;
+            }
+            else {
+                this.hitPoints = max;
+            }
         }
     },
-    
-    removeAttacker: function(character) {
-        var index = this.attackers.indexOf(character);
-        if (index !== -1) {
-            this.attackers.splice(index, 1);
-        }
+
+    hasFullHealth: function() {
+        return this.hitPoints === this.maxHitPoints;
     },
-    
-    clearAttackers: function() {
-        this.attackers = [];
+
+    setTarget: function(entity) {
+        this.target = entity.id;
     },
-    
-    hasAttackers: function() {
-        return this.attackers.length > 0;
-    },
-    
-    turnTowards: function(entity) {
-        var dx = entity.x - this.x;
-        var dy = entity.y - this.y;
-        
-        if (Math.abs(dx) > Math.abs(dy)) {
-            this.orientation = dx > 0 ? Types.Orientations.RIGHT : Types.Orientations.LEFT;
-        } else {
-            this.orientation = dy > 0 ? Types.Orientations.DOWN : Types.Orientations.UP;
-        }
-    },
-    
-    setTarget: function(target) {
-        this.target = target;
-    },
-    
+
     clearTarget: function() {
         this.target = null;
     },
-    
+
     hasTarget: function() {
-        return this.target !== null && !this.target.isDead;
+        return this.target !== null;
     },
-    
-    moveTo: function(x, y, callback) {
-        this.path = this.findPath(x, y);
-        this.moveCallback = callback;
-        
-        if (this.path.length > 0) {
-            this.isMoving = true;
-            this.nextStep = this.path.shift();
+
+    attack: function() {
+        return new Messages.Attack(this.id, this.target);
+    },
+
+    health: function() {
+        return new Messages.Health(this.hitPoints, false);
+    },
+
+    regen: function() {
+        return new Messages.Health(this.hitPoints, true);
+    },
+
+    addAttacker: function(entity) {
+        if(entity) {
+            this.attackers[entity.id] = entity;
         }
     },
-    
-    findPath: function(x, y) {
-        // Simple pathfinding - just move directly
-        // In a real implementation, use A* or similar
-        var path = [];
-        var currentX = this.x;
-        var currentY = this.y;
-        
-        while (currentX !== x || currentY !== y) {
-            if (currentX < x) currentX++;
-            else if (currentX > x) currentX--;
-            
-            if (currentY < y) currentY++;
-            else if (currentY > y) currentY--;
-            
-            path.push({ x: currentX, y: currentY });
+
+    removeAttacker: function(entity) {
+        if(entity && entity.id in this.attackers) {
+            delete this.attackers[entity.id];
+            console.log(this.id +" REMOVED ATTACKER "+ entity.id);
         }
-        
-        return path;
     },
-    
-    move: function() {
-        if (!this.isMoving || !this.nextStep) {
-            return false;
-        }
-        
-        var now = Date.now();
-        if (now - this.lastMoveTime < this.moveSpeed) {
-            return false;
-        }
-        
-        this.setPosition(this.nextStep.x, this.nextStep.y);
-        this.lastMoveTime = now;
-        
-        if (this.path.length > 0) {
-            this.nextStep = this.path.shift();
-        } else {
-            this.isMoving = false;
-            this.nextStep = null;
-            
-            if (this.moveCallback) {
-                this.moveCallback();
-                this.moveCallback = null;
-            }
-        }
-        
-        return true;
-    },
-    
-    clearPath: function() {
-        this.path = [];
-        this.nextStep = null;
-        this.isMoving = false;
-        this.moveCallback = null;
-    },
-    
-    stop: function() {
-        this.clearPath();
-    },
-    
-    getHealthPercentage: function() {
-        return Math.round((this.hitPoints / this.maxHitPoints) * 100);
-    },
-    
-    isHealthy: function() {
-        return this.getHealthPercentage() === 100;
-    },
-    
-    isAlmostDead: function() {
-        return this.getHealthPercentage() <= 10;
-    },
-    
-    update: function(deltaTime) {
-        this._super(deltaTime);
-        
-        if (!this.isDead) {
-            // Update movement
-            if (this.isMoving) {
-                this.move();
-            }
-            
-            // Clean up dead attackers
-            this.attackers = _.filter(this.attackers, function(attacker) {
-                return !attacker.isDead;
-            });
-            
-            // Clear target if dead
-            if (this.target && this.target.isDead) {
-                this.target = null;
-            }
+
+    forEachAttacker: function(callback) {
+        for(var id in this.attackers) {
+            callback(this.attackers[id]);
         }
     }
 });
-
-module.exports = Character;

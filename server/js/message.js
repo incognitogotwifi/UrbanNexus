@@ -33,9 +33,9 @@ Messages.Move = Message.extend({
         this.entity = entity;
     },
     serialize: function() {
-        return [Types.Messages.MOVE,\
-                this.entity.id,\
-                this.entity.x,\
+        return [Types.Messages.MOVE,
+                this.entity.id,
+                this.entity.x,
                 this.entity.y];
     }
 });
@@ -46,8 +46,8 @@ Messages.LootMove = Message.extend({
         this.item = item;
     },
     serialize: function() {
-        return [Types.Messages.LOOTMOVE,\
-                this.entity.id,\
+        return [Types.Messages.LOOTMOVE,
+                this.entity.id,
                 this.item.id];
     }
 });
@@ -58,8 +58,8 @@ Messages.Attack = Message.extend({
         this.targetId = targetId;
     },
     serialize: function() {
-        return [Types.Messages.ATTACK,\
-                this.attackerId,\
+        return [Types.Messages.ATTACK,
+                this.attackerId,
                 this.targetId];
     }
 });
@@ -70,7 +70,7 @@ Messages.Health = Message.extend({
         this.isRegen = isRegen;
     },
     serialize: function() {
-        var health = [Types.Messages.HEALTH,\
+        var health = [Types.Messages.HEALTH,
                       this.points];
 
         if(this.isRegen) {
@@ -85,7 +85,7 @@ Messages.HitPoints = Message.extend({
         this.maxHitPoints = maxHitPoints;
     },
     serialize: function() {
-        return [Types.Messages.HP,\
+        return [Types.Messages.HP,
                 this.maxHitPoints];
     }
 });
@@ -96,8 +96,8 @@ Messages.EquipItem = Message.extend({
         this.itemKind = itemKind;
     },
     serialize: function() {
-        return [Types.Messages.EQUIP,\
-                this.playerId,\
+        return [Types.Messages.EQUIP,
+                this.playerId,
                 this.itemKind];
     }
 });
@@ -108,10 +108,10 @@ Messages.Drop = Message.extend({
         this.item = item;
     },
     serialize: function() {
-        var drop = [Types.Messages.DROP,\
-                    this.mob.id,\
-                    this.item.id,\
-                    this.item.kind,\
+        var drop = [Types.Messages.DROP,
+                    this.mob.id,
+                    this.item.id,
+                    this.item.kind,
                     _.pluck(this.mob.hatelist, "id")];
 
         return drop;
@@ -124,8 +124,8 @@ Messages.Chat = Message.extend({
         this.message = message;
     },
     serialize: function() {
-        return [Types.Messages.CHAT,\
-                this.playerId,\
+        return [Types.Messages.CHAT,
+                this.playerId,
                 this.message];
     }
 });
@@ -135,9 +135,9 @@ Messages.Teleport = Message.extend({
         this.entity = entity;
     },
     serialize: function() {
-        return [Types.Messages.TELEPORT,\
-                this.entity.id,\
-                this.entity.x,\
+        return [Types.Messages.TELEPORT,
+                this.entity.id,
+                this.entity.x,
                 this.entity.y];
     }
 });
@@ -148,8 +148,8 @@ Messages.Damage = Message.extend({
         this.points = points;
     },
     serialize: function() {
-        return [Types.Messages.DAMAGE,\
-                this.entity.id,\
+        return [Types.Messages.DAMAGE,
+                this.entity.id,
                 this.points];
     }
 });
@@ -160,8 +160,8 @@ Messages.Population = Message.extend({
         this.total = total;
     },
     serialize: function() {
-        return [Types.Messages.POPULATION,\
-                this.world,\
+        return [Types.Messages.POPULATION,
+                this.world,
                 this.total];
     }
 });
@@ -171,7 +171,7 @@ Messages.Kill = Message.extend({
         this.mob = mob;
     },
     serialize: function() {
-        return [Types.Messages.KILL,\
+        return [Types.Messages.KILL,
                 this.mob.kind];
     }
 });
@@ -193,7 +193,7 @@ Messages.Destroy = Message.extend({
         this.entity = entity;
     },
     serialize: function() {
-        return [Types.Messages.DESTROY,\
+        return [Types.Messages.DESTROY,
                 this.entity.id];
     }
 });
@@ -203,7 +203,7 @@ Messages.Blink = Message.extend({
         this.item = item;
     },
     serialize: function() {
-        return [Types.Messages.BLINK,\
+        return [Types.Messages.BLINK,
                 this.item.id];
     }
 });

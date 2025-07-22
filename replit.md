@@ -4,6 +4,8 @@
 
 BrowserQuest is a real-time multiplayer 2D RPG game built entirely in JavaScript, featuring both client-side and server-side components. The game runs in web browsers using HTML5 Canvas and WebSocket technology for real-time communication. Players can explore a 2D world, chat with others, fight monsters, collect loot, and interact with NPCs.
 
+**Status:** Successfully migrated from Mozilla BrowserQuest repository to Replit environment (January 2025). The server is now running on port 5000 with modern WebSocket implementation and all game systems operational.
+
 ## User Preferences
 
 Preferred communication style: Simple, everyday language.
