@@ -1,0 +1,25 @@
+{
+    "nopkzones": [
+        {
+            "template":"westlaw_overworld",
+            "zones": [
+                {"x":71, "y":85, "w":70, "h":60}
+            ]
+        },
+        {
+            "template":"inside_spar-1",
+            "zones": [
+                {"x":3, "y":4, "w":4, "h":20},
+                {"x":3.3, "y":19, "w":5.4, "h":21},
+                {"x":3, "y":5, "w":18.6, "h":5},
+                {"x":20, "y":5, "w":5, "h":21}
+            ]
+        },
+        {
+            "template":"inside_tutorial-map",
+            "zones": [
+                {"x":0, "y":0, "w":100, "h":100}
+                ]
+        }
+    ]
+}

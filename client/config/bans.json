@@ -1,0 +1,13 @@
+{
+    "bans": [
+        {
+            "active": false,
+            "rules": [
+                {"action":"allow", "ip":"*", "os":"*", "userid":"*"}
+            ],
+            "message": "Server under maintenance. Please try again later.",
+            "disconnect": false,
+            "showtoadmins": true
+        }
+    ]
+}

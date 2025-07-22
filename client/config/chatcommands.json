@@ -1,0 +1,26 @@
+{
+    "chatcommands": [
+        { "command": "dj",   "ani":"westlaw_dj-on" },
+        { "command": "clap",   "ani":"action-clapping" },
+        { "command": "sit",   "ani":"player_sit" },
+        { "command": "witch please",   "ani":"westlaw_sassy" },
+        { "command": "dance6",   "ani":"westlaw_twerk" },
+        { "command": "rofl", "ani":"westlaw_misck-rolf" },
+        { "command": "cry",   "ani":"westlaw_cry" },
+        { "command": "choochoo",   "ani":"westlaw_cowboy-train" },
+        { "command": "dance4",   "ani":"westlaw_firedance" },
+        { "command": "dance1",   "ani":"westlaw_duck-funk" },
+        { "command": "dance2",   "ani":"westlaw_pojo-mojo" },
+        { "command": "dance3",   "ani":"westlaw_chila" },
+        { "command": "joint",   "ani":"westlaw_blunt-atk" },
+        { "command": "blunt",   "ani":"westlaw_blunt-atk" },
+        { "command": "jail", "ani":"westlaw_walletcage1" },
+        { "command": "rpss", "ani":"westlaw_rpss" },
+        { "command": "dance5", "ani":"westlaw_player-happyjump" },
+        { "command": "die", "ani": "westlaw_deathpart1" },
+        { "command": "rob", "ani": "player_rob" },
+        { "command": "hug", "ani": "westlaw_hug" },
+        { "command": "heal", "ani": "westlaw_bandage-atk" },
+        { "command": "bestlaw1", "ani": "bestlaw-1" }
+    ]
+}

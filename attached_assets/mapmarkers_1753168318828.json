@@ -1,0 +1,40 @@
+{
+    "mapmarkers": [
+        {
+            "template":"westlaw_overworld",
+            "bigmap": "bbuilder_bigmap.jpg",
+            "markers": [
+                { "x": 105, "y":195,  "text":"Shell City",    "icon":"westlaw_town.png"},
+                { "x": 363, "y":86,  "text":"Forest",    "icon":""},
+                { "x": 348, "y":24,  "text":"Town",    "icon":"westlaw_town.png"},
+                { "x": 232, "y":50,  "text":"Butcher",    "icon":"westlaw_bacon-raw.png"},
+                { "x": 31, "y":156,  "text":"",    "icon":"westlawbaseicon.png"},
+                { "x": 238, "y":86,  "text":"",    "icon":"westlawbaseicon.png"},
+                { "x": 213, "y":170,  "text":"Mines",    "icon":"westlawmineicon.png"},
+                { "x": 108, "y":151,  "text":"Bar",    "icon":"westlawbaricon.png"},
+                { "x": 60, "y":100,  "text":"",    "icon":"westlawbaseicon.png"},
+                { "x": 133.27, "y":170.7,  "text":"Shell Shop",    "icon":"westlawshellicon.png"},
+                { "x": 150, "y":167,  "text":"VIP Shop",    "icon":"westlaw_coin.png"},
+                { "x": 288, "y":126,  "text":"Horse Arena",    "icon":"westlawhorseicon.png"},
+                { "x": 263.68, "y":104.98,  "text":"Pillow Terrist",    "icon":"westlawbaricon.png"},
+                { "x": 15, "y":71,  "text":"Auctions",    "icon":"westlawauctionsicon.png"},
+                { "x": 27, "y":24.76,  "text":"Waves",    "icon":"westlawbaricon.png"},
+                { "x": 65.71, "y":43.28,  "text":"Spar Complex",    "icon":"westlawsparicon.png"},
+                { "x": 10, "y":97,  "text":"Dollis'",    "icon":""},
+                { "x": 14, "y":119,  "text":"Pets",    "icon":""},
+                { "x": 57, "y":162,  "text":"Seed Shop",    "icon":"westlawseedshopicon.png"},
+                { "x": 128, "y":19,  "text":"Church",    "icon":"westlawbookicon.png"},
+                { "x": 70, "y":119,  "text":"Music Shop",    "icon":"westlawmusicicon.png"},
+                { "x": 56, "y":79,  "text":"Horse Shop",    "icon":"westlawhorseicon.png"},
+                { "x": 114, "y":45,  "text":"Armory",    "icon":"westlawarmoryicon.png"},
+                { "x": 129, "y":110,  "text":"Main Inn",    "icon":""},
+                { "x": 140, "y":131,  "text":"Food Mart",    "icon":"westlawmarketicon.png"},
+                { "x": 85, "y":85,  "text":"Furnitumre",    "icon":"westlawfurnitureicon.png"},
+                { "x": 122, "y":120,  "text":"Start",    "icon":"westlaw_town.png"},
+                { "x": 131, "y":14,  "text":"Dust Box",    "icon":""},
+                { "x": 87, "y":67,  "text":"Events House",    "icon":""}
+            ]
+        }
+    ]
+}
+

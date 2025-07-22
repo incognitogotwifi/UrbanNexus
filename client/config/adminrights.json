@@ -1,0 +1,66 @@
+{
+    "adminrights": [
+        { "type": "1", "commands": [
+          "stealth"
+          ]},
+        { "type": "2", "commands": [
+          "warpto", "stealth"
+          ]},
+        { "type": "3", "commands": [ 
+          "profile", "warpto", "summon", "stealth", "zoom", "gag", "resetname", "resetstatus", "resetstory",
+          "disconnect", "mute", "lockitems", "blockuploads", "jail", "tojail"
+          ]},
+        { "type": "4", "commands": [
+          "profile", "warpto", "summon", "stealth", "addeventcoin", "editevent"
+          ]},
+        { "type": "5", "commands": [ 
+          "profile", "setposition", "unstickplayer", "warpto",
+          "resetname", "resetstatus", "jail", "tojail", "disconnect", "resetstory", "gag",
+          "sethp", "zoom"
+          ]},
+        { "type": "6", "commands": [ 
+          "profile", "addeventcoin", "setposition", "unstickplayer", "warpto",
+          "resetname", "resetstatus", "jail", "tojail", "disconnect", "resetstory", "gag",
+          "sethp", "zoom", "stealth", "setadminlevel", "setclanname", "blockuploads", "addscriptnpc", "addshopnpc"
+      ], "paths": ["rw /Config/*"]},
+        { "type": "7", "commands": [ 
+          "addclanstats", "addtree", "additem", "addscriptnpc", "addfireworks", "addeventcoin", "addmonsters", "addplayeritem", "addtalknpc",
+          "addstats", "ani", "blockuploads", "clanadmin", "countplayers", "disconnect", "debugevents",
+          "editevent", "addshopnpc", "gag",
+          "profile", "pushannouncements", "setnpcname", "movenpc", "removenpc", "itemdisplay", "jail", "mute", "lockitems",
+          "refillarrows", "refillbombs",
+          "refundupload", "removeitem", "resetname", "resetstatus",
+          "setclanleader", "setclanname", "serverstory", "serverpings", "setadminlevel",
+          "sethp", "setnpcname", "setposition", "reloadconfig",
+          "settag", "stealth", "stories", "story", "resetstory", "summon", "summonclan", "tojail", "unstickplayer", "uploadadmin", "uploaditems", "warpto", "zoom", "setmap", "tradeadmin",
+          "spar", "reloadmap", "auction"
+          ], "paths": ["rw /Config/*", "rw /Files/*", "rw /Scripts/*", "rw /Maps/*", "rw /Admins/*", "rw /DB/*"]},
+        { "type": "8", "commands": [ 
+          "addclanstats", "addcoins", "addball", "addbomb", "additem", "addfireworks", "addeventcoin", "addmonsters", "addplayeritem", "addtalknpc", "addsnowhill",
+          "addballoon", "addscriptnpc", "addsnowman", "addstats", "addtree", "ani", "blockuploads", "clanadmin", "countplayers", "disconnect", "debugevents",
+          "editevent", "editnpc", "addshopnpc", "auction", "profilerlog",
+          "profile", "pushannouncements", "setnpcname", "movenpc", "removenpc", "reloadmap", "itemdisplay", "jail", "mute", "lockitems",
+          "reloadconfig", "reloadtranslations", "testcoins", "refillarrows", "refillbombs",
+          "refundupload", "removeitem", "resetname", "resetstatus", "gag",
+          "setclanleader", "setclanname", "serverstory", "serverpings", "setadminlevel",
+          "sethp", "setnpcname", "setposition", "setmap",
+          "settag", "stealth", "stories", "story", "resetstory", "summon", "summonclan",
+          "tojail", "tradeadmin", "unstickplayer", "uploadadmin", "uploaditems", "warpto", "zoom", "shutdown", "transferaccount", "transferlogin",
+          "spar"
+          ], "paths": ["rw /Config/*", "rw /Files/*", "rw /Scripts/*", "rw /Maps/*", "rw /Admins/*", "rw /DB/*"]},
+        { "type": "9", "commands": [
+          "activeobjects", "addclanstats", "addcoins", "addball", "additem", "addfireworks", "addmonsters", "addshopnpc", "addtalknpc",
+          "addtree", "addballoon", "addbomb", "addbunny", "addscriptnpc", "addsnowman", "addeventcoin", "addplayeritem",
+          "addsnowhill", "addship", "addstats", "ani", "auction", "clanadmin", "blockuploads", "countplayers", "disconnect", "debugevents",
+          "editevent", "editnpc", "itemdisplay", "jail", "mute", "lockitems", "mapmemorylog",
+          "memorylog", "movenpc", "preloadmap", "profile", "profilerlog", "pushannouncements", "reloadconfig",
+          "refillarrows", "refillbombs", "refundupload", "reloadmap", "removeitem", "gag",
+          "removenpc", "reloadtranslations", "resetname", "resetstatus",
+          "setclanleader", "setclanname", "serverstory", "serverpings", "setadminlevel", "sethp",
+          "setmap", "setnpcname", "setposition", "settag", "shutdown", "shutdownfull",
+          "stealth", "stories", "story", "resetstory", "summon", "summonclan", "rungc", "testcoins",
+          "tojail", "tradeadmin", "transferaccount", "transferlogin", "unstickplayer", "uploadadmin", "uploaditems", "warpto", "zoom",
+          "spar"
+          ], "paths": ["rw /Config/*", "rw /Files/*", "rw /Scripts/*", "rw /Maps/*", "rw /Admins/*", "rw /DB/*"]}
+    ]
+}
