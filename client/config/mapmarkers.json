@@ -1,7 +1,7 @@
 {
     "mapmarkers": [
         {
-            "template":"world_client",
+            "template":"westlaw_overworld",
             "bigmap": "bbuilder_bigmap.jpg",
             "markers": [
                 { "x": 105, "y":195,  "text":"Shell City",    "icon":"westlaw_town.png"},
@@ -37,3 +37,4 @@
         }
     ]
 }
+

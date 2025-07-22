@@ -1,7 +1,7 @@
 {
     "nopkzones": [
         {
-            "template":"world_client",
+            "template":"westlaw_overworld",
             "zones": [
                 {"x":71, "y":85, "w":70, "h":60}
             ]

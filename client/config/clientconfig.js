@@ -1,6 +1,6 @@
 var gameconfig = {
         npcnamecolor: "#FFC627",
-        gamename: "BrowserQuest Enhanced",
+        gamename: "West Law",
         aboutme: "BrowserQuest Enhanced with iAppsBeats features.",
         facebookpage: "https://www.facebook.com/browserquest",
         facebookscopes: "public_profile,email",
@@ -14,14 +14,14 @@ var gameconfig = {
 
         alwaysgrab: true,
         enablegrab: true,
-        primaryweapon: "gun",
+        primaryweapon: "sword1",
         defaultarmor: "clotharmor",
         defaultweapon: "sword1",
         defaulthead: "bbuilder_head1.png",
         defaulthat: null,
         defaultmapname: "world_client",
 
-        filespath: "https://localhost:5000/files/",
+        filespath: "./client/files/",
         enablesharebutton: false,
         enablenewgui: false,
         enablebackpackani: true,
@@ -63,7 +63,7 @@ var gameconfig = {
         ignoremodtimefor: ["_hatc", "_headc", "_bodyc", "_clanlogoc"],
 
         enablepaypal: false,
-        serveraddress: "ws://localhost:5000",
+        serveraddress: "",
 
         storyshareurl: "https://localhost:5000/story/share?storyid=",
         twitteraccount: "BrowserQuest",

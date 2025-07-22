@@ -11,13 +11,13 @@
     "tutorialTag": "Say Skip To Leave!",
     "adminnamecolor": "#ffbf00",
     "statuenamecolor": "white",
-    "startmessage": "Welcome to BrowserQuest!",
+    "startmessage": "HIIII",
     "hideaddcoinsmessage": true,
     "primaryweapon": "gun",
     "enablehitbox": true,
     "enablegrab": true,
     "hotkeys": 5,
-    "disablewebversion": false,
+    "disablewebversion": true,
     "webrelogin": true,
     "createaccountenabled": true,
     "maxaccountsperday": 2,
@@ -36,11 +36,11 @@
     "extendedemoticons": true,
     "emoticonoffset": "{x:-8, y:-75}",
     "zoneHeight": 16,
-    "defaultmapname": "world_client",
+    "defaultmapname": "westlaw_overworld",
     "defaultx": 111,
     "defaulty": 104,
     "previewlocation": {
-        "map": "world_client",
+        "map": "westlaw_overworld",
         "x": 111,
         "y": 104
     },
@@ -77,7 +77,7 @@
     "castledisablesnow": true,
     "zoneownerleaveondeath": false,
     "offlinepms": true,
-    "adminwelcomemessage": "Welcome Admin!",
+    "adminwelcomemessage": "Howdy Sheriff- West Law Admin Console!~ Yeee Haww!",
     "allowtrade": true,
     "allowtradeuploads": false,
     "adminlevelhighstealth": 7,
@@ -95,7 +95,7 @@
     "instagramlink": "<iframe class=\"instagram-media instagram-media-rendered\" id=\"instagram-embed-0\" src=\"https://www.instagram.com/p/%s/embed\" allowtransparency=\"true\" frameborder=\"0\" height=\"378\" data-instgrm-payload-id=\"instagram-media-payload-0\" scrolling=\"no\" style=\"width: 242px;\"></iframe>",
     "facebooklink": "<iframe src=\"https://www.facebook.com/plugins/post.php?href=https://www.facebook.com/%s&show_text=true\" width=242 height=378 style=\"border:none;overflow:hidden\" scrolling=no frameborder=0 allowfullscreen=true allow=\"autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share\"></iframe>",
     "tiktoklink": "<iframe src=https://www.tiktok.com/embed/%s allow=\"autoplay\" frameborder=0 allowfullscreen=true style=\"height:800px;max-width:100%%;max-height:100%%;\"></iframe>",
-    "twitchlink": "<iframe width=240 height=200 src=https://player.twitch.tv/?%s&parent=localhost&parent=127.0.0.1 frameborder=0 allowfullscreen=true></iframe>",
+    "twitchlink": "<iframe width=240 height=200 src=https://player.twitch.tv/?%s&parent=iappsbeats.com&parent=avaloniaonline.com&parent=corleoneonline.com frameborder=0 allowfullscreen=true></iframe>",
     "scriptnpcimage": "lekai_placeholder.png",
     "newscripting": true,
     "dontstripcomments": true,
@@ -112,7 +112,7 @@
     "allowedscores": ["kills", "mobkills", "spar", "sparlost"],
 
     "languages": [
-      "en","ar","de","es","fr","no","ja","pt","tl", "tr", 
+      "ar","de","es","fr","no","ja","pt","tl", "tr", 
       "bs", "crn", "hbs", "hr", "sh", "sr"
     ], 
 

@@ -1,0 +1,29 @@
+{
+    "host": "0.0.0.0",
+    "port": 5000,
+    "dispatcher": false,
+    "nb_players_per_world": 200,
+    "nb_worlds": 1,
+    "map_filepath": "./server/maps/world_server.json",
+    "debug": true,
+    "debug_level": "info",
+    "mysql_enabled": false,
+    "mysql_config": {
+        "host": "localhost",
+        "user": "browserquest",
+        "password": "",
+        "database": "browserquest"
+    },
+    "redis_enabled": false,
+    "redis_config": {
+        "port": 6379,
+        "host": "localhost"
+    },
+    "metrics_enabled": false,
+    "memcached_host": "localhost",
+    "memcached_port": 11211,
+    "server_name": "server1",
+    "game_servers": [
+        {"name": "server1"}
+    ]
+}

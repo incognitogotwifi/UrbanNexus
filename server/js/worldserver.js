@@ -95,6 +95,11 @@ var WorldServer = cls.Class.extend({
         var pathname = url.parse(req.url).pathname;
         var self = this;
         
+        // Add CORS headers
+        res.setHeader('Access-Control-Allow-Origin', '*');
+        res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+        res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+        
         if (pathname === '/') {
             // Serve the main game page
             this.serveFile('../../client/index.html', 'text/html', res);
@@ -106,6 +111,24 @@ var WorldServer = cls.Class.extend({
             // Serve JavaScript files
             var filePath = '../../client' + pathname;
             this.serveFile(filePath, 'application/javascript', res);
+        } else if (pathname.startsWith('/config/')) {
+            // Serve config files
+            var filePath = '../../client' + pathname;
+            this.serveFile(filePath, 'application/json', res);
+        } else if (pathname.startsWith('/maps/')) {
+            // Serve map files
+            var filePath = '../../client' + pathname;
+            this.serveFile(filePath, 'application/json', res);
+        } else if (pathname.startsWith('/audio/')) {
+            // Serve audio files
+            var filePath = '../../client' + pathname;
+            var contentType = this.getContentType(filePath);
+            this.serveFile(filePath, contentType, res);
+        } else if (pathname.startsWith('/img/')) {
+            // Serve image files
+            var filePath = '../../client' + pathname;
+            var contentType = this.getContentType(filePath);
+            this.serveFile(filePath, contentType, res);
         } else if (pathname.startsWith('/shared/')) {
             // Serve shared files
             var filePath = '../..' + pathname;
@@ -117,7 +140,7 @@ var WorldServer = cls.Class.extend({
             var contentType = this.getContentType(filePath);
             this.serveFile(filePath, contentType, res);
         } else {
-            res.writeHead(404);
+            res.writeHead(404, {'Content-Type': 'text/plain'});
             res.end('Not Found: ' + pathname);
         }
     },

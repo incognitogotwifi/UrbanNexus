@@ -1,0 +1,15 @@
+{
+  "width": 172,
+  "height": 314,
+  "tilewidth": 16,
+  "tileheight": 16,
+  "data": [],
+  "layers": [
+    {
+      "name": "background",
+      "type": "tilelayer",
+      "data": []
+    }
+  ],
+  "tilesets": []
+}
