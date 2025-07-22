@@ -25,11 +25,11 @@ define(['game', 'gameclient'], function(Game, GameClient) {
             this.game.renderer.initWebGL();
         }
         
-        this.game.onGameStart(function() {
+        this.game.onGameStart = function() {
             self.started = true;
             $('#gamecontainer').css('visibility', 'visible');
             $('#startscreen').hide();
-        });
+        };
         
         this.bindWestLawEvents();
         this.loadAudio();

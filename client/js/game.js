@@ -102,6 +102,17 @@ function(Renderer, Map, Player, GameClient, Camera, ChatHandler, Audio, Storage)
         $.getJSON('maps/world_client.json', function(data) {
             self.map = new Map(data);
             self.checkReady();
+        }).fail(function() {
+            // Fallback to default map if file doesn't exist
+            self.map = new Map({
+                width: 172,
+                height: 314,
+                tilewidth: 16,
+                tileheight: 16,
+                layers: [],
+                tilesets: []
+            });
+            self.checkReady();
         });
         
         // Load audio data

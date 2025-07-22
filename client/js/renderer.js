@@ -124,12 +124,29 @@ define(['camera'], function(Camera) {
     Renderer.prototype.handleResize = function() {
         this.initCanvasSize();
         
-        if (this.game.camera) {
+        if (this.game.camera && this.game.map) {
             this.game.camera.setBounds(0, 0, 
                 this.game.map.width * this.tilesize,
                 this.game.map.height * this.tilesize
             );
         }
+    };
+    
+    Renderer.prototype.onMouseMove = function(callback) {
+        this.mouseMoveCb = callback;
+    };
+    
+    Renderer.prototype.onMouseClick = function(callback) {
+        this.mouseClickCb = callback;
+    };
+    
+    Renderer.prototype.isWebGLSupported = function() {
+        return !!window.WebGLRenderingContext;
+    };
+    
+    Renderer.prototype.initWebGL = function() {
+        // WebGL initialization placeholder
+        console.log('WebGL support detected');
     };
     
     Renderer.prototype.loadSprites = function(spriteData) {
@@ -146,7 +163,7 @@ define(['camera'], function(Camera) {
     };
     
     Renderer.prototype.render = function() {
-        if (this.stopRendering || !this.game.ready || !this.tilesheetLoaded) {
+        if (this.stopRendering || !this.game.ready) {
             return;
         }
         
@@ -159,6 +176,44 @@ define(['camera'], function(Camera) {
             this.renderForeground();
             this.renderUI();
         }
+    };
+    
+    Renderer.prototype.clearScreen = function() {
+        if (this.context.background) {
+            this.context.background.clearRect(0, 0, this.getWidth(), this.getHeight());
+        }
+        if (this.context.entities) {
+            this.context.entities.clearRect(0, 0, this.getWidth(), this.getHeight());
+        }
+        if (this.context.foreground) {
+            this.context.foreground.clearRect(0, 0, this.getWidth(), this.getHeight());
+        }
+    };
+    
+    Renderer.prototype.updateFPS = function() {
+        this.frameCount++;
+        var now = Date.now();
+        if (now - this.lastTime >= 1000) {
+            this.realFPS = this.frameCount;
+            this.frameCount = 0;
+            this.lastTime = now;
+        }
+    };
+    
+    Renderer.prototype.renderBackground = function() {
+        // Background rendering placeholder
+    };
+    
+    Renderer.prototype.renderEntities = function() {
+        // Entity rendering placeholder
+    };
+    
+    Renderer.prototype.renderForeground = function() {
+        // Foreground rendering placeholder
+    };
+    
+    Renderer.prototype.renderUI = function() {
+        // UI rendering placeholder
     };
     
     Renderer.prototype.clearScreen = function() {

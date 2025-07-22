@@ -1,15 +1,17 @@
 {
-  "version": "1.0",
-  "sprites": {
-    "player": {
-      "filepath": "img/1/player.png",
-      "width": 32,
-      "height": 32
-    },
-    "entities": {
-      "filepath": "img/1/entities.png", 
-      "width": 32,
-      "height": 32
-    }
+  "player": {
+    "width": 48,
+    "height": 48,
+    "frames": 4
+  },
+  "guard": {
+    "width": 32,
+    "height": 32,
+    "frames": 2
+  },
+  "tiles": {
+    "width": 16,
+    "height": 16,
+    "count": 1000
   }
 }
