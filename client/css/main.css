@@ -1,0 +1,162 @@
+@import url('https://fonts.googleapis.com/css?family=Lucida+Console');
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Lucida Console', Monaco, monospace;
+    background: #000;
+    overflow: hidden;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+#container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+#error {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: red;
+    font-size: 18px;
+    text-align: center;
+    display: none;
+    z-index: 10000;
+}
+
+#errormessage {
+    background: rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    border-radius: 10px;
+    border: 2px solid red;
+}
+
+#instructions {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: none;
+    z-index: 9999;
+}
+
+#instructionstext {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 24px;
+    text-align: center;
+    cursor: pointer;
+}
+
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: -webkit-crisp-edges;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+}
+
+.screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: none;
+    z-index: 1000;
+}
+
+.screen .container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(255, 255, 255, 0.9);
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    min-width: 300px;
+}
+
+.screen h1 {
+    margin: 0 0 20px 0;
+    color: #333;
+}
+
+.screen p {
+    margin: 10px 0;
+    color: #666;
+}
+
+.screen .content {
+    text-align: left;
+    margin: 20px 0;
+}
+
+.screen .content p {
+    margin: 10px 0;
+}
+
+#helpclose {
+    background: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+    display: inline-block;
+}
+
+#helpclose:hover {
+    background: #45a049;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    body {
+        font-size: 12px;
+    }
+    
+    .screen .container {
+        margin: 20px;
+        min-width: auto;
+        width: calc(100% - 40px);
+    }
+    
+    #instructionstext {
+        font-size: 18px;
+        padding: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        font-size: 10px;
+    }
+    
+    .screen .container {
+        margin: 10px;
+        width: calc(100% - 20px);
+        padding: 20px;
+    }
+    
+    #instructionstext {
+        font-size: 16px;
+    }
+}
+

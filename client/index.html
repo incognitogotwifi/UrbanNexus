@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    
+    <title>BrowserQuest</title>
+    
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/game.css">
+    <link rel="stylesheet" type="text/css" href="css/intro.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+    
+    <script data-main="js/main" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.9/require.min.js"></script>
+</head>
+
+<body>
+    <div id="container">
+        <div id="intro">
+            <h1 id="logo">BrowserQuest</h1>
+            <div id="parchment" class="parchment">
+                <div id="loginbox">
+                    <div id="logintitle">Enter your name</div>
+                    <input type="text" id="nameinput" class="input" name="player-name" maxlength="15" autocomplete="off" />
+                    <div id="loginbutton">Create character</div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="game">
+            <div id="gamecontainer">
+                <canvas id="background"></canvas>
+                <canvas id="entities"></canvas>
+                <canvas id="foreground"></canvas>
+                <canvas id="cursor"></canvas>
+                
+                <div id="bubbles"></div>
+                <div id="chatbox">
+                    <div id="chatlog"></div>
+                    <input type="text" id="chatinput" />
+                </div>
+                
+                <div id="footer">
+                    <div id="buttons">
+                        <div id="mutebutton"></div>
+                        <div id="helpbutton">?</div>
+                    </div>
+                </div>
+                
+                <div id="helpscreen" class="screen">
+                    <div class="container">
+                        <h1>Help</h1>
+                        <div class="content">
+                            <p><strong>Movement:</strong> Click where you want to go</p>
+                            <p><strong>Combat:</strong> Click on monsters to attack them</p>
+                            <p><strong>Chat:</strong> Press Enter to chat with other players</p>
+                            <p><strong>Items:</strong> Click on loot to equip it</p>
+                        </div>
+                        <div id="helpclose">Close</div>
+                    </div>
+                </div>
+                
+                <div id="death" class="screen">
+                    <div class="container">
+                        <h1>You have died!</h1>
+                        <p>Don't worry, you'll respawn in a few seconds...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="error">
+            <div id="errormessage"></div>
+        </div>
+    </div>
+    
+    <div id="instructions">
+        <div id="instructionstext">
+            Click anywhere to start playing
+        </div>
+    </div>
+    
+    <audio id="audio">
+        <source src="audio/village.mp3" type="audio/mpeg">
+        <source src="audio/village.ogg" type="audio/ogg">
+    </audio>
+</body>
+</html>

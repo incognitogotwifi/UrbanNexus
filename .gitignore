@@ -1,0 +1,9 @@
+node_modules/
+client-build/
+shared-build/
+server/config_local.json
+server/data/
+*.log
+npm-debug.log
+.DS_Store
+Thumbs.db

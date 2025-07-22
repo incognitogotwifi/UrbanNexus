@@ -1,0 +1,116 @@
+/* Internet Explorer 8 specific fixes */
+
+/* IE8 doesn't support rgba */
+#intro {
+    background: #1a1a2e;
+}
+
+#chatlog {
+    background: #000000;
+}
+
+#chatinput {
+    background: #ffffff;
+}
+
+.bubble {
+    background: #ffffff;
+}
+
+.screen {
+    background: #000000;
+}
+
+.screen .container {
+    background: #ffffff;
+}
+
+/* IE8 doesn't support border-radius */
+.parchment,
+#nameinput,
+#loginbutton,
+#chatlog,
+#chatinput,
+.bubble,
+#mutebutton,
+#helpbutton {
+    border-radius: 0;
+}
+
+/* IE8 doesn't support box-shadow */
+.parchment,
+#loginbutton {
+    border: 2px solid #8b7355;
+}
+
+/* IE8 doesn't support CSS3 selectors */
+.chat-message-system {
+    color: #ffeb3b;
+    font-style: italic;
+}
+
+.chat-message-player {
+    color: #4caf50;
+}
+
+.chat-message-private {
+    color: #e91e63;
+}
+
+.entity-name-player {
+    color: #4caf50;
+}
+
+.entity-name-npc {
+    color: #2196f3;
+}
+
+.entity-name-mob {
+    color: #f44336;
+}
+
+.health-bar-fill-critical {
+    background: #f44336;
+}
+
+.health-bar-fill-warning {
+    background: #ff9800;
+}
+
+/* IE8 canvas fixes */
+canvas {
+    -ms-interpolation-mode: nearest-neighbor;
+}
+
+/* IE8 positioning fixes */
+#gamecontainer {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+#chatbox {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    width: 300px;
+}
+
+#footer {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+}
+
+/* IE8 font fixes */
+body {
+    font-family: monospace;
+}
+
+/* IE8 doesn't support calc() */
+@media (max-width: 480px) {
+    .screen .container {
+        width: 260px; /* fallback for calc(100% - 20px) */
+    }
+}
+

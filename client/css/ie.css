@@ -1,0 +1,96 @@
+/* Internet Explorer compatibility styles */
+
+/* IE9 and below don't support flexbox */
+#intro {
+    text-align: center;
+    padding-top: 10%;
+}
+
+#logo {
+    display: block;
+    margin: 0 auto 50px auto;
+}
+
+.parchment {
+    display: inline-block;
+    margin: 0 auto;
+}
+
+/* IE doesn't support CSS animations */
+#logo,
+.parchment,
+#intro::before {
+    animation: none !important;
+}
+
+/* IE canvas rendering fixes */
+canvas {
+    image-rendering: -ms-interpolation-mode: nearest-neighbor;
+}
+
+/* IE flexbox fallback */
+#buttons {
+    text-align: right;
+}
+
+#mutebutton,
+#helpbutton {
+    display: inline-block;
+    margin-left: 10px;
+    vertical-align: top;
+}
+
+/* IE gradient fallbacks */
+#intro {
+    background: #1a1a2e;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#1a1a2e', endColorstr='#0f3460');
+}
+
+.parchment {
+    background: #f4e4bc;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f4e4bc', endColorstr='#e6d4a1');
+}
+
+#loginbutton {
+    background: #4caf50;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#4caf50', endColorstr='#45a049');
+}
+
+/* IE transform fallbacks */
+#container,
+.screen .container,
+#error,
+#instructionstext {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -50px;
+    margin-left: -150px;
+}
+
+/* IE user-select fallback */
+body {
+    -ms-user-select: none;
+}
+
+/* IE opacity fallback */
+#chatlog {
+    filter: alpha(opacity=70);
+}
+
+#chatinput {
+    filter: alpha(opacity=90);
+}
+
+.bubble {
+    filter: alpha(opacity=90);
+}
+
+/* IE box-shadow fallback */
+.parchment,
+#loginbutton,
+#mutebutton,
+#helpbutton {
+    border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
