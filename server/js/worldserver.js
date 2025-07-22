@@ -1,5 +1,8 @@
 var cls = require("./lib/class"),
     _ = require("underscore"),
+    fs = require("fs"),
+    path = require("path"),
+    url = require("url"),
     http = require("http"),
     { WebSocketServer } = require("ws"),
     Entity = require('./entity'),
@@ -23,7 +26,7 @@ var WorldServer = cls.Class.extend({
         
         this.id = id;
         this.config = config;
-        this.log = log;
+        this.log = log || console;
         
         this.maxPlayers = this.config.nb_players_per_world || 200;
         this.playerCount = 0;
@@ -80,7 +83,7 @@ var WorldServer = cls.Class.extend({
         });
         
         this.httpServer.listen(port, this.config.host, function() {
-            self.log.info("World '" + self.id + "' listening on " + self.config.host + ":" + port);
+            console.log("Server is listening on port " + port);
         });
         
         // Start game loop
@@ -91,16 +94,16 @@ var WorldServer = cls.Class.extend({
         var pathname = url.parse(req.url).pathname;
         
         if (pathname === '/') {
-            // Serve the main game page
-            this.serveFile('./client/index.html', 'text/html', res);
+            // Serve the main game page from the parent directory
+            this.serveFile('../client/index.html', 'text/html', res);
         } else if (pathname.startsWith('/client/')) {
-            // Serve client files
-            var filePath = '.' + pathname;
+            // Serve client files from the parent directory
+            var filePath = '..' + pathname;
             var contentType = this.getContentType(filePath);
             this.serveFile(filePath, contentType, res);
         } else if (pathname.startsWith('/shared/')) {
-            // Serve shared files
-            var filePath = '.' + pathname;
+            // Serve shared files from the parent directory
+            var filePath = '..' + pathname;
             var contentType = this.getContentType(filePath);
             this.serveFile(filePath, contentType, res);
         } else {
