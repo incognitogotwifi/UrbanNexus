@@ -4,495 +4,184 @@ define(['camera'], function(Camera) {
     var Renderer = function(game) {
         this.game = game;
         
-        this.canvas = {
-            background: null,
-            entities: null,
-            foreground: null,
-            cursor: null
-        };
-        
-        this.context = {
-            background: null,
-            entities: null,
-            foreground: null,
-            cursor: null
-        };
-        
-        this.sprites = {};
-        this.tilesheet = null;
-        
-        this.animatedTiles = [];
-        this.highTiles = [];
-        
-        this.tablet = Modernizr.touch;
-        this.mobile = this.tablet || $(window).width() <= 1000;
-        
-        this.rescale = this.mobile ? 1 : 2;
-        this.tilesize = 32;
-        this.upscaledRendering = this.rescale === 2;
-        
-        this.supportsSilhouettes = true;
-        
-        this.lastTime = Date.now();
-        this.frameCount = 0;
-        this.realFPS = 0;
-        this.debugInfoVisible = false;
-        
-        this.stopRendering = false;
-        this.animateTiles = true;
-        
-        this.drawTarget = false;
-        this.selectedCellVisible = false;
+        this.canvas = null;
+        this.context = null;
         
         this.camera = null;
+        
+        this.tileSize = 32;
+        this.mapWidth = 172;
+        this.mapHeight = 314;
+        
+        console.log('Renderer initialized');
     };
     
     Renderer.prototype.initCanvas = function() {
-        this.canvas.background = document.getElementById('background');
-        this.canvas.entities = document.getElementById('entities');
-        this.canvas.foreground = document.getElementById('foreground-canvas');
-        this.canvas.cursor = document.getElementById('cursor');
+        // Get the entities canvas (main rendering surface)
+        this.canvas = document.getElementById('entities');
         
-        if (!this.canvas.background) {
-            // Create canvases if they don't exist
-            this.createCanvases();
+        if (!this.canvas) {
+            console.error('Entities canvas not found');
+            return;
         }
         
-        // Safety check for canvas elements before getting context
-        if (this.canvas.background && this.canvas.background.getContext) {
-            this.context.background = this.canvas.background.getContext('2d');
-        }
-        if (this.canvas.entities && this.canvas.entities.getContext) {
-            this.context.entities = this.canvas.entities.getContext('2d');
-        }
-        if (this.canvas.foreground && this.canvas.foreground.getContext) {
-            this.context.foreground = this.canvas.foreground.getContext('2d');
-        }
-        if (this.canvas.cursor && this.canvas.cursor.getContext) {
-            this.context.cursor = this.canvas.cursor.getContext('2d');
-        }
-        
-        this.initCanvasSize();
-        
-        // Disable image smoothing for pixel art
-        this.setImageSmoothing(false);
-    };
-    
-    Renderer.prototype.createCanvases = function() {
-        var container = $('#gamecontainer');
-        
-        this.canvas.background = $('<canvas id="background">').appendTo(container)[0];
-        this.canvas.entities = $('<canvas id="entities">').appendTo(container)[0];
-        this.canvas.foreground = $('<canvas id="foreground">').appendTo(container)[0];
-        this.canvas.cursor = $('<canvas id="cursor">').appendTo(container)[0];
-    };
-    
-    Renderer.prototype.initCanvasSize = function() {
-        var w = $(window).width();
-        var h = $(window).height();
+        this.context = this.canvas.getContext('2d');
         
         // Set canvas size
-        Object.keys(this.canvas).forEach(function(key) {
-            if (this.canvas[key]) {
-                this.canvas[key].width = w;
-                this.canvas[key].height = h;
-            }
-        }.bind(this));
-    };
-    
-    Renderer.prototype.setImageSmoothing = function(enabled) {
-        Object.keys(this.context).forEach(function(key) {
-            var ctx = this.context[key];
-            if (ctx) {
-                ctx.imageSmoothingEnabled = enabled;
-                ctx.webkitImageSmoothingEnabled = enabled;
-                ctx.mozImageSmoothingEnabled = enabled;
-                ctx.msImageSmoothingEnabled = enabled;
-                ctx.oImageSmoothingEnabled = enabled;
-            }
-        }.bind(this));
-    };
-    
-    Renderer.prototype.getWidth = function() {
-        return this.canvas.background ? this.canvas.background.width : 0;
-    };
-    
-    Renderer.prototype.getHeight = function() {
-        return this.canvas.background ? this.canvas.background.height : 0;
-    };
-    
-    Renderer.prototype.handleResize = function() {
-        this.initCanvasSize();
+        this.canvas.width = 800;
+        this.canvas.height = 600;
+        this.canvas.style.width = '800px';
+        this.canvas.style.height = '600px';
         
-        if (this.game.camera && this.game.map) {
-            this.game.camera.setBounds(0, 0, 
-                this.game.map.width * this.tilesize,
-                this.game.map.height * this.tilesize
-            );
+        // Initialize camera
+        this.camera = new Camera(this.canvas.width, this.canvas.height);
+        
+        console.log('Canvas initialized - Size:', this.canvas.width, 'x', this.canvas.height);
+    };
+    
+    Renderer.prototype.initMap = function() {
+        // Initialize background canvas
+        var bgCanvas = document.getElementById('background');
+        if (bgCanvas) {
+            var bgContext = bgCanvas.getContext('2d');
+            bgCanvas.width = this.canvas.width;
+            bgCanvas.height = this.canvas.height;
+            
+            // Draw simple grid background
+            this.drawMapBackground(bgContext);
         }
     };
     
-    Renderer.prototype.onMouseMove = function(callback) {
-        this.mouseMoveCb = callback;
-    };
-    
-    Renderer.prototype.onMouseClick = function(callback) {
-        this.mouseClickCb = callback;
-    };
-    
-    Renderer.prototype.isWebGLSupported = function() {
-        return !!window.WebGLRenderingContext;
-    };
-    
-    Renderer.prototype.initWebGL = function() {
-        // WebGL initialization placeholder
-        console.log('WebGL support detected');
-    };
-    
-    Renderer.prototype.loadSprites = function(spriteData) {
-        this.sprites = spriteData;
+    Renderer.prototype.drawMapBackground = function(context) {
+        var tileSize = this.tileSize;
+        var width = this.canvas.width;
+        var height = this.canvas.height;
         
-        var self = this;
+        // Draw a simple grid background
+        context.fillStyle = '#90EE90'; // Light green
+        context.fillRect(0, 0, width, height);
         
-        // Load tilesheet
-        this.tilesheet = new Image();
-        this.tilesheet.onload = function() {
-            self.tilesheetLoaded = true;
-        };
-        this.tilesheet.src = 'img/tilesheet.png';
+        // Draw grid lines
+        context.strokeStyle = '#228B22'; // Forest green
+        context.lineWidth = 1;
+        
+        // Vertical lines
+        for (var x = 0; x < width; x += tileSize) {
+            context.beginPath();
+            context.moveTo(x, 0);
+            context.lineTo(x, height);
+            context.stroke();
+        }
+        
+        // Horizontal lines
+        for (var y = 0; y < height; y += tileSize) {
+            context.beginPath();
+            context.moveTo(0, y);
+            context.lineTo(width, y);
+            context.stroke();
+        }
+        
+        console.log('Map background drawn');
     };
     
     Renderer.prototype.render = function() {
-        if (this.stopRendering || !this.game.ready) {
-            return;
+        if (!this.context) return;
+        
+        // Clear canvas
+        this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        
+        // Update camera
+        if (this.camera && this.game.player) {
+            this.camera.update(this.game.player.x, this.game.player.y);
         }
         
-        this.clearScreen();
-        this.updateFPS();
+        // Render entities
+        this.renderEntities();
         
-        if (this.game.map && this.game.camera) {
-            this.renderBackground();
-            this.renderEntities();
-            this.renderForeground();
-            this.renderUI();
-        }
-    };
-    
-    Renderer.prototype.clearScreen = function() {
-        if (this.context.background) {
-            this.context.background.clearRect(0, 0, this.getWidth(), this.getHeight());
-        }
-        if (this.context.entities) {
-            this.context.entities.clearRect(0, 0, this.getWidth(), this.getHeight());
-        }
-        if (this.context.foreground) {
-            this.context.foreground.clearRect(0, 0, this.getWidth(), this.getHeight());
-        }
-    };
-    
-    Renderer.prototype.updateFPS = function() {
-        this.frameCount++;
-        var now = Date.now();
-        if (now - this.lastTime >= 1000) {
-            this.realFPS = this.frameCount;
-            this.frameCount = 0;
-            this.lastTime = now;
-        }
-    };
-    
-    Renderer.prototype.renderBackground = function() {
-        // Background rendering placeholder
+        // Render UI
+        this.renderUI();
     };
     
     Renderer.prototype.renderEntities = function() {
-        // Entity rendering placeholder
-    };
-    
-    Renderer.prototype.renderForeground = function() {
-        // Foreground rendering placeholder
-    };
-    
-    Renderer.prototype.renderUI = function() {
-        // UI rendering placeholder
-    };
-    
-    Renderer.prototype.clearScreen = function() {
-        Object.keys(this.context).forEach(function(key) {
-            var ctx = this.context[key];
-            if (ctx) {
-                ctx.clearRect(0, 0, this.getWidth(), this.getHeight());
-            }
-        }.bind(this));
-    };
-    
-    Renderer.prototype.renderBackground = function() {
-        var ctx = this.context.background;
-        var camera = this.game.camera;
-        var map = this.game.map;
-        
-        if (!ctx || !camera || !map) return;
-        
         var self = this;
-        camera.forEachVisiblePosition(function(x, y) {
-            if (x >= 0 && y >= 0 && x < map.width && y < map.height) {
-                var tileId = map.getTileId(x, y, 0); // Background layer
-                if (tileId && tileId > 0) {
-                    self.drawTile(ctx, tileId, x, y);
-                }
-            }
-        }, 1);
-    };
-    
-    Renderer.prototype.renderEntities = function() {
-        var ctx = this.context.entities;
-        var camera = this.game.camera;
+        var entities = this.game.entities;
         
-        if (!ctx || !camera) return;
-        
-        var entities = this.game.entities.slice();
-        
-        // Sort entities by Y position for proper layering
-        entities.sort(function(a, b) {
-            if (a.y === b.y) {
-                return a.id - b.id; // Stable sort by ID if Y is the same
-            }
-            return a.y - b.y;
+        Object.keys(entities).forEach(function(id) {
+            var entity = entities[id];
+            self.renderEntity(entity);
         });
-        
-        for (var i = 0; i < entities.length; i++) {
-            var entity = entities[i];
-            if (entity.visible && camera.isVisible(entity)) {
-                this.drawEntity(ctx, entity);
-            }
-        }
-        
-        // Render selected cell
-        if (this.game.selectedCellVisible && this.drawTarget) {
-            this.drawTarget();
-        }
     };
     
-    Renderer.prototype.renderForeground = function() {
-        var ctx = this.context.foreground;
-        var camera = this.game.camera;
-        var map = this.game.map;
+    Renderer.prototype.renderEntity = function(entity) {
+        if (!entity) return;
         
-        if (!ctx || !camera || !map) return;
+        var screenX = entity.x;
+        var screenY = entity.y;
         
-        var self = this;
-        camera.forEachVisiblePosition(function(x, y) {
-            if (x >= 0 && y >= 0 && x < map.width && y < map.height) {
-                var tileId = map.getTileId(x, y, 2); // Foreground layer
-                if (tileId && tileId > 0) {
-                    self.drawTile(ctx, tileId, x, y);
-                }
+        // Apply camera offset
+        if (this.camera) {
+            screenX -= this.camera.x;
+            screenY -= this.camera.y;
+        }
+        
+        // Skip if entity is off-screen
+        if (screenX < -50 || screenX > this.canvas.width + 50 ||
+            screenY < -50 || screenY > this.canvas.height + 50) {
+            return;
+        }
+        
+        // Draw entity based on type
+        this.context.save();
+        
+        if (entity.type === 'player') {
+            // Draw player as blue circle
+            this.context.fillStyle = entity === this.game.player ? '#0066FF' : '#4488FF';
+            this.context.beginPath();
+            this.context.arc(screenX, screenY, 16, 0, Math.PI * 2);
+            this.context.fill();
+            
+            // Draw player name
+            if (entity.name) {
+                this.context.fillStyle = '#000000';
+                this.context.font = '12px Arial';
+                this.context.textAlign = 'center';
+                this.context.fillText(entity.name, screenX, screenY - 25);
             }
-        }, 1);
+        } else {
+            // Draw other entities as red squares
+            this.context.fillStyle = '#FF0000';
+            this.context.fillRect(screenX - 8, screenY - 8, 16, 16);
+        }
+        
+        this.context.restore();
     };
     
     Renderer.prototype.renderUI = function() {
-        if (this.debugInfoVisible) {
-            this.drawDebugInfo();
-        }
-    };
-    
-    Renderer.prototype.drawEntity = function(ctx, entity) {
-        var sprite = entity.sprite;
-        if (!sprite || !this.sprites[sprite.name]) {
-            return;
-        }
-        
-        var spriteData = this.sprites[sprite.name];
-        var frame = entity.getCurrentFrame();
-        
-        var screenPos = this.game.camera.worldToScreen(entity.x, entity.y);
-        
-        var sx = (frame % spriteData.w) * this.tilesize;
-        var sy = Math.floor(frame / spriteData.w) * this.tilesize;
-        
-        var dx = screenPos.x;
-        var dy = screenPos.y;
-        
-        // Apply entity-specific rendering effects
-        ctx.save();
-        
-        if (entity.flipSpriteX) {
-            ctx.scale(-1, 1);
-            dx = -dx - this.tilesize;
-        }
-        
-        if (entity.fadingAlpha < 1) {
-            ctx.globalAlpha = entity.fadingAlpha;
-        }
-        
-        // Draw entity shadow
-        if (entity.hasShadow && entity.hasShadow()) {
-            this.drawEntityShadow(ctx, entity, dx, dy);
-        }
-        
-        // Draw entity sprite
-        ctx.drawImage(
-            this.tilesheet,
-            sx, sy, this.tilesize, this.tilesize,
-            dx, dy, this.tilesize * this.rescale, this.tilesize * this.rescale
-        );
-        
-        // Draw health bar for characters
-        if (entity.type === 'mob' || (entity.type === 'player' && entity !== this.game.player)) {
-            this.drawHealthBar(ctx, entity, dx, dy - 8);
-        }
-        
-        ctx.restore();
-    };
-    
-    Renderer.prototype.drawEntityShadow = function(ctx, entity, x, y) {
-        // Simple shadow implementation
-        ctx.save();
-        ctx.globalAlpha = 0.5;
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
-        ctx.fillRect(x + 4, y + this.tilesize - 4, this.tilesize - 8, 4);
-        ctx.restore();
-    };
-    
-    Renderer.prototype.drawHealthBar = function(ctx, entity, x, y) {
-        if (!entity.hitPoints || !entity.maxHitPoints) {
-            return;
-        }
-        
-        var percentage = entity.hitPoints / entity.maxHitPoints;
-        var barWidth = 24;
-        var barHeight = 3;
-        
-        ctx.save();
-        
-        // Background
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
-        ctx.fillRect(x + 4, y, barWidth, barHeight);
-        
-        // Health bar
-        if (percentage > 0.6) {
-            ctx.fillStyle = 'green';
-        } else if (percentage > 0.3) {
-            ctx.fillStyle = 'orange';
-        } else {
-            ctx.fillStyle = 'red';
-        }
-        
-        ctx.fillRect(x + 4, y, barWidth * percentage, barHeight);
-        
-        ctx.restore();
-    };
-    
-    Renderer.prototype.drawTile = function(ctx, tileId, gridX, gridY) {
-        if (!this.tilesheet || tileId <= 0) {
-            return;
-        }
-        
-        var tilesPerRow = Math.floor(this.tilesheet.width / this.tilesize);
-        var sx = ((tileId - 1) % tilesPerRow) * this.tilesize;
-        var sy = Math.floor((tileId - 1) / tilesPerRow) * this.tilesize;
-        
-        var screenPos = this.game.camera.worldToScreen(gridX * this.tilesize, gridY * this.tilesize);
-        
-        ctx.drawImage(
-            this.tilesheet,
-            sx, sy, this.tilesize, this.tilesize,
-            screenPos.x, screenPos.y, this.tilesize * this.rescale, this.tilesize * this.rescale
-        );
-    };
-    
-    Renderer.prototype.drawTarget = function() {
-        var ctx = this.context.cursor;
-        var camera = this.game.camera;
-        
-        var screenPos = camera.worldToScreen(this.game.selectedX, this.game.selectedY);
-        
-        ctx.save();
-        ctx.strokeStyle = this.game.targetBorderColor;
-        ctx.fillStyle = this.game.targetColor;
-        ctx.lineWidth = 2;
-        
-        ctx.fillRect(screenPos.x, screenPos.y, this.tilesize, this.tilesize);
-        ctx.strokeRect(screenPos.x, screenPos.y, this.tilesize, this.tilesize);
-        
-        ctx.restore();
-    };
-    
-    Renderer.prototype.drawDebugInfo = function() {
-        var ctx = this.context.cursor;
-        
-        ctx.save();
-        ctx.fillStyle = 'white';
-        ctx.font = '12px Arial';
+        // Draw simple UI info
+        this.context.fillStyle = '#000000';
+        this.context.font = '14px Arial';
+        this.context.textAlign = 'left';
         
         var y = 20;
-        ctx.fillText('FPS: ' + this.realFPS, 10, y);
         
         if (this.game.player) {
-            y += 15;
-            ctx.fillText('Player: (' + this.game.player.gridX + ', ' + this.game.player.gridY + ')', 10, y);
+            this.context.fillText('Player: ' + this.game.player.name, 10, y);
+            y += 20;
+            this.context.fillText('Position: ' + this.game.player.x + ', ' + this.game.player.y, 10, y);
+            y += 20;
+            this.context.fillText('HP: ' + (this.game.player.hitPoints || 100), 10, y);
+            y += 20;
         }
         
-        if (this.game.camera) {
-            y += 15;
-            ctx.fillText('Camera: (' + Math.round(this.game.camera.x) + ', ' + Math.round(this.game.camera.y) + ')', 10, y);
-        }
+        this.context.fillText('Players online: ' + Object.keys(this.game.players).length, 10, y);
+        y += 20;
         
-        y += 15;
-        ctx.fillText('Entities: ' + this.game.entities.length, 10, y);
-        
-        ctx.restore();
+        this.context.fillText('Click to move, Enter to chat', 10, y);
     };
     
-    Renderer.prototype.updateFPS = function() {
-        var now = Date.now();
-        this.frameCount++;
-        
-        if (now - this.lastTime >= 1000) {
-            this.realFPS = Math.round(this.frameCount * 1000 / (now - this.lastTime));
-            this.frameCount = 0;
-            this.lastTime = now;
-        }
-    };
-    
-    Renderer.prototype.onMouseMove = function(callback) {
-        var self = this;
-        $(this.canvas.cursor).mousemove(function(e) {
-            var offset = $(self.canvas.cursor).offset();
-            var x = e.pageX - offset.left;
-            var y = e.pageY - offset.top;
-            
-            if (callback) {
-                callback(x, y);
-            }
-        });
-    };
-    
-    Renderer.prototype.onMouseClick = function(callback) {
-        var self = this;
-        $(this.canvas.cursor).click(function(e) {
-            var offset = $(self.canvas.cursor).offset();
-            var x = e.pageX - offset.left;
-            var y = e.pageY - offset.top;
-            
-            if (callback) {
-                callback(x, y);
-            }
-        });
-    };
-    
-    Renderer.prototype.isWebGLSupported = function() {
-        try {
-            var canvas = document.createElement('canvas');
-            return !!(canvas.getContext('webgl') || canvas.getContext('experimental-webgl'));
-        } catch (e) {
-            return false;
-        }
-    };
-    
-    Renderer.prototype.initWebGL = function() {
-        // WebGL initialization would go here
-        // For now, we'll stick with 2D canvas rendering
+    Renderer.prototype.handleResize = function() {
+        // Handle window resize if needed
+        console.log('Renderer resize handled');
     };
     
     return Renderer;

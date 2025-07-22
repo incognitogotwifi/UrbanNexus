@@ -1,4 +1,4 @@
-define(['game', 'gameclient'], function(Game, GameClient) {
+define(['game'], function(Game) {
     'use strict';
     
     var App = function() {
@@ -8,10 +8,6 @@ define(['game', 'gameclient'], function(Game, GameClient) {
         this.updateTime = new Date();
         this.started = false;
         
-        // Initialize audio context
-        this.initializeAudio();
-        
-        // Bind events
         this.bindEvents();
     };
     
@@ -21,24 +17,57 @@ define(['game', 'gameclient'], function(Game, GameClient) {
         this.game = new Game(this);
         this.game.setup($('#gamecontainer'), $('#canvas'));
         
-        if (this.game.renderer && this.game.renderer.isWebGLSupported()) {
-            this.game.renderer.initWebGL();
-        }
-        
         this.game.onGameStart = function() {
             self.started = true;
             $('#gamecontainer').css('visibility', 'visible');
             $('#startscreen').hide();
+            console.log('Game started successfully');
         };
         
-        this.bindWestLawEvents();
-        this.loadAudio();
-        
-        // Show start screen initially
-        this.showStartScreen();
+        // Show login interface
+        this.showLogin();
         
         // Start the game loop
         this.gameLoop();
+    };
+    
+    App.prototype.showLogin = function() {
+        var self = this;
+        
+        // Create simple login interface
+        var $loginContainer = $('<div id="login-container" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 20px; border: 2px solid #333;">');
+        var $nameInput = $('<input type="text" id="player-name" placeholder="Enter your name" style="margin: 10px; padding: 10px; width: 200px;">');
+        var $playButton = $('<button id="play-button" style="margin: 10px; padding: 10px 20px;">Play</button>');
+        
+        $loginContainer.append('<h2>BrowserQuest</h2>');
+        $loginContainer.append($nameInput);
+        $loginContainer.append('<br>');
+        $loginContainer.append($playButton);
+        
+        $('body').append($loginContainer);
+        
+        $playButton.click(function() {
+            var playerName = $nameInput.val().trim();
+            if (playerName) {
+                $loginContainer.remove();
+                self.startGame(playerName);
+            } else {
+                alert('Please enter your name');
+            }
+        });
+        
+        $nameInput.keypress(function(e) {
+            if (e.which === 13) { // Enter key
+                $playButton.click();
+            }
+        });
+        
+        $nameInput.focus();
+    };
+    
+    App.prototype.startGame = function(playerName) {
+        console.log('Starting game for player:', playerName);
+        this.game.start(playerName);
     };
     
     App.prototype.gameLoop = function() {
@@ -75,99 +104,6 @@ define(['game', 'gameclient'], function(Game, GameClient) {
                 self.game.renderer.handleResize();
             }
         });
-    };
-    
-    App.prototype.bindWestLawEvents = function() {
-        var self = this;
-        
-        // Play button click
-        $('#playbutton').click(function() {
-            self.startGame('Player_' + Math.floor(Math.random() * 1000));
-        });
-        
-        // Identity/login screen
-        $('#identifycognitobutton').click(function() {
-            // For now, auto-start with a random name
-            self.startGame('Player_' + Math.floor(Math.random() * 1000));
-        });
-        
-        // Chat functionality
-        $('#chatinput').keypress(function(e) {
-            if (e.which === 13) { // Enter key
-                var message = $(this).val().trim();
-                if (message && self.game && self.game.client && self.game.client.connected) {
-                    self.game.client.sendChat(message);
-                    $(this).val('');
-                    $('#chatbox').hide();
-                }
-            }
-        });
-        
-        // Chat button
-        $('#chatbutton').click(function() {
-            $('#chatbox').toggle();
-            $('#chatinput').focus();
-        });
-        
-        // Menu and navigation buttons
-        $('#menubutton').click(function() {
-            // Toggle menu functionality
-            console.log('Menu clicked');
-        });
-        
-        $('#homebutton').click(function() {
-            // Home/respawn functionality
-            if (self.game && self.game.player) {
-                self.game.player.respawn();
-            }
-        });
-        
-        // Hotkey functionality
-        $(document).keydown(function(e) {
-            if (self.game && self.game.started) {
-                // Handle hotkeys 1, 2, etc.
-                if (e.which >= 49 && e.which <= 57) {
-                    var hotkeyNum = e.which - 48;
-                    self.game.useHotkey(hotkeyNum);
-                }
-            }
-        });
-    };
-    
-    App.prototype.startGame = function(name) {
-        $('#startscreen').fadeOut('slow');
-        $('#identifyscreen').hide();
-        $('#gamecontainer').css('visibility', 'visible');
-        
-        // Connect to game server
-        this.game.connect(name);
-    };
-    
-    App.prototype.showStartScreen = function() {
-        $('#gamecontainer').css('visibility', 'hidden');
-        $('#startscreen').show();
-        
-        // Auto-start if configured
-        if (window.autoStartGame) {
-            var self = this;
-            setTimeout(function() {
-                $('#playbutton .spinner').hide();
-                $('#playbutton').text('Click to Play').removeClass('loading');
-            }, 2000);
-        }
-    };
-    
-    App.prototype.initializeAudio = function() {
-        try {
-            this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        } catch (e) {
-            console.warn('Web Audio API not supported');
-        }
-    };
-    
-    App.prototype.loadAudio = function() {
-        // Audio loading would be implemented here
-        // Using HTML5 audio elements or Web Audio API
     };
     
     return App;
