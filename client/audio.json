@@ -1,0 +1,27 @@
+{
+  "sounds": {
+    "hit": "audio/hit.wav",
+    "hurt": "audio/hurt.wav", 
+    "heal": "audio/heal.wav",
+    "chat": "audio/chat.wav",
+    "revive": "audio/revive.wav",
+    "death": "audio/death.wav",
+    "sword": "audio/sword.wav",
+    "loot": "audio/loot.wav",
+    "armor": "audio/armor.wav",
+    "achievement": "audio/achievement.wav",
+    "firefox": "audio/firefox.wav",
+    "teleport": "audio/teleport.wav",
+    "npc": "audio/npc.wav",
+    "npc-end": "audio/npc-end.wav"
+  },
+  "music": {
+    "village": "audio/village.wav",
+    "beach": "audio/beach.wav", 
+    "forest": "audio/forest.wav",
+    "cave": "audio/cave.wav",
+    "desert": "audio/desert.wav",
+    "lavaland": "audio/lavaland.wav",
+    "boss": "audio/boss.wav"
+  }
+}

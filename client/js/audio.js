@@ -48,30 +48,30 @@ define([], function() {
     };
     
     Audio.prototype.loadAudioFiles = function() {
-        // Sound effects
-        this.loadSound('hit', 'audio/hit.ogg');
-        this.loadSound('hurt', 'audio/hurt.ogg');
-        this.loadSound('heal', 'audio/heal.ogg');
-        this.loadSound('chat', 'audio/chat.ogg');
-        this.loadSound('revive', 'audio/revive.ogg');
-        this.loadSound('death', 'audio/death.ogg');
-        this.loadSound('sword', 'audio/sword.ogg');
-        this.loadSound('loot', 'audio/loot.ogg');
-        this.loadSound('armor', 'audio/armor.ogg');
-        this.loadSound('achievement', 'audio/achievement.ogg');
-        this.loadSound('firefox', 'audio/firefox.ogg');
-        this.loadSound('teleport', 'audio/teleport.ogg');
-        this.loadSound('npc', 'audio/npc.ogg');
-        this.loadSound('npc-end', 'audio/npc-end.ogg');
+        // Sound effects (using WAV format for better browser compatibility)
+        this.loadSound('hit', 'audio/hit.wav');
+        this.loadSound('hurt', 'audio/hurt.wav');
+        this.loadSound('heal', 'audio/heal.wav');
+        this.loadSound('chat', 'audio/chat.wav');
+        this.loadSound('revive', 'audio/revive.wav');
+        this.loadSound('death', 'audio/death.wav');
+        this.loadSound('sword', 'audio/sword.wav');
+        this.loadSound('loot', 'audio/loot.wav');
+        this.loadSound('armor', 'audio/armor.wav');
+        this.loadSound('achievement', 'audio/achievement.wav');
+        this.loadSound('firefox', 'audio/firefox.wav');
+        this.loadSound('teleport', 'audio/teleport.wav');
+        this.loadSound('npc', 'audio/npc.wav');
+        this.loadSound('npc-end', 'audio/npc-end.wav');
         
-        // Music tracks
-        this.loadMusic('village', 'audio/village.ogg');
-        this.loadMusic('beach', 'audio/beach.ogg');
-        this.loadMusic('forest', 'audio/forest.ogg');
-        this.loadMusic('cave', 'audio/cave.ogg');
-        this.loadMusic('desert', 'audio/desert.ogg');
-        this.loadMusic('lavaland', 'audio/lavaland.ogg');
-        this.loadMusic('boss', 'audio/boss.ogg');
+        // Music tracks (using WAV format for better browser compatibility)
+        this.loadMusic('village', 'audio/village.wav');
+        this.loadMusic('beach', 'audio/beach.wav');
+        this.loadMusic('forest', 'audio/forest.wav');
+        this.loadMusic('cave', 'audio/cave.wav');
+        this.loadMusic('desert', 'audio/desert.wav');
+        this.loadMusic('lavaland', 'audio/lavaland.wav');
+        this.loadMusic('boss', 'audio/boss.wav');
     };
     
     Audio.prototype.loadSound = function(name, url) {

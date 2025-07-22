@@ -4,11 +4,13 @@
 
 BrowserQuest is a real-time multiplayer 2D RPG game built entirely in JavaScript, featuring both client-side and server-side components. The game runs in web browsers using HTML5 Canvas and WebSocket technology for real-time communication. Players can explore a 2D world, chat with others, fight monsters, collect loot, and interact with NPCs.
 
-**Status:** Successfully migrated from Mozilla BrowserQuest repository to Replit environment (January 2025). The server is now running on port 5000 with modern WebSocket implementation, PostgreSQL database integration, and all game systems operational.
+**Status:** Successfully migrated from Replit Agent to Replit environment (July 2025). Enhanced with iappsbeats-inspired features including advanced NPC systems, particle engine, improved error handling, and modern audio support. Server running on port 5000 with WebSocket implementation and database integration.
 
 ## User Preferences
 
 Preferred communication style: Simple, everyday language.
+Game development inspiration: iappsbeats game engine features (advanced NPCs, particle effects, scripting capabilities)
+Audio preferences: Free, non-copyrighted placeholder music and sound effects
 
 ## System Architecture
 
@@ -49,11 +51,15 @@ Preferred communication style: Simple, everyday language.
    - Base Entity class with position and state management
    - Character class for movable entities (players, mobs)
    - Specialized classes: Player, Mob, NPC, Item, Chest
+   - Advanced NPC system with AI behaviors (wander, patrol, guard)
+   - Interactive dialogue system with scripting capabilities
 
 5. **User Interface**
-   - Chat system with real-time messaging
+   - Chat system with real-time messaging and command processing
    - Login/character creation interface
-   - Audio management with WebAudio API
+   - Audio management with WebAudio API and fallback support
+   - Particle engine for visual effects inspired by iappsbeats
+   - Modern error handling and browser compatibility
 
 ### Server-Side Components
 

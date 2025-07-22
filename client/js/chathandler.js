@@ -214,8 +214,10 @@ define([], function() {
             $messages.first().remove();
         }
         
-        // Scroll to bottom
-        this.$chatlog.scrollTop(this.$chatlog[0].scrollHeight);
+        // Scroll to bottom (with safety check)
+        if (this.$chatlog.length > 0 && this.$chatlog[0]) {
+            this.$chatlog.scrollTop(this.$chatlog[0].scrollHeight);
+        }
     };
     
     ChatHandler.prototype.addSystemMessage = function(message) {
