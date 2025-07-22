@@ -36,13 +36,13 @@
     "extendedemoticons": true,
     "emoticonoffset": "{x:-8, y:-75}",
     "zoneHeight": 16,
-    "defaultmapname": "westlaw_overworld",
-    "defaultx": 111,
-    "defaulty": 104,
+    "defaultmapname": "inside_halloffame",
+    "defaultx": 38,
+    "defaulty": 35,
     "previewlocation": {
-        "map": "westlaw_overworld",
-        "x": 111,
-        "y": 104
+        "map": "inside_halloffame",
+        "x": 38,
+        "y": 35
     },
     "startbombs": 45,
     "startcoins": 4999,

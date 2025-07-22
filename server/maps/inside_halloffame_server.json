@@ -1,0 +1,32 @@
+{
+  "width": 77,
+  "height": 50,
+  "tilewidth": 32,
+  "tileheight": 32,
+  "collisions": [
+    {"x": 0, "y": 0, "w": 77, "h": 19},
+    {"x": 0, "y": 0, "w": 2, "h": 50},
+    {"x": 75, "y": 0, "w": 2, "h": 50},
+    {"x": 0, "y": 48, "w": 77, "h": 2},
+    {"x": 2, "y": 19, "w": 75, "h": 1},
+    {"x": 50, "y": 20, "w": 1, "h": 28}
+  ],
+  "mobs": {
+    "areas": [],
+    "roamingAreas": []
+  },
+  "npcs": [
+    {
+      "id": 1,
+      "kind": "guard",
+      "x": 25,
+      "y": 35,
+      "dialogue": ["Welcome to the Hall of Fame!", "This is where legends are born."]
+    }
+  ],
+  "chests": [],
+  "doors": [],
+  "checkpoints": [
+    {"id": 1, "x": 38, "y": 35, "w": 3, "h": 3}
+  ]
+}
