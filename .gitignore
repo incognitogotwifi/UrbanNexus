@@ -1,9 +1,8 @@
-node_modules/
-client-build/
-shared-build/
-server/config_local.json
-server/data/
-*.log
-npm-debug.log
+node_modules
+client-build
+build.txt
+config_build.json
+config_local*
+client/audio/music
 .DS_Store
-Thumbs.db
+*.swp
