@@ -1,4 +1,4 @@
-modules = ["python-3.11", "nodejs-20"]
+modules = ["nodejs-20", "web", "bash", "python-3.11"]
 
 [nix]
 channel = "stable-24_05"
@@ -23,3 +23,6 @@ author = "agent"
 task = "shell.exec"
 args = "cd server && npm install && node js/main.js"
 waitForPort = 8000
+
+[agent]
+expertMode = true

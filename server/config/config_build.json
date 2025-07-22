@@ -1,0 +1,25 @@
+{
+    "host": "0.0.0.0",
+    "port": 5000,
+    "dispatcher": false,
+    "nb_players_per_world": 200,
+    "nb_worlds": 1,
+    "map_filepath": "maps/world_server.json",
+    "debug": false,
+    "debug_level": "info",
+    "mysql_config": {
+        "host": "localhost",
+        "user": "browserquest",
+        "password": "",
+        "database": "browserquest"
+    },
+    "redis_config": {
+        "port": 6379,
+        "host": "localhost"
+    },
+    "metrics": {
+        "enabled": true,
+        "host": "localhost",
+        "port": 11211
+    }
+}
