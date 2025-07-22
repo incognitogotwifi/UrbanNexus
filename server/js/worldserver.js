@@ -19,7 +19,10 @@ var cls = require("./lib/class"),
     Properties = require("./properties"),
     Utils = require("./utils"),
     Types = require("../../shared/js/gametypes"),
-    { storage } = require("../storage");
+    { storage } = require("../storage"),
+    AdminTools = require("./admintools"),
+    Shop = require("./shop"),
+    MenuProfile = require("./menu-profile");
 
 var WorldServer = cls.Class.extend({
     init: function(id, config, log) {
@@ -56,6 +59,9 @@ var WorldServer = cls.Class.extend({
         this.gameLoopInterval = null;
         this.lastGameLoopTime = Date.now();
         
+        // Load script classes
+        this.loadScriptClasses();
+        
         // Initialize components
         this.initializeMap();
         this.initializeAreas();
@@ -63,6 +69,15 @@ var WorldServer = cls.Class.extend({
         this.startGameLoop();
         
         console.info("World '" + this.id + "' initialized");
+    },
+    
+    loadScriptClasses: function() {
+        // Initialize script classes for iAppsBeats features
+        this.adminTools = AdminTools;
+        this.shop = Shop;
+        this.menuProfile = MenuProfile;
+        
+        console.info("Script classes loaded successfully");
     },
     
     run: function(port) {
@@ -420,8 +435,11 @@ var WorldServer = cls.Class.extend({
     },
     
     getSpawnPosition: function() {
-        // Default spawn position - should be loaded from map
-        return { x: 50, y: 50 };
+        if (this.map && this.map.spawn) {
+            return { x: this.map.spawn.x, y: this.map.spawn.y };
+        }
+        // Fallback spawn position
+        return { x: 85, y: 150 };
     },
     
     sendEntitiesTo: function(player) {
@@ -597,8 +615,11 @@ var WorldServer = cls.Class.extend({
     },
     
     isValidPosition: function(x, y) {
-        // Should check against map collision data
-        return x >= 0 && y >= 0 && x < 100 && y < 100;
+        if (this.map && this.map.isValidPosition) {
+            return this.map.isValidPosition(x, y);
+        }
+        // Fallback validation
+        return x >= 0 && y >= 0 && x < 172 && y < 314;
     },
     
     getEntityById: function(id) {
@@ -607,11 +628,37 @@ var WorldServer = cls.Class.extend({
     
     initializeMap: function() {
         try {
-            this.map = new Map(this.config.map_filepath, this);
+            // Try to load the world map
+            var mapPath = this.config.map_filepath || "./server/maps/world_server.json";
+            if (fs.existsSync(mapPath)) {
+                this.map = new Map(mapPath, this);
+                console.info("Map loaded successfully: " + mapPath);
+            } else {
+                console.warn("Map file not found at " + mapPath + ", creating default map");
+                this.map = this.createDefaultMap();
+            }
         } catch (error) {
-            console.warn("Could not load map file, using default map");
-            this.map = new Map(null, this);
+            console.error("Error loading map: " + error);
+            this.map = this.createDefaultMap();
         }
+    },
+    
+    createDefaultMap: function() {
+        // Return a simple map object instead of using Map class
+        return {
+            width: 172,
+            height: 314,
+            tilewidth: 16,
+            tileheight: 16,
+            spawn: { x: 85, y: 150 },
+            doors: [],
+            checkpoints: [{ id: 1, x: 85, y: 150, w: 10, h: 10 }],
+            collisions: [],
+            areas: [],
+            isValidPosition: function(x, y) {
+                return x >= 0 && y >= 0 && x < this.width && y < this.height;
+            }
+        };
     },
     
     initializeAreas: function() {

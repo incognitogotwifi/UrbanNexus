@@ -3,26 +3,34 @@
   "height": 314,
   "tilewidth": 16,
   "tileheight": 16,
-  "collisions": [
-    {"x": 0, "y": 0, "w": 172, "h": 1},
-    {"x": 0, "y": 0, "w": 1, "h": 314},
-    {"x": 171, "y": 0, "w": 1, "h": 314},
-    {"x": 0, "y": 313, "w": 172, "h": 1}
-  ],
-  "mobs": {
-    "areas": [],
-    "roamingAreas": []
-  },
-  "npcs": [
+  "data": [],
+  "layers": [
     {
-      "id": 1,
-      "kind": "guard",
-      "x": 50,
-      "y": 50,
-      "dialogue": ["Welcome to West Law!", "Stay safe out there."]
+      "name": "background",
+      "type": "tilelayer",
+      "datafile": "world_client_data.json",
+      "width": 172,
+      "height": 314
     }
   ],
-  "chests": [],
+  "tilesets": [
+    {
+      "firstgid": 1,
+      "image": "img/tilesheet.png",
+      "imagewidth": 512,
+      "imageheight": 512,
+      "margin": 0,
+      "name": "tilesheet",
+      "spacing": 0,
+      "tilewidth": 16,
+      "tileheight": 16,
+      "tilecount": 1024
+    }
+  ],
+  "spawn": {
+    "x": 85,
+    "y": 150
+  },
   "doors": [],
   "checkpoints": [
     {"id": 1, "x": 85, "y": 150, "w": 10, "h": 10}
