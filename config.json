@@ -4,7 +4,7 @@
     "dispatcher": false,
     "nb_players_per_world": 200,
     "nb_worlds": 1,
-    "map_filepath": "./server/maps/world_server.json",
+    "map_filepath": "server/maps/world_server.json",
     "debug": true,
     "debug_level": "info",
     "mysql_enabled": false,

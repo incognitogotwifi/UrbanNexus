@@ -3,7 +3,12 @@
   "height": 314,
   "tilewidth": 16,
   "tileheight": 16,
-  "collisions": [],
+  "collisions": [
+    {"x": 0, "y": 0, "w": 172, "h": 1},
+    {"x": 0, "y": 0, "w": 1, "h": 314},
+    {"x": 171, "y": 0, "w": 1, "h": 314},
+    {"x": 0, "y": 313, "w": 172, "h": 1}
+  ],
   "mobs": {
     "areas": [],
     "roamingAreas": []

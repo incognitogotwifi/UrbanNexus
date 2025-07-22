@@ -8,8 +8,31 @@
     {
       "name": "background",
       "type": "tilelayer",
-      "data": []
+      "datafile": "world_client_data.json",
+      "width": 172,
+      "height": 314
     }
   ],
-  "tilesets": []
+  "tilesets": [
+    {
+      "firstgid": 1,
+      "image": "img/tilesheet.png",
+      "imagewidth": 512,
+      "imageheight": 512,
+      "margin": 0,
+      "name": "tilesheet",
+      "spacing": 0,
+      "tilewidth": 16,
+      "tileheight": 16,
+      "tilecount": 1024
+    }
+  ],
+  "spawn": {
+    "x": 85,
+    "y": 150
+  },
+  "doors": [],
+  "checkpoints": [
+    {"id": 1, "x": 85, "y": 150, "w": 10, "h": 10}
+  ]
 }
